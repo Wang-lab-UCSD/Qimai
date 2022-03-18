@@ -1,4 +1,4 @@
-# dpi
+# DPI
 ## 1. Environment setup
 
 We recommend you to build a python virtual environment with [Anaconda](https://docs.anaconda.com/anaconda/install/linux/). Also, please make sure you have at least one NVIDIA GPU with Linux x86_64 Driver Version >= 510.47 (compatible with CUDA 11.6). We applied distributed training on 4 NVIDIA RTX A6000 with 48 GB graphic memory, and the batch size corresponds to it. If you use GPU with other specifications and memory sizes, consider adjusting your batch size accordingly.
