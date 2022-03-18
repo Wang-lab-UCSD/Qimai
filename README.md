@@ -17,7 +17,7 @@ conda activate dpi
 (Required)
 
 ```
-conda install pytorch torchvision cudatoolkit=11.6 -c pytorch
+pip3 install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 
 git clone https://github.com/cong-003/DPI
 cd DPI
