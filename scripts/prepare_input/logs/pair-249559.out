@@ -1,0 +1,21 @@
+test
+['testdata', 'testxdata']
+loaded data
+(468760, 512, 4)
+(468760, 880)
+Traceback (most recent call last):
+  File "get_interaction_pair_two_dataset.py", line 131, in <module>
+    df = get_interaction_df(x, y, metadata, is_balance)
+  File "get_interaction_pair_two_dataset.py", line 89, in get_interaction_df
+    df = pd.DataFrame({'dna': Ds, 'label': Ys, 'protein': Ts})
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/pandas/core/frame.py", line 614, in __init__
+    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/pandas/core/internals/construction.py", line 465, in dict_to_mgr
+    arrays, data_names, index, columns, dtype=dtype, typ=typ, consolidate=copy
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/pandas/core/internals/construction.py", line 124, in arrays_to_mgr
+    arrays = _homogenize(arrays, index, dtype)
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/pandas/core/internals/construction.py", line 590, in _homogenize
+    val, index, dtype=dtype, copy=False, raise_cast_failure=False
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/pandas/core/construction.py", line 566, in sanitize_array
+    data = list(data)
+MemoryError

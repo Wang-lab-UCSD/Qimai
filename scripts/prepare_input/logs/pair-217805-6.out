@@ -1,0 +1,18 @@
+5
+Traceback (most recent call last):
+  File "get_interaction_pair_two_dataset.py", line 1, in <module>
+    import h5py
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/h5py/__init__.py", line 25, in <module>
+    from . import _errors
+  File "h5py/_errors.pyx", line 1, in init h5py._errors
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/numpy/__init__.py", line 150, in <module>
+    from . import core
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/numpy/core/__init__.py", line 102, in <module>
+    from . import _internal
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/numpy/core/_internal.py", line 15, in <module>
+    import ctypes
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/ctypes/__init__.py", line 551, in <module>
+    _reset_cache()
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/ctypes/__init__.py", line 273, in _reset_cache
+    CFUNCTYPE(c_int)(lambda: None)
+MemoryError

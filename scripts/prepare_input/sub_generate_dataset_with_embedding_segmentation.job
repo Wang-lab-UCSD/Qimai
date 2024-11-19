@@ -1,0 +1,25 @@
+#!/bin/bash
+###SBATCH -p gpu                   # job submitted to cpu
+###SBATCH -w gpu-2                   # job submitted to cpu
+###SBATCH -N 1                  # 
+###SBATCH --ntasks-per-node=1       # 
+#SBATCH --cpus-per-task=3         # 
+#SBATCH --mem 100G
+#SBATCH -t 10-10:00:00               # 
+#SBATCH --array=1-10
+#SBATCH -J embed
+###SBATCH --output=embed-%A-%a.out
+#SBATCH --output=embed-%A.out
+
+PythonFolder=/new-stg/home/cong/miniconda3/envs/dpi/bin
+cd /new-stg/home/cong/DPI/dataset/Encode3/
+
+
+file=100_per_exp_max_512bp_train_6mer_1
+
+#### create num_files.txt
+#seq 0 102 > num_files.txt
+i=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" num_files.txt | awk '{print $1}')
+echo $i
+$PythonFolder'/python' generate_dataset_with_embedding_segmentation.py $file $i
+

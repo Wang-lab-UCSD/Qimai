@@ -1,0 +1,16 @@
+14
+train
+split 14
+['traindata', 'trainxdata']
+Traceback (most recent call last):
+  File "get_interaction_pair_two_dataset.py", line 133, in <module>
+    x2, y2 = read_data(fp = dataFolder2+fileName+".mat", prefix=fileName)
+  File "get_interaction_pair_two_dataset.py", line 14, in read_data
+    x = f[prefix+'xdata'][()]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/new-stg/home/cong/miniconda3/envs/dpi/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 768, in __getitem__
+    return self._fast_reader.read(args)
+  File "h5py/_selector.pyx", line 368, in h5py._selector.Reader.read
+  File "h5py/_selector.pyx", line 342, in h5py._selector.Reader.make_array
+numpy.core._exceptions.MemoryError: Unable to allocate 4.36 GiB for an array with shape (2285320, 512, 4) and data type uint8

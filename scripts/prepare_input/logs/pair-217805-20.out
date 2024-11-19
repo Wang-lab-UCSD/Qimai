@@ -1,0 +1,7 @@
+19
+train
+split 19
+['traindata', 'trainxdata']
+loaded data
+(2285320, 512, 4)
+(2285320, 997)

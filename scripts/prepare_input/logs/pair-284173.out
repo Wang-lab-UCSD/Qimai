@@ -1,0 +1,8 @@
+train
+['traindata', 'trainxdata']
+loaded data ChIP_690:
+(1727188, 512, 4)
+(1727188, 690)
+balanced dataset: True
+# of examples: 3741608
+success!

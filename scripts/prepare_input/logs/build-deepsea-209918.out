@@ -1,0 +1,2341 @@
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF920PLY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF496HIK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF992ZXB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF594DAV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF016EAV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF284EIV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF239IMY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF132UGC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF037ULF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF549WAF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF780JTP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF484VPU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF890ZHY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF117RRT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF581WFU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF316WFA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF414STO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF656THP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF021YBN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF098TGJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF666YIG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF857LEC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF645YCX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF683CTP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF154DSR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF758CQW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF959SMC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF996NWM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF137QEJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF425JPL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF514WRA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF718IGO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF108PPI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF497SIC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF141KSG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF299IFD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF237RIC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF771XZZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF255QDL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF728JNA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF978LAN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF478MAJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF120BVS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF856AHX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF092WKT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF197SXI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF200AEP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF263JRA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF131VCS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF756VJC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF812XUO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF292VJF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF883YRD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF648ORA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF672PJF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF586MZX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF415MKA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF659ZSO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF794SCQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF124KCE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF974DKV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF438IYI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF715DQS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF503UTF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF122FTW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF226FPR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF204QCJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF849FKD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF141HPL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF683VXW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF639APT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF418GYV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF206LMB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF951CCL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF126SGU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF291LHW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF250FJC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF294DQQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF266GBP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF165JQS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF214ZEK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF030AXK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF692HUD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF333SWC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF994VNA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF749GMT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF656PGC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF207XCM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF518SJY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF906SCU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF585SZT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF866ARI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF065OBK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF668GIP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF935NRC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF680JFD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF704BPD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF174JHS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF118ECK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF010ZEW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF486MHG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF819NNH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF895HTB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF215GPK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF355HRT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF765MRZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF902EKZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF647OBG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF371MSO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF941QXT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF435MHH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF477QFS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF070IMT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF493LZB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF821ZJF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF232TVP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF588CXX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF962FDB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF594JNI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF623DVC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF701DTE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF409PJJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF795EGN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF750AGR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF081USG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF835BZY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF811LFG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF427TYH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF510SAT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF772SCR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF828VJU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF438MZI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF702SXD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF035QJG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF157HQD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF093BBG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF919ZSN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF289ZIR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF404IUH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF431SJW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF345BDJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF622FUC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF089XCL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF927JRS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF257CCO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF410SWS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF689CDE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF900APQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF825GVH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF124UUN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF618NTX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF048GXO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF917CYG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF155NXO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF738IQL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF258HYD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF624UXU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF269CPF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF947VJI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF370XOM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF511EXS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF245XOL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF748SGP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF069QZX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF209MHH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF625WYP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF514SEQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF278CIM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF017NAF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF645OCW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF249NCB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF162UZN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF728GND.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF843NBV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF718DSJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF207MHX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF970QKS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF824EJC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF537HHU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF185UUT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF852EYZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF847XQW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF459NUP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF548QOU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF745JFN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF786CRW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF215FJJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF885VKD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF950HXZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF302AZX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF521UKW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF142ZTD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF798IVN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF330OKC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF299NLG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF793HSJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF128YWS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF784ICI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF511NNV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF502SCY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF248QLP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF473NCJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF139FEW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF628KKY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF551WCN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF219OPP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF518EGY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF292JVA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF809NBM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF659PQJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF264WPL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF467WXB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF232ZHD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF725ZBA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF288BSV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF698ITQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF428ZPS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF476EKR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF641XDM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF827LSX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF540AKH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF670KBU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF079MYL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF685UPN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF519GKM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF463GXC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF340VOQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF868DTR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF168YVH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF763MXW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF934PLP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF847LHJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF604RBX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF847UIM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF302EBF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF632NSF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF149LMA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF989FMK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF885XKL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF666ISN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF695XWD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF981UJM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF534RYO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF300TKM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF564KJT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF838QED.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF382SFB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF531OSH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF759TJN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF316TWM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF636EFK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF270TFX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF209UEC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF086FAZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF223LTI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF559MTF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF335ZTU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF979MUN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF953GZH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF159EKP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF422EHF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF822EDI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF816RIB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF804WYO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF260CWT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF904UWV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF246XGW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF230EPT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF051BZX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF672ZEZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF434STO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF567ADL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF348EDE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF598VGY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF451IBG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF887NWU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF052VUS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF701NLW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF241LPZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF731RBX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF238ZLG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF546OSE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF512PKN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF873GEN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF646OTN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF308JDD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF427DTQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF752MWG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF380KJB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF717CPE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF306BLG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF310TQK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF176AOA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF014RJF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF412ERW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF095PJP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF643XUN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF143QCD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF865UPM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF142MJD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF166QJY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF629UDP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF411GOS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF202OSU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF483KVM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF034RYJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF201BGD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF716OVN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF869BHB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF213WPO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF760GCW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF249WHV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF737MXG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF545DCW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF986ZVU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF058ZDU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF964FPZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF260XMT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF653DNY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF391XMO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF108LBD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF072KJO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF162YBD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF365TGJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF328SRN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF643LFY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF975YZR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF231XIJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF873BWX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF416MZE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF505INE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF499KOY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF910CYH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF660FXN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF122AFS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF308VAI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF501HSY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF303CVC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF310IWF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF484HIN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF959ZKZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF893YKY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF335VPW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF743CDY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF226NCM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF876JKA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF206QXQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF094VPO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF214SNH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF717YTN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF213KSD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF430YXJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF832DBU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF443BGE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF854SNX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF862WTX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF504WWL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF250MUC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF389FLV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF151JWD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF620VBI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF229IQW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF529BHM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF033AIE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF392MAR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF118ATD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF113VJZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF690VRK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF497VZU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF417QWU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF814BVV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF651OAU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF642BLI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF455TXX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF109UVJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF185KMK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF991QJO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF246USC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF201FRB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF663OEV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF127ZZG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF060MHX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF881GDD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF673YZF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF133LGF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF946MNP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF342ETP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF132DPY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF882XTP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF198NGY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF927NEU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF701RWL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF768SKG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF749GUK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF535ATM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF182MYP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF878TPY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF228QYX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF231KCT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF516ZWP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF969PVK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF266YHW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF942JZO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF653ABW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF927LFN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF141IMM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF663PTR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF009RFC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF395OJF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF893GOI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF813NGM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF478CPK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF946CTR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF519NHL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF787SIQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF650DWZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF442RYH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF580MYL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF382QUI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF303JQF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF776STO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF703JHN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF142CUN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF652MGY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF405QTW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF132JHE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF662CKT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF266MUT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF460DRP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF194QYM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF044IDV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF882GQF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF585ZAP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF173QUY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF029THO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF554KYQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF254ZSQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF765MOP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF238XIA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF640UMI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF859KDF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF645IVF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF477SWW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF318ZUN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF516DOX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF333WDJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF400NQB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF795AWO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF447GBU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF227HVU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF904DOZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF707SJC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF321MWB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF774KWE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF114SGL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF003OAO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF837ISW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF322IPP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF927VIS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF688UTO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF592JBT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF946KCK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF659FLZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF391UZB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF071DRB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF856QFA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF417LFH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF854DMH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF735UFW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF702UDA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF905RSN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF094FBP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF383BYS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF748IDH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF229WDE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF592DOR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF331QMY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF857BXY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF163LGN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF660KBC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF384CCC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF893RLK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF881MMD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF024GMY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF858TLX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF063VRD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF672RKS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF372YFU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF629EAD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF574ILL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF878SVX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF353KDN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF437PVG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF621IOC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF959TJF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF233ZOX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF746QNQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF763XBV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF216ISR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF388IZF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF018HWM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF938KVY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF647VJL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF647CDO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF590JWL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF403HEQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF722GPK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF169AWH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF598CBU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF603NUV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF810OHB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF313BSI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF760NBK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF238PEB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF227RXB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF121HYT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF528IDR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF112GJQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF951RPD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF403FJH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF042QSE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF996ADF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF488DML.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF307UZC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF024BHX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF009LDQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF265QIF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF389YCG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF227LKX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF515LWL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF969MRV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF268RHV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF064MUO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF851ZEB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF880BEK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF696QTC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF624JML.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF008QFJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF610SSK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF065ZRF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF592NJN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF945IST.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF171XML.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF913YMX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF934NEX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF632PBR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF974IPP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF172KCZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF798AFV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF817EJA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF837BSM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF464BVI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF221TRR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF292HSS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF375BSV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF453UVV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF254GEZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF835UIE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF183WDD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF582HAZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF887ZDT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF774NZZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF944MMM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF603EAX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF178IDY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF196KRF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF262CSX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF253FJQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF048HNT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF021JCJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF904LYG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF215UIS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF822FXR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF743AUT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF825TUP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF352NGK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF216KLB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF983DOM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF618JPG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF941EDY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF634TZG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF550VES.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF106ECV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF726SWQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF468WZL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF861MUF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF424FZS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF663KMO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF004BLZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF462RVE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF896PGF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF337GED.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF259UJN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF946LHJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF955LND.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF078ATH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF442JPI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF149QHA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF269PAM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF699UTZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF206KPV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF732NHA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF996LQH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF802NHC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF563ZJM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF922RHM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF999HNJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF119UOZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF318CUZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF669MLA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF754OSO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF581GZR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF349HIP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF834JBV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF682RNL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF207MLR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF261NJZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF385DPO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF113SCL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF548ZQR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF767MSS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF963VBZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF753OCA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF062UNZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF711KWX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF322IVF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF286YTX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF667FDX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF509KKI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF647RGI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF924VAH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF417HLM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF614IHQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF636SGK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF648UJW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF379GSW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF180KAV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF898ZHK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF645QRU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF300AER.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF874HXM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF869RFC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF421QJP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF308RXD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF670RLH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF703APN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF216JWP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF802DLC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF415YWK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF918TGZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF612NCS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF019NGO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF815JML.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF805CXH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF482JEG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF467TUY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF782UJX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF544WSX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF887BKS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF114VAI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF148RPN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF103YZQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF753CVD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF626XNO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF720DYW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF422MYG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF190LEQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF875JMR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF835WKW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF444FPK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF313VEF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF727JXN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF417FFL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF049MDN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF399YOO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF295XCB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF015STD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF042SUM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF057RJK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF879KUL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF270TSN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF929XBL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF368IYV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF233BHX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF853YIS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF396ZSB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF464WKR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF156EZP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF049VST.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF992LDJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF254ZDA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF507RLU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF449JMB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF179LFO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF143NGY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF976LBY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF800VNW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF710UAZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF428HNJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF697NJT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF359ZQQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF340TNC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF004LNW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF321MKV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF144ZLB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF502QZR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF854DNO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF044XYZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF514IUU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF670IOD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF186RPU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF472DLA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF524CCS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF108PPK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF016TWL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF141UZG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF339ZPY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF224RFJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF049ISU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF505AEY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF368TYC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF450BWT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF283FBB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF712NHB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF464GFC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF669RAT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF439SWX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF873VFI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF700DMQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF569TJP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF305XQM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF259PTV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF296WYX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF601LMD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF558AJI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF767ZRB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF503GIR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF431BYW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF830MTX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF726LLI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF437XMN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF841YHN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF130OKL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF442AHG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF978ZGD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF305WWR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF032CCV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF790IQB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF445CZX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF596HNP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF899BJR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF664UGR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF909XQR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF409BJK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF373JGX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF865WCB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF208OME.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF719BHI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF749OWQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF602FXL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF870ZRR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF024LQZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF863JMY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF361PBY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF795VJZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF604LXR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF604THW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF854KWX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF569KYV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF966JEA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF520POQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF270ONC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF896EHN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF851XPN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF405YXO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF921XWH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF811LFF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF835WQS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF926UHP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF182DIE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF542SUS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF455PZT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF341OPF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF518ZKO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF413VSG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF193BGB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF255QEY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF671PCI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF625DDW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF606UCO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF359DKY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF810TWJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF492FGH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF904RTN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF223BOC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF991XSG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF044VTI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF233OIC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF295XBK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF019SZJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF841BQO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF798KXN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF773RNU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF706SJT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF823WVL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF218JYZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF480YAW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF938PFW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF026PPP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF331BSI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF080TIX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF087EVW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF235EST.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF086RZQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF944IDN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF691JZW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF794LOO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF003AMQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF896MXI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF605GXY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF885HJI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF778FIE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF167QRJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF408CTC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF266WST.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF723WCO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF737BYI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF069YFV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF827VMW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF204MFL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF306ZFX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF492HPY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF958FYM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF854ZPK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF535BYF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF797NOY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF925SVT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF217STG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF486PIE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF848ADM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF640TCA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF014HYS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF703KDQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF092IAE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF953QHW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF458AZS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF004QJZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF022QCK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF324DOU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF404ASR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF684UHQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF253UAF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF794OSY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF594HEK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF688QHF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF351URT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF143VTV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF373KUZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF115EJR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF641ZFM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF372PXU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF080KWE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF832IIP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF697DRN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF109ADF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF416TFM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF053ABJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF678IWM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF169QYL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF704UVS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF353STA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF139XIZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF687TJX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF522LHU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF451VTH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF670UIE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF385UIF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF947KIQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF954EXR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF265MQC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF137TCL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF809JNC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF140FHE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF049BWK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF624TVT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF061YSW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF863WFD.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF699IZY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF579WDY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF188PLS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF371EUY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF748KIJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF529SRS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF708HLM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF023EDF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF482QHM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF482XKY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF104XLA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF710YFH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF754CRG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF096AYV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF413UQM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF835PIH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF458FBS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF341OLL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF497RWP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF230KZH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF168XIT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF374HXP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF825WJM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF245JPK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF190FKP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF494FXL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF272IPH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF623HZY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF130WQT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF611WRQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF201WFM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF171ZNN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF101UJJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF588WBI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF906WDG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF130ZHU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF387KML.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF475HLY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF903IZG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF567HPV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF236CPT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF772OKO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF810LSF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF616FXO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF612MQA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF858SAF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF456EDK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF482BEV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF442ZRY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF435AEQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF115ENN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF603PUS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF567CPM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF338YFQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF503IOR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF099OSI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF442RJO.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF445FCL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF953FNE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF772BAU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF708MEQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF477RJN.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF507JZI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF180WMP.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF930FAL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF560NWT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF667MEL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF405EGZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF159END.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF872DSQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF409YKQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF189PKJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF413OMR.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF237AST.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF863ZFH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF135VAJ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF332MPQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF645BZY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF407WPM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF243JXS.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF050KYT.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF458IBK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF695PDY.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF716OTE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF963QEL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF992VPQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF116KLB.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF641ZTX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF866OZW.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF439KTZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF627DNU.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF948XVV.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF190FEC.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF414GKA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF791UUM.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF791OWQ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF907MQA.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF302RKX.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF681RYK.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF645VCZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF802VTG.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF779CUH.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF076ESL.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF290UUF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF743JJF.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF258MNE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF294RSZ.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF477OUI.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF201DBE.bed
+DEBUG:root:Reading regions from /new-stg/home/cong/DPI/downloads/Encode4/ENCFF378WSO.bed
+DEBUG:root:Reading genome from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr1 (#0) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr2 (#1) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr3 (#2) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr4 (#3) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr5 (#4) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr6 (#5) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr7 (#6) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr8 (#7) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr9 (#8) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr10 (#9) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr11 (#10) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr12 (#11) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr13 (#12) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr14 (#13) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr15 (#14) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr16 (#15) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr17 (#16) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr18 (#17) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr19 (#18) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr20 (#19) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr21 (#20) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chr22 (#21) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chrX (#22) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+DEBUG:root:Reading chromosome chrY (#23) from /new-stg/home/cong/DPI/downloads/ChIP_Encode3/assembly/GRCh38_no_alt_analysis_set_GCA_000001405.15.fasta
+INFO:root:train size: 1,142,660 valid size: 126,962 test size: 112,930 bins: 1,382,552 labels: 997 samples: 8,638,456
+DEBUG:root:0.07%
+DEBUG:root:0.14%
+DEBUG:root:0.22%
+DEBUG:root:0.29%
+DEBUG:root:0.36%
+DEBUG:root:0.43%
+DEBUG:root:0.51%
+DEBUG:root:0.58%
+DEBUG:root:0.65%
+DEBUG:root:0.72%
+DEBUG:root:0.80%
+DEBUG:root:0.87%
+DEBUG:root:0.94%
+DEBUG:root:1.01%
+DEBUG:root:1.08%
+DEBUG:root:1.16%
+DEBUG:root:1.23%
+DEBUG:root:1.30%
+DEBUG:root:1.37%
+DEBUG:root:1.45%
+DEBUG:root:1.52%
+DEBUG:root:1.59%
+DEBUG:root:1.66%
+DEBUG:root:1.74%
+DEBUG:root:1.81%
+DEBUG:root:1.88%
+DEBUG:root:1.95%
+DEBUG:root:2.03%
+DEBUG:root:2.10%
+DEBUG:root:2.17%
+DEBUG:root:2.24%
+DEBUG:root:2.31%
+DEBUG:root:2.39%
+DEBUG:root:2.46%
+DEBUG:root:2.53%
+DEBUG:root:2.60%
+DEBUG:root:2.68%
+DEBUG:root:2.75%
+DEBUG:root:2.82%
+DEBUG:root:2.89%
+DEBUG:root:2.97%
+DEBUG:root:3.04%
+DEBUG:root:3.11%
+DEBUG:root:3.18%
+DEBUG:root:3.25%
+DEBUG:root:3.33%
+DEBUG:root:3.40%
+DEBUG:root:3.47%
+DEBUG:root:3.54%
+DEBUG:root:3.62%
+DEBUG:root:3.69%
+DEBUG:root:3.76%
+DEBUG:root:3.83%
+DEBUG:root:3.91%
+DEBUG:root:3.98%
+DEBUG:root:4.05%
+DEBUG:root:4.12%
+DEBUG:root:4.20%
+DEBUG:root:4.27%
+DEBUG:root:4.34%
+DEBUG:root:4.41%
+DEBUG:root:4.48%
+DEBUG:root:4.56%
+DEBUG:root:4.63%
+DEBUG:root:4.70%
+DEBUG:root:4.77%
+DEBUG:root:4.85%
+DEBUG:root:4.92%
+DEBUG:root:4.99%
+DEBUG:root:5.06%
+DEBUG:root:5.14%
+DEBUG:root:5.21%
+DEBUG:root:5.28%
+DEBUG:root:5.35%
+DEBUG:root:5.42%
+DEBUG:root:5.50%
+DEBUG:root:5.57%
+DEBUG:root:5.64%
+DEBUG:root:5.71%
+DEBUG:root:5.79%
+DEBUG:root:5.86%
+DEBUG:root:5.93%
+DEBUG:root:6.00%
+DEBUG:root:6.08%
+DEBUG:root:6.15%
+DEBUG:root:6.22%
+DEBUG:root:6.29%
+DEBUG:root:6.37%
+DEBUG:root:6.44%
+DEBUG:root:6.51%
+DEBUG:root:6.58%
+DEBUG:root:6.65%
+DEBUG:root:6.73%
+DEBUG:root:6.80%
+DEBUG:root:6.87%
+DEBUG:root:6.94%
+DEBUG:root:7.02%
+DEBUG:root:7.09%
+DEBUG:root:7.16%
+DEBUG:root:7.23%
+DEBUG:root:7.31%
+DEBUG:root:7.38%
+DEBUG:root:7.45%
+DEBUG:root:7.52%
+DEBUG:root:7.59%
+DEBUG:root:7.67%
+DEBUG:root:7.74%
+DEBUG:root:7.81%
+DEBUG:root:7.88%
+DEBUG:root:7.96%
+DEBUG:root:8.03%
+DEBUG:root:8.10%
+DEBUG:root:8.17%
+DEBUG:root:8.25%
+DEBUG:root:8.32%
+DEBUG:root:8.39%
+DEBUG:root:8.46%
+DEBUG:root:8.53%
+DEBUG:root:8.61%
+DEBUG:root:8.68%
+DEBUG:root:8.75%
+DEBUG:root:8.82%
+DEBUG:root:8.90%
+DEBUG:root:8.97%
+DEBUG:root:9.04%
+DEBUG:root:9.11%
+DEBUG:root:9.19%
+DEBUG:root:9.26%
+DEBUG:root:9.33%
+DEBUG:root:9.40%
+DEBUG:root:9.48%
+DEBUG:root:9.55%
+DEBUG:root:9.62%
+DEBUG:root:9.69%
+DEBUG:root:9.76%
+DEBUG:root:9.84%
+DEBUG:root:9.91%
+DEBUG:root:9.98%
+DEBUG:root:10.05%
+DEBUG:root:10.13%
+DEBUG:root:10.20%
+DEBUG:root:10.27%
+DEBUG:root:10.34%
+DEBUG:root:10.42%
+DEBUG:root:10.49%
+DEBUG:root:10.56%
+DEBUG:root:10.63%
+DEBUG:root:10.70%
+DEBUG:root:10.78%
+DEBUG:root:10.85%
+DEBUG:root:10.92%
+DEBUG:root:10.99%
+DEBUG:root:11.07%
+DEBUG:root:11.14%
+DEBUG:root:11.21%
+DEBUG:root:11.28%
+DEBUG:root:11.36%
+DEBUG:root:11.43%
+DEBUG:root:11.50%
+DEBUG:root:11.57%
+DEBUG:root:11.65%
+DEBUG:root:11.72%
+DEBUG:root:11.79%
+DEBUG:root:11.86%
+DEBUG:root:11.93%
+DEBUG:root:12.01%
+DEBUG:root:12.08%
+DEBUG:root:12.15%
+DEBUG:root:12.22%
+DEBUG:root:12.30%
+DEBUG:root:12.37%
+DEBUG:root:12.44%
+DEBUG:root:12.51%
+DEBUG:root:12.59%
+DEBUG:root:12.66%
+DEBUG:root:12.73%
+DEBUG:root:12.80%
+DEBUG:root:12.87%
+DEBUG:root:12.95%
+DEBUG:root:13.02%
+DEBUG:root:13.09%
+DEBUG:root:13.16%
+DEBUG:root:13.24%
+DEBUG:root:13.31%
+DEBUG:root:13.38%
+DEBUG:root:13.45%
+DEBUG:root:13.53%
+DEBUG:root:13.60%
+DEBUG:root:13.67%
+DEBUG:root:13.74%
+DEBUG:root:13.82%
+DEBUG:root:13.89%
+DEBUG:root:13.96%
+DEBUG:root:14.03%
+DEBUG:root:14.10%
+DEBUG:root:14.18%
+DEBUG:root:14.25%
+DEBUG:root:14.32%
+DEBUG:root:14.39%
+DEBUG:root:14.47%
+DEBUG:root:14.54%
+DEBUG:root:14.61%
+DEBUG:root:14.68%
+DEBUG:root:14.76%
+DEBUG:root:14.83%
+DEBUG:root:14.90%
+DEBUG:root:14.97%
+DEBUG:root:15.04%
+DEBUG:root:15.12%
+DEBUG:root:15.19%
+DEBUG:root:15.26%
+DEBUG:root:15.33%
+DEBUG:root:15.41%
+DEBUG:root:15.48%
+DEBUG:root:15.55%
+DEBUG:root:15.62%
+DEBUG:root:15.70%
+DEBUG:root:15.77%
+DEBUG:root:15.84%
+DEBUG:root:15.91%
+DEBUG:root:15.98%
+DEBUG:root:16.06%
+DEBUG:root:16.13%
+DEBUG:root:16.20%
+DEBUG:root:16.27%
+DEBUG:root:16.35%
+DEBUG:root:16.42%
+DEBUG:root:16.49%
+DEBUG:root:16.56%
+DEBUG:root:16.64%
+DEBUG:root:16.71%
+DEBUG:root:16.78%
+DEBUG:root:16.85%
+DEBUG:root:16.93%
+DEBUG:root:17.00%
+DEBUG:root:17.07%
+DEBUG:root:17.14%
+DEBUG:root:17.21%
+DEBUG:root:17.29%
+DEBUG:root:17.36%
+DEBUG:root:17.43%
+DEBUG:root:17.50%
+DEBUG:root:17.58%
+DEBUG:root:17.65%
+DEBUG:root:17.72%
+DEBUG:root:17.79%
+DEBUG:root:17.87%
+DEBUG:root:17.94%
+DEBUG:root:18.01%
+DEBUG:root:18.08%
+DEBUG:root:18.15%
+DEBUG:root:18.23%
+DEBUG:root:18.30%
+DEBUG:root:18.37%
+DEBUG:root:18.44%
+DEBUG:root:18.52%
+DEBUG:root:18.59%
+DEBUG:root:18.66%
+DEBUG:root:18.73%
+DEBUG:root:18.81%
+DEBUG:root:18.88%
+DEBUG:root:18.95%
+DEBUG:root:19.02%
+DEBUG:root:19.10%
+DEBUG:root:19.17%
+DEBUG:root:19.24%
+DEBUG:root:19.31%
+DEBUG:root:19.38%
+DEBUG:root:19.46%
+DEBUG:root:19.53%
+DEBUG:root:19.60%
+DEBUG:root:19.67%
+DEBUG:root:19.75%
+DEBUG:root:19.82%
+DEBUG:root:19.89%
+DEBUG:root:19.96%
+DEBUG:root:20.04%
+DEBUG:root:20.11%
+DEBUG:root:20.18%
+DEBUG:root:20.25%
+DEBUG:root:20.32%
+DEBUG:root:20.40%
+DEBUG:root:20.47%
+DEBUG:root:20.54%
+DEBUG:root:20.61%
+DEBUG:root:20.69%
+DEBUG:root:20.76%
+DEBUG:root:20.83%
+DEBUG:root:20.90%
+DEBUG:root:20.98%
+DEBUG:root:21.05%
+DEBUG:root:21.12%
+DEBUG:root:21.19%
+DEBUG:root:21.27%
+DEBUG:root:21.34%
+DEBUG:root:21.41%
+DEBUG:root:21.48%
+DEBUG:root:21.55%
+DEBUG:root:21.63%
+DEBUG:root:21.70%
+DEBUG:root:21.77%
+DEBUG:root:21.84%
+DEBUG:root:21.92%
+DEBUG:root:21.99%
+DEBUG:root:22.06%
+DEBUG:root:22.13%
+DEBUG:root:22.21%
+DEBUG:root:22.28%
+DEBUG:root:22.35%
+DEBUG:root:22.42%
+DEBUG:root:22.49%
+DEBUG:root:22.57%
+DEBUG:root:22.64%
+DEBUG:root:22.71%
+DEBUG:root:22.78%
+DEBUG:root:22.86%
+DEBUG:root:22.93%
+DEBUG:root:23.00%
+DEBUG:root:23.07%
+DEBUG:root:23.15%
+DEBUG:root:23.22%
+DEBUG:root:23.29%
+DEBUG:root:23.36%
+DEBUG:root:23.43%
+DEBUG:root:23.51%
+DEBUG:root:23.58%
+DEBUG:root:23.65%
+DEBUG:root:23.72%
+DEBUG:root:23.80%
+DEBUG:root:23.87%
+DEBUG:root:23.94%
+DEBUG:root:24.01%
+DEBUG:root:24.09%
+DEBUG:root:24.16%
+DEBUG:root:24.23%
+DEBUG:root:24.30%
+DEBUG:root:24.38%
+DEBUG:root:24.45%
+DEBUG:root:24.52%
+DEBUG:root:24.59%
+DEBUG:root:24.66%
+DEBUG:root:24.74%
+DEBUG:root:24.81%
+DEBUG:root:24.88%
+DEBUG:root:24.95%
+DEBUG:root:25.03%
+DEBUG:root:25.10%
+DEBUG:root:25.17%
+DEBUG:root:25.24%
+DEBUG:root:25.32%
+DEBUG:root:25.39%
+DEBUG:root:25.46%
+DEBUG:root:25.53%
+DEBUG:root:25.60%
+DEBUG:root:25.68%
+DEBUG:root:25.75%
+DEBUG:root:25.82%
+DEBUG:root:25.89%
+DEBUG:root:25.97%
+DEBUG:root:26.04%
+DEBUG:root:26.11%
+DEBUG:root:26.18%
+DEBUG:root:26.26%
+DEBUG:root:26.33%
+DEBUG:root:26.40%
+DEBUG:root:26.47%
+DEBUG:root:26.55%
+DEBUG:root:26.62%
+DEBUG:root:26.69%
+DEBUG:root:26.76%
+DEBUG:root:26.83%
+DEBUG:root:26.91%
+DEBUG:root:26.98%
+DEBUG:root:27.05%
+DEBUG:root:27.12%
+DEBUG:root:27.20%
+DEBUG:root:27.27%
+DEBUG:root:27.34%
+DEBUG:root:27.41%
+DEBUG:root:27.49%
+DEBUG:root:27.56%
+DEBUG:root:27.63%
+DEBUG:root:27.70%
+DEBUG:root:27.77%
+DEBUG:root:27.85%
+DEBUG:root:27.92%
+DEBUG:root:27.99%
+DEBUG:root:28.06%
+DEBUG:root:28.14%
+DEBUG:root:28.21%
+DEBUG:root:28.28%
+DEBUG:root:28.35%
+DEBUG:root:28.43%
+DEBUG:root:28.50%
+DEBUG:root:28.57%
+DEBUG:root:28.64%
+DEBUG:root:28.72%
+DEBUG:root:28.79%
+DEBUG:root:28.86%
+DEBUG:root:28.93%
+DEBUG:root:29.00%
+DEBUG:root:29.08%
+DEBUG:root:29.15%
+DEBUG:root:29.22%
+DEBUG:root:29.29%
+DEBUG:root:29.37%
+DEBUG:root:29.44%
+DEBUG:root:29.51%
+DEBUG:root:29.58%
+DEBUG:root:29.66%
+DEBUG:root:29.73%
+DEBUG:root:29.80%
+DEBUG:root:29.87%
+DEBUG:root:29.94%
+DEBUG:root:30.02%
+DEBUG:root:30.09%
+DEBUG:root:30.16%
+DEBUG:root:30.23%
+DEBUG:root:30.31%
+DEBUG:root:30.38%
+DEBUG:root:30.45%
+DEBUG:root:30.52%
+DEBUG:root:30.60%
+DEBUG:root:30.67%
+DEBUG:root:30.74%
+DEBUG:root:30.81%
+DEBUG:root:30.88%
+DEBUG:root:30.96%
+DEBUG:root:31.03%
+DEBUG:root:31.10%
+DEBUG:root:31.17%
+DEBUG:root:31.25%
+DEBUG:root:31.32%
+DEBUG:root:31.39%
+DEBUG:root:31.46%
+DEBUG:root:31.54%
+DEBUG:root:31.61%
+DEBUG:root:31.68%
+DEBUG:root:31.75%
+DEBUG:root:31.83%
+DEBUG:root:31.90%
+DEBUG:root:31.97%
+DEBUG:root:32.04%
+DEBUG:root:32.11%
+DEBUG:root:32.19%
+DEBUG:root:32.26%
+DEBUG:root:32.33%
+DEBUG:root:32.40%
+DEBUG:root:32.48%
+DEBUG:root:32.55%
+DEBUG:root:32.62%
+DEBUG:root:32.69%
+DEBUG:root:32.77%
+DEBUG:root:32.84%
+DEBUG:root:32.91%
+DEBUG:root:32.98%
+DEBUG:root:33.05%
+DEBUG:root:33.13%
+DEBUG:root:33.20%
+DEBUG:root:33.27%
+DEBUG:root:33.34%
+DEBUG:root:33.42%
+DEBUG:root:33.49%
+DEBUG:root:33.56%
+DEBUG:root:33.63%
+DEBUG:root:33.71%
+DEBUG:root:33.78%
+DEBUG:root:33.85%
+DEBUG:root:33.92%
+DEBUG:root:34.00%
+DEBUG:root:34.07%
+DEBUG:root:34.14%
+DEBUG:root:34.21%
+DEBUG:root:34.28%
+DEBUG:root:34.36%
+DEBUG:root:34.43%
+DEBUG:root:34.50%
+DEBUG:root:34.57%
+DEBUG:root:34.65%
+DEBUG:root:34.72%
+DEBUG:root:34.79%
+DEBUG:root:34.86%
+DEBUG:root:34.94%
+DEBUG:root:35.01%
+DEBUG:root:35.08%
+DEBUG:root:35.15%
+DEBUG:root:35.22%
+DEBUG:root:35.30%
+DEBUG:root:35.37%
+DEBUG:root:35.44%
+DEBUG:root:35.51%
+DEBUG:root:35.59%
+DEBUG:root:35.66%
+DEBUG:root:35.73%
+DEBUG:root:35.80%
+DEBUG:root:35.88%
+DEBUG:root:35.95%
+DEBUG:root:36.02%
+DEBUG:root:36.09%
+DEBUG:root:36.17%
+DEBUG:root:36.24%
+DEBUG:root:36.31%
+DEBUG:root:36.38%
+DEBUG:root:36.45%
+DEBUG:root:36.53%
+DEBUG:root:36.60%
+DEBUG:root:36.67%
+DEBUG:root:36.74%
+DEBUG:root:36.82%
+DEBUG:root:36.89%
+DEBUG:root:36.96%
+DEBUG:root:37.03%
+DEBUG:root:37.11%
+DEBUG:root:37.18%
+DEBUG:root:37.25%
+DEBUG:root:37.32%
+DEBUG:root:37.39%
+DEBUG:root:37.47%
+DEBUG:root:37.54%
+DEBUG:root:37.61%
+DEBUG:root:37.68%
+DEBUG:root:37.76%
+DEBUG:root:37.83%
+DEBUG:root:37.90%
+DEBUG:root:37.97%
+DEBUG:root:38.05%
+DEBUG:root:38.12%
+DEBUG:root:38.19%
+DEBUG:root:38.26%
+DEBUG:root:38.33%
+DEBUG:root:38.41%
+DEBUG:root:38.48%
+DEBUG:root:38.55%
+DEBUG:root:38.62%
+DEBUG:root:38.70%
+DEBUG:root:38.77%
+DEBUG:root:38.84%
+DEBUG:root:38.91%
+DEBUG:root:38.99%
+DEBUG:root:39.06%
+DEBUG:root:39.13%
+DEBUG:root:39.20%
+DEBUG:root:39.28%
+DEBUG:root:39.35%
+DEBUG:root:39.42%
+DEBUG:root:39.49%
+DEBUG:root:39.56%
+DEBUG:root:39.64%
+DEBUG:root:39.71%
+DEBUG:root:39.78%
+DEBUG:root:39.85%
+DEBUG:root:39.93%
+DEBUG:root:40.00%
+DEBUG:root:40.07%
+DEBUG:root:40.14%
+DEBUG:root:40.22%
+DEBUG:root:40.29%
+DEBUG:root:40.36%
+DEBUG:root:40.43%
+DEBUG:root:40.50%
+DEBUG:root:40.58%
+DEBUG:root:40.65%
+DEBUG:root:40.72%
+DEBUG:root:40.79%
+DEBUG:root:40.87%
+DEBUG:root:40.94%
+DEBUG:root:41.01%
+DEBUG:root:41.08%
+DEBUG:root:41.16%
+DEBUG:root:41.23%
+DEBUG:root:41.30%
+DEBUG:root:41.37%
+DEBUG:root:41.45%
+DEBUG:root:41.52%
+DEBUG:root:41.59%
+DEBUG:root:41.66%
+DEBUG:root:41.73%
+DEBUG:root:41.81%
+DEBUG:root:41.88%
+DEBUG:root:41.95%
+DEBUG:root:42.02%
+DEBUG:root:42.10%
+DEBUG:root:42.17%
+DEBUG:root:42.24%
+DEBUG:root:42.31%
+DEBUG:root:42.39%
+DEBUG:root:42.46%
+DEBUG:root:42.53%
+DEBUG:root:42.60%
+DEBUG:root:42.67%
+DEBUG:root:42.75%
+DEBUG:root:42.82%
+DEBUG:root:42.89%
+DEBUG:root:42.96%
+DEBUG:root:43.04%
+DEBUG:root:43.11%
+DEBUG:root:43.18%
+DEBUG:root:43.25%
+DEBUG:root:43.33%
+DEBUG:root:43.40%
+DEBUG:root:43.47%
+DEBUG:root:43.54%
+DEBUG:root:43.61%
+DEBUG:root:43.69%
+DEBUG:root:43.76%
+DEBUG:root:43.83%
+DEBUG:root:43.90%
+DEBUG:root:43.98%
+DEBUG:root:44.05%
+DEBUG:root:44.12%
+DEBUG:root:44.19%
+DEBUG:root:44.27%
+DEBUG:root:44.34%
+DEBUG:root:44.41%
+DEBUG:root:44.48%
+DEBUG:root:44.56%
+DEBUG:root:44.63%
+DEBUG:root:44.70%
+DEBUG:root:44.77%
+DEBUG:root:44.84%
+DEBUG:root:44.92%
+DEBUG:root:44.99%
+DEBUG:root:45.06%
+DEBUG:root:45.13%
+DEBUG:root:45.21%
+DEBUG:root:45.28%
+DEBUG:root:45.35%
+DEBUG:root:45.42%
+DEBUG:root:45.50%
+DEBUG:root:45.57%
+DEBUG:root:45.64%
+DEBUG:root:45.71%
+DEBUG:root:45.78%
+DEBUG:root:45.86%
+DEBUG:root:45.93%
+DEBUG:root:46.00%
+DEBUG:root:46.07%
+DEBUG:root:46.15%
+DEBUG:root:46.22%
+DEBUG:root:46.29%
+DEBUG:root:46.36%
+DEBUG:root:46.44%
+DEBUG:root:46.51%
+DEBUG:root:46.58%
+DEBUG:root:46.65%
+DEBUG:root:46.73%
+DEBUG:root:46.80%
+DEBUG:root:46.87%
+DEBUG:root:46.94%
+DEBUG:root:47.01%
+DEBUG:root:47.09%
+DEBUG:root:47.16%
+DEBUG:root:47.23%
+DEBUG:root:47.30%
+DEBUG:root:47.38%
+DEBUG:root:47.45%
+DEBUG:root:47.52%
+DEBUG:root:47.59%
+DEBUG:root:47.67%
+DEBUG:root:47.74%
+DEBUG:root:47.81%
+DEBUG:root:47.88%
+DEBUG:root:47.95%
+DEBUG:root:48.03%
+DEBUG:root:48.10%
+DEBUG:root:48.17%
+DEBUG:root:48.24%
+DEBUG:root:48.32%
+DEBUG:root:48.39%
+DEBUG:root:48.46%
+DEBUG:root:48.53%
+DEBUG:root:48.61%
+DEBUG:root:48.68%
+DEBUG:root:48.75%
+DEBUG:root:48.82%
+DEBUG:root:48.90%
+DEBUG:root:48.97%
+DEBUG:root:49.04%
+DEBUG:root:49.11%
+DEBUG:root:49.18%
+DEBUG:root:49.26%
+DEBUG:root:49.33%
+DEBUG:root:49.40%
+DEBUG:root:49.47%
+DEBUG:root:49.55%
+DEBUG:root:49.62%
+DEBUG:root:49.69%
+DEBUG:root:49.76%
+DEBUG:root:49.84%
+DEBUG:root:49.91%
+DEBUG:root:49.98%
+DEBUG:root:50.05%
+DEBUG:root:50.12%
+DEBUG:root:50.20%
+DEBUG:root:50.27%
+DEBUG:root:50.34%
+DEBUG:root:50.41%
+DEBUG:root:50.49%
+DEBUG:root:50.56%
+DEBUG:root:50.63%
+DEBUG:root:50.70%
+DEBUG:root:50.78%
+DEBUG:root:50.85%
+DEBUG:root:50.92%
+DEBUG:root:50.99%
+DEBUG:root:51.06%
+DEBUG:root:51.14%
+DEBUG:root:51.21%
+DEBUG:root:51.28%
+DEBUG:root:51.35%
+DEBUG:root:51.43%
+DEBUG:root:51.50%
+DEBUG:root:51.57%
+DEBUG:root:51.64%
+DEBUG:root:51.72%
+DEBUG:root:51.79%
+DEBUG:root:51.86%
+DEBUG:root:51.93%
+DEBUG:root:52.01%
+DEBUG:root:52.08%
+DEBUG:root:52.15%
+DEBUG:root:52.22%
+DEBUG:root:52.29%
+DEBUG:root:52.37%
+DEBUG:root:52.44%
+DEBUG:root:52.51%
+DEBUG:root:52.58%
+DEBUG:root:52.66%
+DEBUG:root:52.73%
+DEBUG:root:52.80%
+DEBUG:root:52.87%
+DEBUG:root:52.95%
+DEBUG:root:53.02%
+DEBUG:root:53.09%
+DEBUG:root:53.16%
+DEBUG:root:53.23%
+DEBUG:root:53.31%
+DEBUG:root:53.38%
+DEBUG:root:53.45%
+DEBUG:root:53.52%
+DEBUG:root:53.60%
+DEBUG:root:53.67%
+DEBUG:root:53.74%
+DEBUG:root:53.81%
+DEBUG:root:53.89%
+DEBUG:root:53.96%
+DEBUG:root:54.03%
+DEBUG:root:54.10%
+DEBUG:root:54.18%
+DEBUG:root:54.25%
+DEBUG:root:54.32%
+DEBUG:root:54.39%
+DEBUG:root:54.46%
+DEBUG:root:54.54%
+DEBUG:root:54.61%
+DEBUG:root:54.68%
+DEBUG:root:54.75%
+DEBUG:root:54.83%
+DEBUG:root:54.90%
+DEBUG:root:54.97%
+DEBUG:root:55.04%
+DEBUG:root:55.12%
+DEBUG:root:55.19%
+DEBUG:root:55.26%
+DEBUG:root:55.33%
+DEBUG:root:55.40%
+DEBUG:root:55.48%
+DEBUG:root:55.55%
+DEBUG:root:55.62%
+DEBUG:root:55.69%
+DEBUG:root:55.77%
+DEBUG:root:55.84%
+DEBUG:root:55.91%
+DEBUG:root:55.98%
+DEBUG:root:56.06%
+DEBUG:root:56.13%
+DEBUG:root:56.20%
+DEBUG:root:56.27%
+DEBUG:root:56.35%
+DEBUG:root:56.42%
+DEBUG:root:56.49%
+DEBUG:root:56.56%
+DEBUG:root:56.63%
+DEBUG:root:56.71%
+DEBUG:root:56.78%
+DEBUG:root:56.85%
+DEBUG:root:56.92%
+DEBUG:root:57.00%
+DEBUG:root:57.07%
+DEBUG:root:57.14%
+DEBUG:root:57.21%
+DEBUG:root:57.29%
+DEBUG:root:57.36%
+DEBUG:root:57.43%
+DEBUG:root:57.50%
+DEBUG:root:57.57%
+DEBUG:root:57.65%
+DEBUG:root:57.72%
+DEBUG:root:57.79%
+DEBUG:root:57.86%
+DEBUG:root:57.94%
+DEBUG:root:58.01%
+DEBUG:root:58.08%
+DEBUG:root:58.15%
+DEBUG:root:58.23%
+DEBUG:root:58.30%
+DEBUG:root:58.37%
+DEBUG:root:58.44%
+DEBUG:root:58.51%
+DEBUG:root:58.59%
+DEBUG:root:58.66%
+DEBUG:root:58.73%
+DEBUG:root:58.80%
+DEBUG:root:58.88%
+DEBUG:root:58.95%
+DEBUG:root:59.02%
+DEBUG:root:59.09%
+DEBUG:root:59.17%
+DEBUG:root:59.24%
+DEBUG:root:59.31%
+DEBUG:root:59.38%
+DEBUG:root:59.46%
+DEBUG:root:59.53%
+DEBUG:root:59.60%
+DEBUG:root:59.67%
+DEBUG:root:59.74%
+DEBUG:root:59.82%
+DEBUG:root:59.89%
+DEBUG:root:59.96%
+DEBUG:root:60.03%
+DEBUG:root:60.11%
+DEBUG:root:60.18%
+DEBUG:root:60.25%
+DEBUG:root:60.32%
+DEBUG:root:60.40%
+DEBUG:root:60.47%
+DEBUG:root:60.54%
+DEBUG:root:60.61%
+DEBUG:root:60.68%
+DEBUG:root:60.76%
+DEBUG:root:60.83%
+DEBUG:root:60.90%
+DEBUG:root:60.97%
+DEBUG:root:61.05%
+DEBUG:root:61.12%
+DEBUG:root:61.19%
+DEBUG:root:61.26%
+DEBUG:root:61.34%
+DEBUG:root:61.41%
+DEBUG:root:61.48%
+DEBUG:root:61.55%
+DEBUG:root:61.63%
+DEBUG:root:61.70%
+DEBUG:root:61.77%
+DEBUG:root:61.84%
+DEBUG:root:61.91%
+DEBUG:root:61.99%
+DEBUG:root:62.06%
+DEBUG:root:62.13%
+DEBUG:root:62.20%
+DEBUG:root:62.28%
+DEBUG:root:62.35%
+DEBUG:root:62.42%
+DEBUG:root:62.49%
+DEBUG:root:62.57%
+DEBUG:root:62.64%
+DEBUG:root:62.71%
+DEBUG:root:62.78%
+DEBUG:root:62.85%
+DEBUG:root:62.93%
+DEBUG:root:63.00%
+DEBUG:root:63.07%
+DEBUG:root:63.14%
+DEBUG:root:63.22%
+DEBUG:root:63.29%
+DEBUG:root:63.36%
+DEBUG:root:63.43%
+DEBUG:root:63.51%
+DEBUG:root:63.58%
+DEBUG:root:63.65%
+DEBUG:root:63.72%
+DEBUG:root:63.80%
+DEBUG:root:63.87%
+DEBUG:root:63.94%
+DEBUG:root:64.01%
+DEBUG:root:64.08%
+DEBUG:root:64.16%
+DEBUG:root:64.23%
+DEBUG:root:64.30%
+DEBUG:root:64.37%
+DEBUG:root:64.45%
+DEBUG:root:64.52%
+DEBUG:root:64.59%
+DEBUG:root:64.66%
+DEBUG:root:64.74%
+DEBUG:root:64.81%
+DEBUG:root:64.88%
+DEBUG:root:64.95%
+DEBUG:root:65.02%
+DEBUG:root:65.10%
+DEBUG:root:65.17%
+DEBUG:root:65.24%
+DEBUG:root:65.31%
+DEBUG:root:65.39%
+DEBUG:root:65.46%
+DEBUG:root:65.53%
+DEBUG:root:65.60%
+DEBUG:root:65.68%
+DEBUG:root:65.75%
+DEBUG:root:65.82%
+DEBUG:root:65.89%
+DEBUG:root:65.96%
+DEBUG:root:66.04%
+DEBUG:root:66.11%
+DEBUG:root:66.18%
+DEBUG:root:66.25%
+DEBUG:root:66.33%
+DEBUG:root:66.40%
+DEBUG:root:66.47%
+DEBUG:root:66.54%
+DEBUG:root:66.62%
+DEBUG:root:66.69%
+DEBUG:root:66.76%
+DEBUG:root:66.83%
+DEBUG:root:66.91%
+DEBUG:root:66.98%
+DEBUG:root:67.05%
+DEBUG:root:67.12%
+DEBUG:root:67.19%
+DEBUG:root:67.27%
+DEBUG:root:67.34%
+DEBUG:root:67.41%
+DEBUG:root:67.48%
+DEBUG:root:67.56%
+DEBUG:root:67.63%
+DEBUG:root:67.70%
+DEBUG:root:67.77%
+DEBUG:root:67.85%
+DEBUG:root:67.92%
+DEBUG:root:67.99%
+DEBUG:root:68.06%
+DEBUG:root:68.13%
+DEBUG:root:68.21%
+DEBUG:root:68.28%
+DEBUG:root:68.35%
+DEBUG:root:68.42%
+DEBUG:root:68.50%
+DEBUG:root:68.57%
+DEBUG:root:68.64%
+DEBUG:root:68.71%
+DEBUG:root:68.79%
+DEBUG:root:68.86%
+DEBUG:root:68.93%
+DEBUG:root:69.00%
+DEBUG:root:69.08%
+DEBUG:root:69.15%
+DEBUG:root:69.22%
+DEBUG:root:69.29%
+DEBUG:root:69.36%
+DEBUG:root:69.44%
+DEBUG:root:69.51%
+DEBUG:root:69.58%
+DEBUG:root:69.65%
+DEBUG:root:69.73%
+DEBUG:root:69.80%
+DEBUG:root:69.87%
+DEBUG:root:69.94%
+DEBUG:root:70.02%
+DEBUG:root:70.09%
+DEBUG:root:70.16%
+DEBUG:root:70.23%
+DEBUG:root:70.30%
+DEBUG:root:70.38%
+DEBUG:root:70.45%
+DEBUG:root:70.52%
+DEBUG:root:70.59%
+DEBUG:root:70.67%
+DEBUG:root:70.74%
+DEBUG:root:70.81%
+DEBUG:root:70.88%
+DEBUG:root:70.96%
+DEBUG:root:71.03%
+DEBUG:root:71.10%
+DEBUG:root:71.17%
+DEBUG:root:71.25%
+DEBUG:root:71.32%
+DEBUG:root:71.39%
+DEBUG:root:71.46%
+DEBUG:root:71.53%
+DEBUG:root:71.61%
+DEBUG:root:71.68%
+DEBUG:root:71.75%
+DEBUG:root:71.82%
+DEBUG:root:71.90%
+DEBUG:root:71.97%
+DEBUG:root:72.04%
+DEBUG:root:72.11%
+DEBUG:root:72.19%
+DEBUG:root:72.26%
+DEBUG:root:72.33%
+DEBUG:root:72.40%
+DEBUG:root:72.47%
+DEBUG:root:72.55%
+DEBUG:root:72.62%
+DEBUG:root:72.69%
+DEBUG:root:72.76%
+DEBUG:root:72.84%
+DEBUG:root:72.91%
+DEBUG:root:72.98%
+DEBUG:root:73.05%
+DEBUG:root:73.13%
+DEBUG:root:73.20%
+DEBUG:root:73.27%
+DEBUG:root:73.34%
+DEBUG:root:73.41%
+DEBUG:root:73.49%
+DEBUG:root:73.56%
+DEBUG:root:73.63%
+DEBUG:root:73.70%
+DEBUG:root:73.78%
+DEBUG:root:73.85%
+DEBUG:root:73.92%
+DEBUG:root:73.99%
+DEBUG:root:74.07%
+DEBUG:root:74.14%
+DEBUG:root:74.21%
+DEBUG:root:74.28%
+DEBUG:root:74.36%
+DEBUG:root:74.43%
+DEBUG:root:74.50%
+DEBUG:root:74.57%
+DEBUG:root:74.64%
+DEBUG:root:74.72%
+DEBUG:root:74.79%
+DEBUG:root:74.86%
+DEBUG:root:74.93%
+DEBUG:root:75.01%
+DEBUG:root:75.08%
+DEBUG:root:75.15%
+DEBUG:root:75.22%
+DEBUG:root:75.30%
+DEBUG:root:75.37%
+DEBUG:root:75.44%
+DEBUG:root:75.51%
+DEBUG:root:75.58%
+DEBUG:root:75.66%
+DEBUG:root:75.73%
+DEBUG:root:75.80%
+DEBUG:root:75.87%
+DEBUG:root:75.95%
+DEBUG:root:76.02%
+DEBUG:root:76.09%
+DEBUG:root:76.16%
+DEBUG:root:76.24%
+DEBUG:root:76.31%
+DEBUG:root:76.38%
+DEBUG:root:76.45%
+DEBUG:root:76.53%
+DEBUG:root:76.60%
+DEBUG:root:76.67%
+DEBUG:root:76.74%
+DEBUG:root:76.81%
+DEBUG:root:76.89%
+DEBUG:root:76.96%
+DEBUG:root:77.03%
+DEBUG:root:77.10%
+DEBUG:root:77.18%
+DEBUG:root:77.25%
+DEBUG:root:77.32%
+DEBUG:root:77.39%
+DEBUG:root:77.47%
+DEBUG:root:77.54%
+DEBUG:root:77.61%
+DEBUG:root:77.68%
+DEBUG:root:77.75%
+DEBUG:root:77.83%
+DEBUG:root:77.90%
+DEBUG:root:77.97%
+DEBUG:root:78.04%
+DEBUG:root:78.12%
+DEBUG:root:78.19%
+DEBUG:root:78.26%
+DEBUG:root:78.33%
+DEBUG:root:78.41%
+DEBUG:root:78.48%
+DEBUG:root:78.55%
+DEBUG:root:78.62%
+DEBUG:root:78.70%
+DEBUG:root:78.77%
+DEBUG:root:78.84%
+DEBUG:root:78.91%
+DEBUG:root:78.98%
+DEBUG:root:79.06%
+DEBUG:root:79.13%
+DEBUG:root:79.20%
+DEBUG:root:79.27%
+DEBUG:root:79.35%
+DEBUG:root:79.42%
+DEBUG:root:79.49%
+DEBUG:root:79.56%
+DEBUG:root:79.64%
+DEBUG:root:79.71%
+DEBUG:root:79.78%
+DEBUG:root:79.85%
+DEBUG:root:79.92%
+DEBUG:root:80.00%
+DEBUG:root:80.07%
+DEBUG:root:80.14%
+DEBUG:root:80.21%
+DEBUG:root:80.29%
+DEBUG:root:80.36%
+DEBUG:root:80.43%
+DEBUG:root:80.50%
+DEBUG:root:80.58%
+DEBUG:root:80.65%
+DEBUG:root:80.72%
+DEBUG:root:80.79%
+DEBUG:root:80.86%
+DEBUG:root:80.94%
+DEBUG:root:81.01%
+DEBUG:root:81.08%
+DEBUG:root:81.15%
+DEBUG:root:81.23%
+DEBUG:root:81.30%
+DEBUG:root:81.37%
+DEBUG:root:81.44%
+DEBUG:root:81.52%
+DEBUG:root:81.59%
+DEBUG:root:81.66%
+DEBUG:root:81.73%
+DEBUG:root:81.81%
+DEBUG:root:81.88%
+DEBUG:root:81.95%
+DEBUG:root:82.02%
+DEBUG:root:82.09%
+DEBUG:root:82.17%
+DEBUG:root:82.24%
+DEBUG:root:82.31%
+DEBUG:root:82.38%
+DEBUG:root:82.46%
+DEBUG:root:82.53%
+DEBUG:root:82.60%
+DEBUG:root:82.67%
+DEBUG:root:82.75%
+DEBUG:root:82.82%
+DEBUG:root:82.89%
+DEBUG:root:82.96%
+DEBUG:root:83.03%
+DEBUG:root:83.11%
+DEBUG:root:83.18%
+DEBUG:root:83.25%
+DEBUG:root:83.32%
+DEBUG:root:83.40%
+DEBUG:root:83.47%
+DEBUG:root:83.54%
+DEBUG:root:83.61%
+DEBUG:root:83.69%
+DEBUG:root:83.76%
+DEBUG:root:83.83%
+DEBUG:root:83.90%
+DEBUG:root:83.98%
+DEBUG:root:84.05%
+DEBUG:root:84.12%
+DEBUG:root:84.19%
+DEBUG:root:84.26%
+DEBUG:root:84.34%
+DEBUG:root:84.41%
+DEBUG:root:84.48%
+DEBUG:root:84.55%
+DEBUG:root:84.63%
+DEBUG:root:84.70%
+DEBUG:root:84.77%
+DEBUG:root:84.84%
+DEBUG:root:84.92%
+DEBUG:root:84.99%
+DEBUG:root:85.06%
+DEBUG:root:85.13%
+DEBUG:root:85.20%
+DEBUG:root:85.28%
+DEBUG:root:85.35%
+DEBUG:root:85.42%
+DEBUG:root:85.49%
+DEBUG:root:85.57%
+DEBUG:root:85.64%
+DEBUG:root:85.71%
+DEBUG:root:85.78%
+DEBUG:root:85.86%
+DEBUG:root:85.93%
+DEBUG:root:86.00%
+DEBUG:root:86.07%
+DEBUG:root:86.15%
+DEBUG:root:86.22%
+DEBUG:root:86.29%
+DEBUG:root:86.36%
+DEBUG:root:86.43%
+DEBUG:root:86.51%
+DEBUG:root:86.58%
+DEBUG:root:86.65%
+DEBUG:root:86.72%
+DEBUG:root:86.80%
+DEBUG:root:86.87%
+DEBUG:root:86.94%
+DEBUG:root:87.01%
+DEBUG:root:87.09%
+DEBUG:root:87.16%
+DEBUG:root:87.23%
+DEBUG:root:87.30%
+DEBUG:root:87.37%
+DEBUG:root:87.45%
+DEBUG:root:87.52%
+DEBUG:root:87.59%
+DEBUG:root:87.66%
+DEBUG:root:87.74%
+DEBUG:root:87.81%
+DEBUG:root:87.88%
+DEBUG:root:87.95%
+DEBUG:root:88.03%
+DEBUG:root:88.10%
+DEBUG:root:88.17%
+DEBUG:root:88.24%
+DEBUG:root:88.31%
+DEBUG:root:88.39%
+DEBUG:root:88.46%
+DEBUG:root:88.53%
+DEBUG:root:88.60%
+DEBUG:root:88.68%
+DEBUG:root:88.75%
+DEBUG:root:88.82%
+DEBUG:root:88.89%
+DEBUG:root:88.97%
+DEBUG:root:89.04%
+DEBUG:root:89.11%
+DEBUG:root:89.18%
+DEBUG:root:89.26%
+DEBUG:root:89.33%
+DEBUG:root:89.40%
+DEBUG:root:89.47%
+DEBUG:root:89.54%
+DEBUG:root:89.62%
+DEBUG:root:89.69%
+DEBUG:root:89.76%
+DEBUG:root:89.83%
+DEBUG:root:89.91%
+DEBUG:root:89.98%
+DEBUG:root:90.05%
+DEBUG:root:90.12%
+DEBUG:root:90.20%
+DEBUG:root:90.27%
+DEBUG:root:90.34%
+DEBUG:root:90.41%
+DEBUG:root:90.48%
+DEBUG:root:90.56%
+DEBUG:root:90.63%
+DEBUG:root:90.70%
+DEBUG:root:90.77%
+DEBUG:root:90.85%
+DEBUG:root:90.92%
+DEBUG:root:90.99%
+DEBUG:root:91.06%
+DEBUG:root:91.14%
+DEBUG:root:91.21%
+DEBUG:root:91.28%
+DEBUG:root:91.35%
+DEBUG:root:91.43%
+DEBUG:root:91.50%
+DEBUG:root:91.57%
+DEBUG:root:91.64%
+DEBUG:root:91.71%
+DEBUG:root:91.79%
+DEBUG:root:91.86%
+DEBUG:root:91.93%
+DEBUG:root:92.00%
+DEBUG:root:92.08%
+DEBUG:root:92.15%
+DEBUG:root:92.22%
+DEBUG:root:92.29%
+DEBUG:root:92.37%
+DEBUG:root:92.44%
+DEBUG:root:92.51%
+DEBUG:root:92.58%
+DEBUG:root:92.65%
+DEBUG:root:92.73%
+DEBUG:root:92.80%
+DEBUG:root:92.87%
+DEBUG:root:92.94%
+DEBUG:root:93.02%
+DEBUG:root:93.09%
+DEBUG:root:93.16%
+DEBUG:root:93.23%
+DEBUG:root:93.31%
+DEBUG:root:93.38%
+DEBUG:root:93.45%
+DEBUG:root:93.52%
+DEBUG:root:93.60%
+DEBUG:root:93.67%
+DEBUG:root:93.74%
+DEBUG:root:93.81%
+DEBUG:root:93.88%
+DEBUG:root:93.96%
+DEBUG:root:94.03%
+DEBUG:root:94.10%
+DEBUG:root:94.17%
+DEBUG:root:94.25%
+DEBUG:root:94.32%
+DEBUG:root:94.39%
+DEBUG:root:94.46%
+DEBUG:root:94.54%
+DEBUG:root:94.61%
+DEBUG:root:94.68%
+DEBUG:root:94.75%
+DEBUG:root:94.82%
+DEBUG:root:94.90%
+DEBUG:root:94.97%
+DEBUG:root:95.04%
+DEBUG:root:95.11%
+DEBUG:root:95.19%
+DEBUG:root:Saving files...
+DEBUG:root:Done

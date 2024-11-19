@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH -p cpu                   
+###SBATCH -N 1                  # 
+###SBATCH --ntasks-per-node=1       # 
+#SBATCH --cpus-per-task=1         # 
+###SBATCH --mem 80G
+#SBATCH -t 10-10:00:00               # 
+#SBATCH -J download
+#SBATCH --output=download-%A.out
+
+PythonFolder=/new-stg/home/cong/miniconda3/envs/dpi/bin
+cd /new-stg/home/cong/DPI/dataset/Encode3/
+
+
+
+$PythonFolder'/python' batch_download_from_Encode.py 

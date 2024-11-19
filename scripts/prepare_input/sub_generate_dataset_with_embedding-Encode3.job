@@ -1,0 +1,68 @@
+#!/bin/bash
+###SBATCH -p gpu                   # job submitted to cpu
+###SBATCH -w gpu-2                   # job submitted to cpu
+###SBATCH -N 1                  # 
+###SBATCH --ntasks-per-node=1       # 
+#SBATCH --cpus-per-task=3         # 
+#SBATCH --mem 80G
+#SBATCH -t 10-10:00:00               # 
+#SBATCH --array=1-360
+#SBATCH -J embed
+###SBATCH --output=embed-%A-%a.out
+#SBATCH --output=embed-%A.out
+
+PythonFolder=/new-stg/home/cong/miniconda3/envs/dpi/bin
+
+#file=ENCFF574UKD_POLR2A_GRCh38
+#file=ENCFF803RIY_CTCF_GRCh38
+#file=ENCFF574UKD_POLR2A_GRCh38_norm
+#file=ENCFF803RIY_CTCF_GRCh38_norm_no_negative
+#file=100_per_exp_1258exp_RPM_train_norm
+#file=ENCFF584CZG_CTCF_GRCh38_norm
+#file=ENCFF186NOM_CTCF_GRCh38_norm
+#file=100_per_exp_1258exp_RPM_test_norm
+#file=1000_per_exp_train
+#file=1000_per_exp_test
+#file=100_per_exp_max_512bp_train_603_protein_C2H2_ZF_and_Unknown_family
+#file=100_per_exp_max_512bp_train_603_protein_48_family_split5
+#file=100_per_exp_max_512bp_train
+#file=100_per_exp_max_512bp_test
+
+#file=all_valid
+#file=train_s10
+#file=train
+#file=test
+file=train_min10
+
+kmer=6
+span=5000
+#span=10000
+#i=0
+#data=Encode3
+data=ChIP_690
+
+
+#### create num_files.txt
+#seq 0 102 > num_files.txt
+i=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" num_files.txt | awk '{print $1}')
+echo $i
+
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py $file $kmer $i
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py 'train' $kmer $i 'Encode4'
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py 'train_s13' $kmer $i 'Encode3'
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py 'train' $kmer $i 'ChIP_690'
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py 'CTCF_test' $kmer $i $span 'ChIP_690'
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py 'CTCF_test' $kmer $i $span 'Encode3'
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py 'test' $kmer $i $span 'Encode3'
+$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py $file $kmer $i $span $data
+
+
+
+#### create files grouped by TFs #####
+#TF=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $HOME/DPI/dataset/Encode3/proteins.txt | awk '{print $1}')
+#echo $TF
+#$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py $TF'_'$file $kmer $i $span $data
+
+
+
+

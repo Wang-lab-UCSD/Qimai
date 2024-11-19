@@ -1,0 +1,23 @@
+test
+['testdata', 'testxdata']
+loaded data Encode3and4:
+(532970, 512, 4)
+(532970, 1870)
+protein
+ADNP      4546
+AEBP2       50
+AFF1      3824
+AFF4        62
+AHDC1     4714
+          ... 
+ZSCAN9     738
+ZUFSP        4
+ZXDB      7062
+ZXDC      1184
+ZZZ3       564
+Length: 847, dtype: int64
+balanced dataset: False
+minimum pair per dna: 1
+# of examples: 296654974
+success!
+/var/spool/slurm/d/job377966/slurm_script: line 36: 3088575 Killed                  $PythonFolder'/python' get_interaction_pair_two_dataset.py $dataset $file

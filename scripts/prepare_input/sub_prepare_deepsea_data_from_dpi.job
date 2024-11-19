@@ -1,0 +1,19 @@
+#!/bin/bash
+###SBATCH -p gpu                  
+###SBATCH -N 1                  # 
+###SBATCH --ntasks-per-node=1       # 
+#SBATCH --cpus-per-task=4         # 
+#SBATCH --mem 50G
+###SBATCH --array=1-24
+#SBATCH -t 10-10:00:00               # 
+#SBATCH -J pair
+#SBATCH --output=prepare_deepsea-%A.out
+###SBATCH --output=pair-%A-%a.out
+
+PythonFolder=/new-stg/home/cong/miniconda3/envs/dpi/bin
+
+
+$PythonFolder'/python' prepare_deepsea_data_from_dpi.py 
+
+
+

@@ -1,0 +1,6 @@
+train
+['traindata', 'trainxdata']
+loaded data
+(1727188, 512, 4)
+(1727188, 690)
+/var/spool/slurm/d/job234219/slurm_script: line 27: 1428230 Bus error               (core dumped) $PythonFolder'/python' get_interaction_pair_two_dataset.py $file

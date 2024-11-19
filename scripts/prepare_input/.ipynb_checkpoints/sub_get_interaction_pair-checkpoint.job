@@ -1,0 +1,40 @@
+#!/bin/bash
+###SBATCH -p gpu                  
+###SBATCH -N 1                  # 
+###SBATCH --ntasks-per-node=1       # 
+#SBATCH --cpus-per-task=4         # 
+#SBATCH --mem 230G
+###SBATCH --array=1-24
+#SBATCH -t 10-10:00:00               # 
+#SBATCH -J pair
+#SBATCH --output=pair-%A.out
+
+PythonFolder=/new-stg/home/cong/miniconda3/envs/dpi/bin
+
+#cell=K562
+#cell=MCF-7
+#cell=HepG2
+#cell=all
+
+#file=train
+#file=valid
+#file=test
+
+#dataset=ChIP_690
+#dataset=Encode4
+dataset=Encode3and4
+
+#i=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" num_files.txt | awk '{print $1}')
+#echo $i
+
+#$PythonFolder'/python' get_interaction_pair_two_dataset.py $cell $file 
+#$PythonFolder'/python' get_interaction_pair_two_dataset.py $dataset $file 
+#$PythonFolder'/python' get_interaction_pair_two_dataset.py $file $i
+
+
+
+#for file in test train
+for file in train
+do
+    $PythonFolder'/python' get_interaction_pair_two_dataset.py $dataset $file 
+done

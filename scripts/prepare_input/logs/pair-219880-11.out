@@ -1,0 +1,7 @@
+10
+train
+split 10
+['traindata', 'trainxdata']
+loaded data
+(4701524, 512, 4)
+(4701524, 880)

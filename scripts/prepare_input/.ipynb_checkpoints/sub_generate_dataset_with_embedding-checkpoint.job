@@ -1,0 +1,33 @@
+#!/bin/bash
+###SBATCH -p gpu                   # job submitted to cpu
+###SBATCH -w gpu-2                   # job submitted to cpu
+###SBATCH -N 1                  # 
+###SBATCH --ntasks-per-node=1       # 
+###SBATCH --cpus-per-task=8         # 
+#SBATCH --mem 80G
+#SBATCH -t 10-10:00:00               # 
+#SBATCH --array=1-160
+#SBATCH -J embed
+###SBATCH --output=embed-%A-%a.out
+#SBATCH --output=embed-%A.out
+
+PythonFolder=$HOME/miniconda3/envs/dpi/bin
+
+
+#file=valid
+file=all_test
+kmer=6
+span=5000
+data=ChIP_690
+i=0
+#data=Encode3
+
+#for i in {0,1,2}
+#do
+
+TF=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $HOME/DPI/dataset/ChIP_690/TF_mapped_160.txt | awk '{print $1}')
+echo $TF
+$PythonFolder'/python' generate_dataset_with_embedding_Encode3.py $TF'_'$file $kmer $i $span $data
+
+#done
+
