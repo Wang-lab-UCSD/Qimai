@@ -1,1 +1,0 @@
-/var/spool/slurm/d/job337117/slurm_script: line 32: 4014988 Killed                  $PythonFolder'/python' generate_database_for_dna_and_protein_embedding.py $file $kmer $data

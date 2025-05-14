@@ -1,9 +1,0 @@
-valid
-['validdata', 'validxdata']
-loaded data
-(191908, 512, 4)
-(191908, 690)
-Traceback (most recent call last):
-  File "get_interaction_pair_two_dataset.py", line 132, in <module>
-    print('balanced dataset: '+is_balance)
-TypeError: can only concatenate str (not "bool") to str

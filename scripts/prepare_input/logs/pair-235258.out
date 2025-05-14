@@ -1,6 +1,0 @@
-train
-['traindata', 'trainxdata']
-loaded data
-(1727188, 512, 4)
-(1727188, 690)
-success!

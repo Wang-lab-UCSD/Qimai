@@ -1,9 +1,0 @@
-train
-['traindata', 'trainxdata']
-loaded data ChIP_690:
-(1727188, 512, 4)
-(1727188, 690)
-balanced dataset: True
-minimum pair per dna: 10
-# of examples: 1796160
-success!

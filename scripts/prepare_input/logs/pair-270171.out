@@ -1,8 +1,0 @@
-test
-['testdata', 'testxdata']
-loaded data ChIP_690:
-(179654, 512, 4)
-(179654, 690)
-balanced dataset: False
-# of examples: 11489920
-success!

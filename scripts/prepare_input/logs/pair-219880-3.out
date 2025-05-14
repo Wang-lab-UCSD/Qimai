@@ -1,7 +1,0 @@
-2
-train
-split 2
-['traindata', 'trainxdata']
-loaded data
-(4701524, 512, 4)
-(4701524, 880)

@@ -1,8 +1,0 @@
-test
-['testdata', 'testxdata']
-loaded data
-(468760, 512, 4)
-(468760, 880)
-balanced dataset: False
-# of examples: 79404206
-success!

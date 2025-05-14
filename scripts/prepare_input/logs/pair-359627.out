@@ -1,9 +1,0 @@
-valid
-['validdata', 'validxdata']
-loaded data ChIP_690:
-(191908, 512, 4)
-(191908, 690)
-balanced dataset: False
-minimum pair per dna: 1
-# of examples: 5553280
-success!

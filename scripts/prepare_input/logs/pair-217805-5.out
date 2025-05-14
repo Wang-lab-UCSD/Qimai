@@ -1,2 +1,0 @@
-4
-/var/spool/slurm/d/job217867/slurm_script: line 28: 1268020 Killed                  $PythonFolder'/python' get_interaction_pair_two_dataset.py $file $i
