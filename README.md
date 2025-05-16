@@ -2,10 +2,10 @@
 
 ## Overview
 
-The DPI-Agent is a sophisticated computational pipeline designed to predict interactions between DNA sequences and proteins. It leverages a multi-modal approach, integrating evidence from:
+The DPI-Agent is a llm-based pipeline designed to predict interactions between DNA and protein. It leverages a multi-modal approach, integrating evidence from:
 *   **Direct Motif Analysis:** Searching for known binding motifs of the target protein in the DNA sequence using CisBP database and FIMO scans.
 *   **Indirect Motif Analysis:** Identifying TF interactors of query protein (via STRING DB) and find if indirect binding exists.
-*   **Transformer-based Prediction:** Utilizing a in-house SOTA deep learning model trained on ChIP-seq data to predict interaction probability.
+*   **Transformer-based Prediction:** Utilizing SOTA deep learning model trained on ChIP-seq data to predict interaction probability.
 *   **Large Language Model (LLM) Synthesis:** Employing an LLM (e.g., Gemini, or open-source Hugging Face models) to synthesize all gathered evidence and provide a final interaction prediction (0 or 1) along with a detailed explanation.
 *   **Confidence level estimation:** Using rule-based method to estimate how confident the prediction is.
 
