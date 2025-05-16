@@ -88,9 +88,11 @@ dpi-agent/
 │   ├── cisbp_database/
 │   │   ├── pwms_all_motifs/
 │   │   │   └── ... (*.txt PWM files)
-│   │   └── TF_Information.txt # Or TF_Information_all_motifs.txt
+│   │   └── TF_Information.txt
 │   └── training_lists/
 │       └── proteins.txt # List of training proteins for transformer
+│   └── evaluation_files/
+│       └── test_min10_rs_3_1000_pairs.pkl # example evaluation file
 └── ... (other files)
 ```
 
@@ -106,14 +108,17 @@ dpi-agent/
 
 3.  **CisBP Motif Database:**
     *   **Description:** TF Information file and PWM files from CisBP (filtered for *Homo sapiens*).
-    *   [**Download:**](https://github.com/cong-003/DPI-agent/tree/main/data/)
-        *   TF Information: `[Link to TF_Information.txt on Zenodo/Your_Cloud_Storage]` -> Place in `data/cisbp_database/`
-        *   PWMs: `[Link to pwms_all_motifs.zip/tar.gz on Zenodo/Your_Cloud_Storage]` -> Extract into `data/cisbp_database/pwms_all_motifs/`
+    *   [**Download:**](https://github.com/cong-003/DPI-agent/blob/main/data/Homo_sapiens_2025_05_16_4_38_am.zip)
+        *   TF Information: meta data for the all the TFs -> Place in `data/cisbp_database/`
+        *   PWMs: Extract into `data/cisbp_database/pwms_all_motifs/`
 
 4.  **Transformer Training Protein List:**
     *   **Description:** Text file listing proteins used in the DPI model's training set.
     *   [**Download:**](https://github.com/cong-003/DPI-agent/tree/main/data/training_lists) -> Place in `data/training_lists/`
 
+5.  **DPI Transformer Model:**
+    *   **Description:** The pre-trained model for DPI prediction.
+    *   [**Download:**](https://github.com/cong-003/DPI-agent/tree/main/data/transformer_models) -> Place in `data/transformer_models/`
 
 ## Configuration
 
@@ -124,10 +129,6 @@ The script `test4_eval.py` contains several hardcoded paths for the resources me
 It is highly recommended to modify the script to use **environment variables** for these paths or pass them as **command-line arguments**.
 
 **Key path constants in `test4_eval.py` to check/modify:**
-*   `DNABERT_MODEL_DIR`
-*   `DNABERT_CONFIG_PATH`
-*   `DNABERT_VOCAB_PATH`
-*   `FINETUNED_LOCAL_MODEL_PATH_ID` (if using a specific local fine-tuned HF model identified by path)
 *   `TRANSFORMER_MODEL_PATH`
 *   `DNA_EMB_DB_PATH`
 *   `PRO_EMB_PATH`
@@ -167,6 +168,7 @@ The evaluation file (`--evaluation-file`) should be a `.tsv` (tab-separated) or 
 *   `dna`: The DNA sequence string.
 *   `protein`: The protein name (e.g., gene symbol like "SOX2").
 *   `label`: The ground truth interaction label (0 for no interaction, 1 for interaction).
+[example evaluation file]()
 
 ### Command-Line Arguments
 
@@ -234,16 +236,11 @@ Additionally, an aggregated summary file is created:
     *   For private/gated models, ensure `--hf-token` is provided or you're logged in.
     *   Memory issues: Large models require significant RAM/VRAM. Try a smaller model or use quantization.
 
-## Contributing
-[Optional: Add guidelines if you expect contributions, e.g., pull request process, coding standards.]
-We welcome contributions! Please feel free to submit pull requests or open issues for bugs and feature requests.
 
 ## License
-This project is licensed under the [NAME OF LICENSE, e.g., MIT License]. See the `LICENSE` file for details.
-(You should add a `LICENSE` file to your repository, e.g., from choosealicense.com)
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 ## Citation
-[Optional: If this work is associated with a publication or preprint, please add citation information here.]
 If you use this software in your research, please cite:
-> [Your Name/Lab. (Year). DPI-Agent: A Multi-modal Agent for DNA-Protein Interaction Prediction. (Version X.Y.Z). Available at: [Link to your GitHub Repo]]
+> [2025. DPI-Agent: A Multi-modal Agent for DNA-Protein Interaction Prediction. Available at: [https://github.com/cong-003/DPI-agent]]
 > [Any relevant paper or preprint]
