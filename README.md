@@ -1,9 +1,5 @@
 # DNA-Protein Interaction Prediction Agent (DPI-Agent)
 
-**Version:** 0.0.1 (or your current version)
-**Author/Organization:** [Cong Liu / Wei Wang Lab / UCSD]
-**Contact:** [wargm003@gmail.com]
-
 ## Table of Contents
 1.  [Overview](#overview)
 2.  [Features](#features)
@@ -26,7 +22,6 @@
 10. [Contributing](#contributing)
 11. [License](#license)
 12. [Citation](#citation)
-13. [Acknowledgements](#acknowledgements)
 
 ## Overview
 
@@ -65,10 +60,7 @@ The DPI-Agent is a sophisticated computational pipeline designed to predict inte
 
 1.  **MEME Suite (for FIMO):**
     FIMO is required for motif scanning. Install the MEME Suite from [http://meme-suite.org/doc/install.html](http://meme-suite.org/doc/install.html). Ensure `fimo` is in your system's `PATH`.
-    ```bash
-    # Example check
-    fimo --version
-    ```
+
 2.  **Git:** For cloning the repository.
 
 ### Cloning the Repository
@@ -111,16 +103,10 @@ dpi-agent/
 ├── README.md
 ├── requirements.txt
 ├── data/
-│   ├── dnabert_models/
-│   │   ├── 6-new-12w-0/          # For DNABERT_KMER=6
-│   │   │   └── ... (model files)
-│   │   └── src/transformers/dnabert-config/bert-config-6/
-│   │       ├── config.json
-│   │       └── vocab.txt
 │   ├── transformer_models/
 │   │   └── main_singletask_Encode3and4_all_847_proteins-....pt
 │   ├── embeddings/
-│   │   ├── dna_embeddings.duckdb
+│   │   ├── dna_embeddings_test_demo_100.duckdb
 │   │   └── all_human_tfs_protein_embedding_mean.pkl
 │   ├── cisbp_database/
 │   │   ├── pwms_all_motifs/
@@ -133,36 +119,24 @@ dpi-agent/
 
 **Resource List & Download Links:**
 
-1.  **DNABERT Model & Config (Example for 6-mer):**
-    *   **Description:** Pretrained DNABERT model weights and configuration.
-    *   **Download:**
-        *   Model Files: `[Link to DNABERT 6-mer model files on Zenodo/Your_Cloud_Storage]` -> Place in `data/dnabert_models/6-new-12w-0/`
-        *   Config & Vocab: `[Link to DNABERT 6-mer config/vocab on Zenodo/Your_Cloud_Storage]` -> Place in `data/dnabert_models/src/transformers/dnabert-config/bert-config-6/`
-    *   *Note: Adjust paths in `test4_eval.py` or use environment variables if your k-mer or paths differ.*
+1.  **DNA Embeddings:**
+    *   **Description:** DuckDB database containing pre-computed DNA sequence embeddings from DNABERT.
+    *  [**Download:**](https://drive.google.com/drive/folders/1x4TKNuO42AYeopGIVH5i8ICsmgY9J_8z) -> Place in `data/embeddings/`
 
-2.  **DPI Transformer Model:**
-    *   **Description:** The pre-trained transformer model for DPI prediction.
-    *   **Download:** `[Link to your transformer_model.pt on Zenodo/Your_Cloud_Storage]` -> Place in `data/transformer_models/`
+2.  **Protein Embeddings:**
+    *   **Description:** Pickle file with pre-computed protein embeddings from AlphaFold.
+    *   [**Download:**](https://drive.google.com/drive/folders/1x4TKNuO42AYeopGIVH5i8ICsmgY9J_8z) -> Place in `data/embeddings/`
 
-3.  **DNA Embeddings Database:**
-    *   **Description:** DuckDB database containing pre-computed DNA sequence embeddings.
-    *   **Download:** `[Link to dna_embeddings.duckdb on Zenodo/Your_Cloud_Storage]` -> Place in `data/embeddings/`
-
-4.  **Protein Embeddings:**
-    *   **Description:** Pickle file with pre-computed protein embeddings.
-    *   **Download:** `[Link to all_human_tfs_protein_embedding_mean.pkl on Zenodo/Your_Cloud_Storage]` -> Place in `data/embeddings/`
-
-5.  **CisBP Motif Database:**
+3.  **CisBP Motif Database:**
     *   **Description:** TF Information file and PWM files from CisBP (filtered for *Homo sapiens*).
     *   **Download:**
         *   TF Information: `[Link to TF_Information.txt on Zenodo/Your_Cloud_Storage]` -> Place in `data/cisbp_database/`
         *   PWMs: `[Link to pwms_all_motifs.zip/tar.gz on Zenodo/Your_Cloud_Storage]` -> Extract into `data/cisbp_database/pwms_all_motifs/`
 
-6.  **Transformer Training Protein List:**
-    *   **Description:** Text file listing proteins used in the transformer model's training set.
-    *   **Download:** `[Link to proteins.txt on Zenodo/Your_Cloud_Storage]` -> Place in `data/training_lists/`
+4.  **Transformer Training Protein List:**
+    *   **Description:** Text file listing proteins used in the DPI model's training set.
+    *   [**Download:**](https://drive.google.com/drive/folders/1x4TKNuO42AYeopGIVH5i8ICsmgY9J_8z) -> Place in `data/training_lists/`
 
-**(Optional: Provide a download script `download_resources.sh` or `download_resources.py` to automate this.)**
 
 ## Configuration
 
@@ -296,25 +270,3 @@ This project is licensed under the [NAME OF LICENSE, e.g., MIT License]. See the
 If you use this software in your research, please cite:
 > [Your Name/Lab. (Year). DPI-Agent: A Multi-modal Agent for DNA-Protein Interaction Prediction. (Version X.Y.Z). Available at: [Link to your GitHub Repo]]
 > [Any relevant paper or preprint]
-
-## Acknowledgements
-*   The LangGraph team for their excellent library.
-*   Developers of Unsloth, Hugging Face Transformers, PyTorch.
-*   Data providers: CisBP, STRING DB, ENCODE Project.
-*   [Any other individuals or groups you wish to thank.]
-
-```
-
-**Key things for YOU to do:**
-
-1.  **Replace all placeholders** like `[Your Name / Your Lab / Your Organization]`, `[URL_OF_YOUR_GITHUB_REPOSITORY]`, `[Link to ... on Zenodo/Your_Cloud_Storage]`, `[NAME OF LICENSE]`, etc.
-2.  **Create a `LICENSE` file** in your repository (e.g., choose MIT or Apache 2.0 from [https://choosealicense.com/](https://choosealicense.com/)).
-3.  **Generate `requirements.txt`:**
-    ```bash
-    # Activate your virtual environment
-    pip freeze > requirements.txt
-    ```
-    Review and clean up this file if necessary (sometimes it includes dependencies of dependencies which isn't strictly needed but usually harmless).
-4.  **Verify all paths and instructions.** Test the installation and resource download steps yourself from a clean environment to ensure they are accurate.
-5.  **Consider adding a small example evaluation file** to your repository so users can test the setup quickly.
-6.  **Strongly consider making the paths in your Python script configurable via environment variables or command-line arguments** instead of hardcoding them. This is the most important step for shareability. Your README currently reflects the hardcoded paths and suggests this change.

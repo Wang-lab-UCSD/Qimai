@@ -1,0 +1,10 @@
+biopython==1.85
+torch==2.6.0
+langgraph==0.3.31
+duckdb==1.2.2
+requests==2.32.3
+unsloth @ git+https://github.com/unslothai/unsloth.git@9738cfdc526ccc50faa01260e8a64010b5c5be28
+google-generativeai==0.8.5
+transformers==4.51.3
+pandas==2.2.1
+numpy==1.26.4
