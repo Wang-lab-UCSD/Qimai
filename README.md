@@ -29,7 +29,7 @@ The DPI-Agent is a llm-based pipeline designed to predict interactions between D
     *   CPU is sufficient for most tasks, but LLM inference (especially local HF models) and Transformer model predictions will be significantly faster on a CUDA-enabled GPU.
     *   DNABERT embedding calculation also benefits from a GPU.
 *   **RAM:** Minimum 16GB, 32GB+ recommended, especially for larger LLMs or large batch processing.
-*   **Disk Space:** Several GBs for the Python environment and scripts. **Significant additional space (tens to hundreds of GBs) is required for the large resources (models, embeddings, databases) - see [Downloading Large Resources](#downloading-large-resources).**
+*   **Disk Space:** Several GBs for the Python environment and scripts. **Significant additional space (tens to hundreds of GBs) is required for the large resources (models, embeddings, databases) - see [Downloading Resources](#downloading-large-resources).**
 
 ## Installation
 
@@ -69,32 +69,9 @@ pip install -r requirements.txt
 ```
 If using Unsloth and a compatible GPU, Unsloth will be installed via `requirements.txt`. Ensure you have the necessary CUDA toolkit version compatible with PyTorch and Unsloth.
 
-## Downloading Large Resources
+## Downloading Resources
 
-Due to their size, the following resources are not included in the GitHub repository and must be downloaded separately. Place them in the specified directory structure relative to the main project directory (e.g., `dpi-agent/data/`).
-
-**Recommended Directory Structure:**
-```
-dpi-agent/
-├── test4_eval.py
-├── README.md
-├── requirements.txt
-├── data/
-│   ├── transformer_models/
-│   │   └── main_singletask_Encode3and4_all_847_proteins-....pt
-│   ├── embeddings/
-│   │   ├── dna_embeddings_test_demo_100.duckdb
-│   │   └── all_human_tfs_protein_embedding_mean.pkl
-│   ├── cisbp_database/
-│   │   ├── pwms_all_motifs/
-│   │   │   └── ... (*.txt PWM files)
-│   │   └── TF_Information.txt
-│   └── training_lists/
-│       └── proteins.txt # List of training proteins for transformer
-│   └── evaluation_files/
-│       └── test_min10_rs_3_1000_pairs.pkl # example evaluation file
-└── ... (other files)
-```
+Due to large size, embedding files are not included in the GitHub repository and must be downloaded separately.
 
 **Resource List & Download Links:**
 
@@ -108,17 +85,10 @@ dpi-agent/
 
 3.  **CisBP Motif Database:**
     *   **Description:** TF Information file and PWM files from CisBP (filtered for *Homo sapiens*).
-    *   [**Download:**](https://github.com/cong-003/DPI-agent/blob/main/data/Homo_sapiens_2025_05_16_4_38_am.zip)
+    *   **Download:** already included in the repo, need to extract the [file](https://github.com/cong-003/DPI-agent/blob/main/data/Homo_sapiens_2025_05_16_4_38_am.zip)
         *   TF Information: meta data for the all the TFs -> Place in `data/cisbp_database/`
         *   PWMs: Extract into `data/cisbp_database/pwms_all_motifs/`
 
-4.  **Transformer Training Protein List:**
-    *   **Description:** Text file listing proteins used in the DPI model's training set.
-    *   [**Download:**](https://github.com/cong-003/DPI-agent/tree/main/data/training_lists) -> Place in `data/training_lists/`
-
-5.  **DPI Transformer Model:**
-    *   **Description:** The pre-trained model for DPI prediction.
-    *   [**Download:**](https://github.com/cong-003/DPI-agent/tree/main/data/transformer_models) -> Place in `data/transformer_models/`
 
 ## Configuration
 
@@ -244,4 +214,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Citation
 If you use this software in your research, please cite:
 > [2025. DPI-Agent: A Multi-modal Agent for DNA-Protein Interaction Prediction. Available at: [https://github.com/cong-003/DPI-agent]]
-> [Any relevant paper or preprint]
+
