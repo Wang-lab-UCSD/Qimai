@@ -168,7 +168,8 @@ The evaluation file (`--evaluation-file`) should be a `.tsv` (tab-separated) or 
 *   `dna`: The DNA sequence string.
 *   `protein`: The protein name (e.g., gene symbol like "SOX2").
 *   `label`: The ground truth interaction label (0 for no interaction, 1 for interaction).
-[example evaluation file]()
+
+[example evaluation file](https://github.com/cong-003/DPI-agent/blob/main/data/evaluation_files/test_min10_rs_3_1000_pairs.pkl)
 
 ### Command-Line Arguments
 
@@ -191,7 +192,7 @@ The evaluation file (`--evaluation-file`) should be a `.tsv` (tab-separated) or 
 
 ```bash
 python test4_eval.py \
-    --evaluation-file /path/to/your/eval_data.tsv \
+    --evaluation-file /path/to/your/eval_data.pkl \
     --llm-model hf/unsloth/mistral-7b-bnb-4bit \
     --output-dir ./my_dpi_results \
     --prompt-style concise \
