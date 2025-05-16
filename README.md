@@ -1,28 +1,5 @@
 # DNA-Protein Interaction Prediction Agent (DPI-Agent)
 
-## Table of Contents
-1.  [Overview](#overview)
-2.  [Features](#features)
-3.  [System Requirements](#system-requirements)
-4.  [Installation](#installation)
-    *   [Prerequisites](#prerequisites)
-    *   [Cloning the Repository](#cloning-the-repository)
-    *   [Setting up the Environment](#setting-up-the-environment)
-    *   [Installing Dependencies](#installing-dependencies)
-5.  [Downloading Large Resources](#downloading-large-resources)
-6.  [Configuration](#configuration)
-    *   [Essential Path Configuration](#essential-path-configuration)
-    *   [API Keys](#api-keys)
-7.  [Usage](#usage)
-    *   [Input Data Format](#input-data-format)
-    *   [Command-Line Arguments](#command-line-arguments)
-    *   [Example Invocation](#example-invocation)
-8.  [Output Files](#output-files)
-9.  [Troubleshooting](#troubleshooting)
-10. [Contributing](#contributing)
-11. [License](#license)
-12. [Citation](#citation)
-
 ## Overview
 
 The DPI-Agent is a sophisticated computational pipeline designed to predict interactions between DNA sequences and proteins. It leverages a multi-modal approach, integrating evidence from:
@@ -129,13 +106,13 @@ dpi-agent/
 
 3.  **CisBP Motif Database:**
     *   **Description:** TF Information file and PWM files from CisBP (filtered for *Homo sapiens*).
-    *   **Download:**
+    *   [**Download:**](https://github.com/cong-003/DPI-agent/tree/main/data/)
         *   TF Information: `[Link to TF_Information.txt on Zenodo/Your_Cloud_Storage]` -> Place in `data/cisbp_database/`
         *   PWMs: `[Link to pwms_all_motifs.zip/tar.gz on Zenodo/Your_Cloud_Storage]` -> Extract into `data/cisbp_database/pwms_all_motifs/`
 
 4.  **Transformer Training Protein List:**
     *   **Description:** Text file listing proteins used in the DPI model's training set.
-    *   [**Download:**](https://drive.google.com/drive/folders/1x4TKNuO42AYeopGIVH5i8ICsmgY9J_8z) -> Place in `data/training_lists/`
+    *   [**Download:**](https://github.com/cong-003/DPI-agent/tree/main/data/training_lists) -> Place in `data/training_lists/`
 
 
 ## Configuration
