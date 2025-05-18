@@ -203,6 +203,8 @@ class AgentState(TypedDict):
     raw_llm_response: Union[str, None]  
     final_confidence: Union[float, None] 
     error: Union[str, None]
+    llm_prompt_style_selected: Union[str, None] # Or just str if it's always set
+    llm_prompt_selection_reason: Union[str, None] # Or just str
 
 def _parse_cisbp_pwm(pwm_filepath: str) -> Union[Dict[str, List[float]], None]:
     # ... (Implementation unchanged) ...
@@ -786,23 +788,33 @@ def call_huggingface_model(prompt: str, model, tokenizer, device: torch.device) 
     return prediction, parsed_explanation if error_explanation is None else error_explanation, raw_response_text
 
 
-# In your main script, where you have confidence parameters
-# ... (original confidence parameters) ...
-
-# --- Confidence Score Parameters (FOR TRANSFORMER-PRIORITY PROMPT) ---
-TP_CONFIDENCE_BASELINE = 0.45
-TP_DIRECT_MATCH_BOOST = 0.10
-# ... (all other TP_ constants) ...
-TP_TRANSFORMER_NOVELTY_FACTOR = 0.5
-TP_SCAN_FAIL_FACTOR = 0.3 # Assuming SCAN_FAIL_FACTOR is generic enough
-
 def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
     print(f"--- Calculating Rule-Based Confidence Score (Style: {prompt_style}) ---")
     llm_vote = state.get('llm_vote')
     if llm_vote is None:
         print("  LLM vote is missing, cannot calculate confidence. Returning 0.0")
         return 0.0
-    
+
+    # --- Initialize ALL confidence parameters with their DEFAULT values first ---
+    baseline = CONFIDENCE_BASELINE
+    direct_match_boost = DIRECT_MATCH_BOOST
+    direct_reliable_match_extra = DIRECT_RELIABLE_MATCH_EXTRA
+    direct_mismatch_penalty = DIRECT_MISMATCH_PENALTY
+    direct_reliable_mismatch_extra = DIRECT_RELIABLE_MISMATCH_EXTRA
+    direct_missing_penalty = DIRECT_MISSING_PENALTY
+    direct_absence_boost = DIRECT_ABSENCE_BOOST
+
+    indirect_match_boost = INDIRECT_MATCH_BOOST
+    indirect_mismatch_penalty = INDIRECT_MISMATCH_PENALTY
+    indirect_missing_penalty = INDIRECT_MISSING_PENALTY
+    indirect_absence_boost = INDIRECT_ABSENCE_BOOST
+
+    transformer_match_boost = TRANSFORMER_MATCH_BOOST
+    transformer_confident_extra = TRANSFORMER_CONFIDENT_EXTRA
+    transformer_mismatch_penalty = TRANSFORMER_MISMATCH_PENALTY
+    transformer_confident_mismatch_extra = TRANSFORMER_CONFIDENT_MISMATCH_EXTRA
+    transformer_novelty_factor = TRANSFORMER_NOVELTY_FACTOR
+
     # Initialize motif quality parameters with general defaults
     num_hits_bonus_max = GENERAL_NUM_HITS_BONUS_MAX
     num_hits_scale_factor = GENERAL_NUM_HITS_SCALE_FACTOR
@@ -810,14 +822,29 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
     low_pvalue_threshold = GENERAL_LOW_PVALUE_THRESHOLD
     low_pvalue_bonus = GENERAL_LOW_PVALUE_BONUS
 
-    # Select parameters based on prompt_style
+    # --- Now, selectively override parameters based on prompt_style ---
     if prompt_style == "transformer-priority":
         baseline = TP_CONFIDENCE_BASELINE
         direct_match_boost = TP_DIRECT_MATCH_BOOST
-        # ... (all other TP_ parameters as before) ...
-        transformer_novelty_factor = TP_TRANSFORMER_NOVELTY_FACTOR
+        direct_reliable_match_extra = TP_DIRECT_RELIABLE_MATCH_EXTRA
+        direct_mismatch_penalty = TP_DIRECT_MISMATCH_PENALTY
+        direct_reliable_mismatch_extra = TP_DIRECT_RELIABLE_MISMATCH_EXTRA
+        direct_missing_penalty = TP_DIRECT_MISSING_PENALTY
+        direct_absence_boost = TP_DIRECT_ABSENCE_BOOST
 
-    elif prompt_style == "motif-priority": # <<< NEW SECTION
+        indirect_match_boost = TP_INDIRECT_MATCH_BOOST
+        indirect_mismatch_penalty = TP_INDIRECT_MISMATCH_PENALTY
+        indirect_missing_penalty = TP_INDIRECT_MISSING_PENALTY
+        indirect_absence_boost = TP_INDIRECT_ABSENCE_BOOST
+
+        transformer_match_boost = TP_TRANSFORMER_MATCH_BOOST
+        transformer_confident_extra = TP_TRANSFORMER_CONFIDENT_EXTRA
+        transformer_mismatch_penalty = TP_TRANSFORMER_MISMATCH_PENALTY
+        transformer_confident_mismatch_extra = TP_TRANSFORMER_CONFIDENT_MISMATCH_EXTRA
+        transformer_novelty_factor = TP_TRANSFORMER_NOVELTY_FACTOR
+        # TP style uses GENERAL motif quality params by default (already set)
+
+    elif prompt_style == "motif-priority":
         baseline = MP_CONFIDENCE_BASELINE
         direct_match_boost = MP_DIRECT_MATCH_BOOST
         direct_reliable_match_extra = MP_DIRECT_RELIABLE_MATCH_EXTRA
@@ -837,18 +864,12 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
         transformer_confident_mismatch_extra = MP_TRANSFORMER_CONFIDENT_MISMATCH_EXTRA
         transformer_novelty_factor = MP_TRANSFORMER_NOVELTY_FACTOR
 
-        # Motif Quality Parameters
+        # Override with Motif-Priority specific (potentially more aggressive) quality params
         num_hits_bonus_max = MP_NUM_HITS_BONUS_MAX
         num_hits_scale_factor = MP_NUM_HITS_SCALE_FACTOR
         max_hits_for_bonus_cap = MP_MAX_HITS_FOR_BONUS_CAP
         low_pvalue_threshold = MP_LOW_PVALUE_THRESHOLD
         low_pvalue_bonus = MP_LOW_PVALUE_BONUS
-
-    else: # Default to original parameters (verbose or concise if not transformer-priority)
-        baseline = CONFIDENCE_BASELINE
-        direct_match_boost = DIRECT_MATCH_BOOST
-        # ... (all other original parameters as before) ...
-        transformer_novelty_factor = TRANSFORMER_NOVELTY_FACTOR
 
     scan_fail_factor = SCAN_FAIL_FACTOR # Generic
     transformer_confident_high = TRANSFORMER_CONFIDENT_HIGH # Generic
@@ -880,7 +901,6 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
                     adjustments.append(f"  Reliable: +{adj_extra:.2f}")
                     confidence += adj_extra
                 
-                # Motif Quality Bonus (for motif-priority or if params are set)
                 if num_hits_scale_factor > 0 and direct_num_hits > 0:
                     hits_bonus = min(num_hits_bonus_max, num_hits_scale_factor * min(direct_num_hits, max_hits_for_bonus_cap)) * direct_mod
                     adjustments.append(f"  Direct Num Hits Bonus ({direct_num_hits} hits): +{hits_bonus:.2f}")
@@ -890,12 +910,12 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
                     adjustments.append(f"  Direct Low PVal Bonus ({direct_best_pvalue:.1e}): +{pval_b:.2f}")
                     confidence += pval_b
             else: # Vote=1, no direct hit
-                adj = direct_missing_penalty * direct_mod
+                adj = direct_missing_penalty * direct_mod 
                 adjustments.append(f"Direct Hit Missing (Vote=1): {adj:.2f}")
                 confidence += adj
         elif llm_vote == 0:
             if direct_found:
-                adj = direct_mismatch_penalty * direct_mod
+                adj = direct_mismatch_penalty * direct_mod 
                 adjustments.append(f"Direct Hit Mismatch (Vote=0): {adj:.2f}")
                 confidence += adj
                 if is_reliable_direct:
@@ -903,12 +923,12 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
                     adjustments.append(f"  Reliable Mismatch: {adj_extra:.2f}")
                     confidence += adj_extra
             else: # Vote=0, no direct hit
-                adj = direct_absence_boost * direct_mod
+                adj = direct_absence_boost * direct_mod 
                 adjustments.append(f"Direct Hit Absence (Vote=0): +{adj:.2f}")
                 confidence += adj
     else: adjustments.append("Direct Motif Fetch Failed: No Adjustment")
 
-    # --- 2. Indirect Motif Evidence ---
+    # --- 2. Indirect Motif Evidence --- (Similar logic applies here)
     indirect_summary = state.get('indirect_motif_analysis_summary') or {}
     indirect_performed = indirect_summary.get('search_performed', False)
 
@@ -917,64 +937,63 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
         indirect_scan_ok = not indirect_summary.get('scan_status', 'unknown').startswith('error')
         indirect_mod = scan_fail_factor if not indirect_scan_ok else 1.0
         indirect_num_hits = len(indirect_summary.get('interacting_tf_hits', []))
-        indirect_best_hit = indirect_summary.get('best_interacting_tf_hit') # Dict or None
+        indirect_best_hit = indirect_summary.get('best_interacting_tf_hit')
         indirect_best_pvalue = indirect_best_hit.get('pvalue') if indirect_best_hit else None
-
 
         if llm_vote == 1:
             if indirect_found:
                 adj = indirect_match_boost * indirect_mod
                 adjustments.append(f"Indirect Hit Match: +{adj:.2f}")
                 confidence += adj
-                # Motif Quality Bonus (for motif-priority or if params are set)
                 if num_hits_scale_factor > 0 and indirect_num_hits > 0:
-                    hits_bonus = min(num_hits_bonus_max, num_hits_scale_factor * min(indirect_num_hits, max_hits_for_bonus_cap)) * indirect_mod # Using same scale factor for simplicity, can be different
+                    hits_bonus = min(num_hits_bonus_max, num_hits_scale_factor * min(indirect_num_hits, max_hits_for_bonus_cap)) * indirect_mod
                     adjustments.append(f"  Indirect Num Hits Bonus ({indirect_num_hits} hits): +{hits_bonus:.2f}")
                     confidence += hits_bonus
                 if low_pvalue_bonus > 0 and indirect_best_pvalue is not None and indirect_best_pvalue < low_pvalue_threshold:
                     pval_b = low_pvalue_bonus * indirect_mod
                     adjustments.append(f"  Indirect Low PVal Bonus ({indirect_best_pvalue:.1e}): +{pval_b:.2f}")
                     confidence += pval_b
-            else: # Vote=1, no indirect hit
+            else:
                 adj = indirect_missing_penalty * indirect_mod
                 adjustments.append(f"Indirect Hit Missing (Vote=1): {adj:.2f}")
                 confidence += adj
         elif llm_vote == 0:
             if indirect_found:
-                adj = indirect_mismatch_penalty * indirect_mod
+                adj = indirect_mismatch_penalty * indirect_mod 
                 adjustments.append(f"Indirect Hit Mismatch (Vote=0): {adj:.2f}")
                 confidence += adj
-            else: # Vote=0, no indirect hit
-                adj = indirect_absence_boost * indirect_mod
+            else:
+                adj = indirect_absence_boost * indirect_mod 
                 adjustments.append(f"Indirect Hit Absence (Vote=0): +{adj:.2f}")
                 confidence += adj
     else: adjustments.append("Indirect Search Skipped: No Adjustment")
 
 
-    # --- 3. Transformer Evidence ---
-    # (This part remains largely the same, the difference is in the *magnitude* of boosts/penalties determined by prompt_style)
+    # --- 3. Transformer Evidence --- (This part was likely fine)
     trans_prob = state.get('transformer_prob')
     is_known = state.get('is_known_protein', False)
 
     if trans_prob is not None:
         transformer_vote = 1 if trans_prob > 0.5 else 0
         is_transformer_pred_confident_for_bonus = (trans_prob > transformer_confident_high or trans_prob < transformer_confident_low)
+        
+        # Ensure novelty_mod uses the transformer_novelty_factor that was set based on prompt_style
         novelty_mod = transformer_novelty_factor if not is_known else 1.0
 
         if llm_vote == transformer_vote:
-            adj = transformer_match_boost * novelty_mod
+            adj = transformer_match_boost * novelty_mod 
             adjustments.append(f"Transformer Match: +{adj:.2f}{'' if is_known else f' (Novel *{transformer_novelty_factor:.1f})'}")
             confidence += adj
             if is_transformer_pred_confident_for_bonus:
-                adj_extra = transformer_confident_extra * novelty_mod
+                adj_extra = transformer_confident_extra * novelty_mod 
                 adjustments.append(f"  Transformer Confident Bonus: +{adj_extra:.2f}")
                 confidence += adj_extra
-        else: # LLM vote contradicts transformer_vote
-            adj = transformer_mismatch_penalty * novelty_mod
+        else: 
+            adj = transformer_mismatch_penalty * novelty_mod 
             adjustments.append(f"Transformer Mismatch: {adj:.2f}{'' if is_known else f' (Novel *{transformer_novelty_factor:.1f})'}")
             confidence += adj
             if is_transformer_pred_confident_for_bonus:
-                adj_extra = transformer_confident_mismatch_extra * novelty_mod
+                adj_extra = transformer_confident_mismatch_extra * novelty_mod 
                 adjustments.append(f"  Transformer Confident Mismatch Penalty: {adj_extra:.2f}")
                 confidence += adj_extra
     else: adjustments.append("Transformer Prob Missing: No Adjustment")
@@ -1467,26 +1486,49 @@ The interaction label is: [0 or 1]"""
  
 
 def generate_llm_prompt_node(state: AgentState,
-                             requested_prompt_style: str,
-                             llm_identifier: str, # Full identifier including prefix, e.g., hf/...
-                             finetuned_model_id: str # The specific ID requiring concise prompt
+                             requested_prompt_style: str, # This will be the user's choice from args
+                             llm_identifier: str,
+                             finetuned_model_id: str
                              ) -> AgentState:
-    """Node to generate the LLM prompt based on selected style and model constraints."""
+    """Node to generate the LLM prompt. Handles 'auto' style selection."""
     if state.get("error"): return state
 
-    effective_prompt_style = requested_prompt_style
-    is_finetuned_model = False
+    protein_name = state.get('protein_name', 'N/A')
+    is_known_protein = state.get("is_known_protein", False) # Get from state
 
-    # Check if the selected model is the specific fine-tuned one
+    # --- Determine the effective prompt style ---
+    effective_prompt_style = requested_prompt_style
+    prompt_selection_reason = f"User selected '{requested_prompt_style}'."
+
+    if requested_prompt_style == "auto":
+        if is_known_protein:
+            effective_prompt_style = "transformer-priority"
+            prompt_selection_reason = f"Auto: Protein '{protein_name}' is KNOWN. Switched to 'transformer-priority'."
+        else: # Protein is novel
+            effective_prompt_style = "motif-priority"
+            prompt_selection_reason = f"Auto: Protein '{protein_name}' is NOVEL. Switched to 'motif-priority'."
+        print(f"  {prompt_selection_reason}")
+
+    # --- Handle fine-tuned model override (can happen after 'auto' selection) ---
+    is_finetuned_model = False
     if llm_identifier.startswith("hf/"):
         model_path_or_id = llm_identifier.split("hf/", 1)[1]
         if model_path_or_id == finetuned_model_id:
             is_finetuned_model = True
-            if requested_prompt_style != "concise":
-                print(f"  WARN: Requested '{requested_prompt_style}' prompt style, but overriding to 'concise' for fine-tuned model '{finetuned_model_id}'.")
+            if effective_prompt_style != "concise":
+                # Override the auto-selected or user-selected style if it's the fine-tuned model
+                # and the current effective_prompt_style is not already concise.
+                original_style_before_finetune_override = effective_prompt_style
                 effective_prompt_style = "concise"
+                print(f"  WARN: Overriding style to 'concise' for fine-tuned model '{finetuned_model_id}' (was '{original_style_before_finetune_override}').")
+                prompt_selection_reason += f" Overridden to 'concise' for fine-tuned model."
 
-    print(f"\n--- Node: Generate LLM Prompt (Style: {effective_prompt_style}) ---")
+
+    print(f"\n--- Node: Generate LLM Prompt (Effective Style: {effective_prompt_style}) ---")
+    # Store the reason and final style in state for potential logging/debugging
+    state_update_for_prompt_info = {"llm_prompt_style_selected": effective_prompt_style,
+                                    "llm_prompt_selection_reason": prompt_selection_reason}
+
 
     try:
         if effective_prompt_style == "verbose":
@@ -1494,20 +1536,19 @@ def generate_llm_prompt_node(state: AgentState,
         elif effective_prompt_style == "concise":
             prompt = generate_concise_llm_prompt(state)
         elif effective_prompt_style == "transformer-priority":
-            prompt = generate_transformer_priority_llm_prompt(state)               
+            prompt = generate_transformer_priority_llm_prompt(state)
         elif effective_prompt_style == "motif-priority":
-            prompt = generate_motif_priority_llm_prompt(state)               
+            prompt = generate_motif_priority_llm_prompt(state)
         else:
-            # Should not happen if argparse choices are set correctly
-            raise ValueError(f"Invalid prompt style requested: {effective_prompt_style}")
+            # This case should ideally not be reached if 'auto' is handled correctly
+            raise ValueError(f"Invalid effective prompt style determined: {effective_prompt_style}")
 
         print(f"  Generated {effective_prompt_style} LLM Prompt.")
-        return {**state, "llm_prompt": prompt}
+        return {**state, **state_update_for_prompt_info, "llm_prompt": prompt}
     except Exception as e:
         print(f"  Critical Error generating {effective_prompt_style} prompt: {e}")
         traceback.print_exc()
-        return {**state, "error": f"LLM Prompt Generation Error ({effective_prompt_style}): {e}"}
-
+        return {**state, **state_update_for_prompt_info, "error": f"LLM Prompt Generation Error ({effective_prompt_style}): {e}"}
 
 def get_llm_pred_node(state: AgentState,
                       llm_model_name: str,
@@ -1544,14 +1585,17 @@ def get_llm_pred_node(state: AgentState,
     except Exception as e:
         print(f"  Critical Error in get_llm_pred_node ({llm_model_name}): {e}")
         traceback.print_exc()
-        # Store error message in explanation and empty raw text
         return {**state, "error": f"LLM Prediction Node Error: {e}", "llm_vote": None, "llm_explanation": f"Error during LLM call: {e}", "raw_llm_response": ""}
 
-def calculate_final_confidence_node(state: AgentState, prompt_style: str) -> AgentState:
+def calculate_final_confidence_node(state: AgentState) -> AgentState:
     """Node to calculate and store the final confidence score."""
     if state.get("error"):
         print("--- Skipping Confidence Calculation due to previous error ---")
         return {**state, "final_confidence": 0.0} # Assign low confidence on error
+
+    prompt_style_used = state.get("llm_prompt_style_selected", "verbose")
+    print(f"--- Calculating Final Confidence (based on effective prompt style: {prompt_style_used}) ---")
+
     try:
         # --- Add Check for Garbage Explanation ---
         is_garbage = False
@@ -1567,27 +1611,23 @@ def calculate_final_confidence_node(state: AgentState, prompt_style: str) -> Age
         elif "[your detailed reasoning]" in llm_explanation.lower():
             is_garbage = True
             print("  WARN: Detected template placeholder text. Flagging as garbage.")
+        
         # Add more checks if needed (e.g., for specific repetitive phrases)
-
         if is_garbage:
             consistency_warning = "[WARNING: LLM explanation appears incomplete or corrupted] "
             print(f"  {consistency_warning}")
-            # Override confidence to near zero
             final_confidence = 0.01
             updated_explanation = consistency_warning + (llm_explanation or "")
-            # Maybe invalidate vote too? Or keep parsed vote with near-zero confidence.
-            # Let's keep the vote for now but signal low confidence.
             original_llm_vote = state.get("llm_vote") # Use original vote in output dict
             return {**state, "final_confidence": final_confidence, "llm_vote": original_llm_vote, "llm_explanation": updated_explanation}
-        # --- End Garbage Check ---
 
-        confidence = calculate_confidence_score(state, prompt_style)
+        confidence = calculate_confidence_score(state, prompt_style_used)
         return {**state, "final_confidence": confidence}
     except Exception as e:
         print(f"  ERROR calculating confidence score: {e}", file=sys.stderr)
         traceback.print_exc()
         # Assign baseline confidence if calculation fails
-        error_baseline = TP_CONFIDENCE_BASELINE if prompt_style == "transformer-priority" else CONFIDENCE_BASELINE
+        error_baseline = CONFIDENCE_BASELINE
         return {**state, "final_confidence": error_baseline, "error": f"Confidence Calculation Error: {e}"}
 
 def make_serializable(obj):
@@ -1694,8 +1734,8 @@ if __name__ == "__main__":
         help="Directory to save output JSON files. Default: ./dpi_agent_outputs"
     )
     parser.add_argument(
-        "--prompt-style", type=str, default="verbose", choices=["verbose", "concise", "transformer-priority", "motif-priority"],
-        help="Style of prompt to generate for the LLM. 'concise' is required for the specific fine-tuned model."
+        "--prompt-style", type=str, default="verbose", choices=["verbose", "concise", "transformer-priority", "motif-priority", "auto"],
+        help="Style of prompt to generate for the LLM. 'concise' for fine-tuned. 'auto' switches based on protein novelty."
     )
     parser.add_argument("--random-state", type=int, default=13, help="random state for randomization of the evaluation file.")
     parser.add_argument("--limit", type=int, default=None, help="Limit processing to the first N samples from the evaluation file.")
@@ -2027,7 +2067,7 @@ if __name__ == "__main__":
                                               api_delay=args.api_delay # Pass the delay from args
                                               ))
     # NEW confidence node
-    workflow.add_node("calculate_final_confidence", partial(calculate_final_confidence_node, prompt_style=args.prompt_style))
+    workflow.add_node("calculate_final_confidence", calculate_final_confidence_node)
     # Error node now sets default confidence
     workflow.add_node("handle_error", lambda state: {**state, "llm_vote": None, "final_confidence": 0.0, "llm_explanation": f"Processing stopped due to error: {state.get('error', 'Unknown error')}"})
 
