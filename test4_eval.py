@@ -45,15 +45,12 @@ from Bio.Seq import Seq
 
 # --- Hugging Face Transformers ---
 try:
-    from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, BertModel, BertConfig
+    from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForMaskedLM, BitsAndBytesConfig, BertModel, BertConfig
     TRANSFORMERS_AVAILABLE = True
 except ImportError:
     TRANSFORMERS_AVAILABLE = False
     if not UNSLOTH_AVAILABLE: print("WARN: `transformers` libraries not found. HF models unavailable.")
 
-# --- DNABERT ---
-try: from DNABERT_v1.src.transformers import DNATokenizer
-except ImportError: print("ERROR: DNABERT DNATokenizer not found.", file=sys.stderr); sys.exit(1)
 
 # --- Import Model Components (Make sure these are accessible) ---
 try:
@@ -89,9 +86,6 @@ DEFAULT_HF_MODEL = "unsloth/mistral-7b-bnb-4bit" # Example default HF model
 
 # --- DNABERT Configuration ---
 DNABERT_KMER = 6 # Set the k-mer value used by your DNABERT model
-DNABERT_MODEL_DIR = f'/new-stg/home/cong/DPI/DNABERT/pretrained/{DNABERT_KMER}-new-12w-0/'
-DNABERT_CONFIG_PATH = f'/new-stg/home/cong/DPI/DNABERT/src/transformers/dnabert-config/bert-config-{DNABERT_KMER}/config.json'
-DNABERT_VOCAB_PATH = f'/new-stg/home/cong/DPI/DNABERT/src/transformers/dnabert-config/bert-config-{DNABERT_KMER}/vocab.txt'
 DNABERT_MAX_LEN = 512 # Max length for DNABERT tokenization
 
 FINETUNED_LOCAL_MODEL_PATH_ID = "/new-stg/home/cong/DPI/scripts/deepseek/stage2_rat_70b_2500_steps"
@@ -121,6 +115,12 @@ INDIRECT_MISMATCH_PENALTY = -0.15
 INDIRECT_MISSING_PENALTY = -0.05
 INDIRECT_ABSENCE_BOOST = 0.05
 
+GENERAL_NUM_HITS_BONUS_MAX = 0.10          # Max bonus from number of hits
+GENERAL_NUM_HITS_SCALE_FACTOR = 0.02       # Bonus per hit, e.g., 0.02 * min(num_hits, 5)
+GENERAL_MAX_HITS_FOR_BONUS_CAP = 5         # Cap for bonus scaling
+GENERAL_LOW_PVALUE_THRESHOLD = 1e-7        # P-value below this gets a bonus
+GENERAL_LOW_PVALUE_BONUS = 0.07            # Bonus for a significant p-value
+
 TRANSFORMER_MATCH_BOOST = 0.15    # Boost if transformer prob aligns with LLM vote
 TRANSFORMER_CONFIDENT_EXTRA = 0.10 # Extra if transformer is confident (e.g. <0.1 or >0.9)
 TRANSFORMER_CONFIDENT_HIGH = 0.8
@@ -129,8 +129,65 @@ TRANSFORMER_MISMATCH_PENALTY = -0.20
 TRANSFORMER_CONFIDENT_MISMATCH_EXTRA = -0.10
 TRANSFORMER_NOVELTY_FACTOR = 0.6 # Factor to reduce transformer impact for novel proteins
 
-
 SCAN_FAIL_FACTOR = 0.3 # Factor to reduce motif impact if scan failed
+
+# --- Confidence Score Parameters (FOR TRANSFORMER-PRIORITY PROMPT) ---
+# These are STARTING POINTS and will likely need tuning.
+TP_CONFIDENCE_BASELINE = 0.45  # Start a bit lower, as alignment will boost significantly
+
+# Transformer Evidence (given higher importance)
+TP_DIRECT_MATCH_BOOST = 0.10         # Motif agreement is a smaller, secondary boost
+TP_DIRECT_RELIABLE_MATCH_EXTRA = 0.05
+TP_DIRECT_MISMATCH_PENALTY = -0.20   # Penalty if direct hit contradicts (LLM+Transformer)
+TP_DIRECT_RELIABLE_MISMATCH_EXTRA = -0.05
+TP_DIRECT_MISSING_PENALTY = -0.10    # Penalty if (LLM+Transformer)=1 but no direct hit
+TP_DIRECT_ABSENCE_BOOST = 0.05       # Boost if (LLM+Transformer)=0 and no direct hit (consistent)
+
+TP_INDIRECT_MATCH_BOOST = 0.10       
+TP_INDIRECT_MISMATCH_PENALTY = -0.15
+TP_INDIRECT_MISSING_PENALTY = -0.05
+TP_INDIRECT_ABSENCE_BOOST = 0.05
+
+# Transformer Evidence (Primary Driver when LLM aligns with it)
+TP_TRANSFORMER_MATCH_BOOST = 0.30    # SIGNIFICANT boost if LLM vote aligns with transformer
+TP_TRANSFORMER_CONFIDENT_EXTRA = 0.10 # Extra if transformer is confident AND aligns
+
+# What if LLM DISAGREES with transformer, despite instruction? This should be penalized.
+TP_TRANSFORMER_MISMATCH_PENALTY = -0.25 
+TP_TRANSFORMER_CONFIDENT_MISMATCH_EXTRA = -0.15
+TP_TRANSFORMER_NOVELTY_FACTOR = 0.5 
+
+# --- Confidence Score Parameters (FOR MOTIF-PRIORITY PROMPT) ---
+# These are STARTING POINTS and will likely need tuning.
+MP_CONFIDENCE_BASELINE = 0.50  # Start similar to default, motif evidence will drive it
+
+# Motif Evidence (Primary Driver)
+MP_DIRECT_MATCH_BOOST = 0.30         # Significantly higher boost for direct motif match
+MP_DIRECT_RELIABLE_MATCH_EXTRA = 0.10
+MP_DIRECT_MISMATCH_PENALTY = -0.35   # Stronger penalty if direct hit contradicts LLM vote=0
+MP_DIRECT_RELIABLE_MISMATCH_EXTRA = -0.15
+MP_DIRECT_MISSING_PENALTY = -0.20    # Penalty if LLM vote=1 but no direct hit
+MP_DIRECT_ABSENCE_BOOST = 0.15       # Boost if LLM vote=0 and no direct hit
+
+MP_INDIRECT_MATCH_BOOST = 0.20       # Higher boost for indirect as well
+MP_INDIRECT_MISMATCH_PENALTY = -0.25
+MP_INDIRECT_MISSING_PENALTY = -0.10
+MP_INDIRECT_ABSENCE_BOOST = 0.10
+
+# New: Motif Quality Factors
+MP_NUM_HITS_BONUS_MAX = 0.15          # Max bonus achievable from number of hits
+MP_NUM_HITS_SCALE_FACTOR = 0.03       # Bonus per hit, e.g., 0.03 * min(num_hits, 5)
+MP_MAX_HITS_FOR_BONUS_CAP = 5         # Consider up to this many hits for bonus scaling
+MP_LOW_PVALUE_THRESHOLD = 1e-8        # P-value below this threshold gets a bonus
+MP_LOW_PVALUE_BONUS = 0.10            # Bonus for a very significant p-value
+
+# Transformer Evidence (Secondary, especially if conflicting with strong motifs)
+MP_TRANSFORMER_MATCH_BOOST = 0.10     # Smaller boost if transformer aligns
+MP_TRANSFORMER_CONFIDENT_EXTRA = 0.05
+MP_TRANSFORMER_MISMATCH_PENALTY = -0.15 # Smaller penalty for mismatch
+MP_TRANSFORMER_CONFIDENT_MISMATCH_EXTRA = -0.05
+MP_TRANSFORMER_NOVELTY_FACTOR = 0.7   # Transformer is less discounted for novel if motifs are primary
+
 
 # --- Agent State Definition (Unchanged from test3.py) ---
 class AgentState(TypedDict):
@@ -147,7 +204,6 @@ class AgentState(TypedDict):
     final_confidence: Union[float, None] 
     error: Union[str, None]
 
-# --- Helper Functions (Unchanged: _parse_cisbp_pwm, _calculate_cisbp_motif_reliability_for_prompt, _calculate_motif_priority, convert_to_meme_format) ---
 def _parse_cisbp_pwm(pwm_filepath: str) -> Union[Dict[str, List[float]], None]:
     # ... (Implementation unchanged) ...
     if not os.path.exists(pwm_filepath): return None
@@ -334,7 +390,7 @@ def run_string_query(protein_name: str, species_id: int, min_score: int, max_int
 def calculate_dnabert_embedding(
     dna_sequence: str,
     dnabert_model: BertModel,
-    dnabert_tokenizer: DNATokenizer,
+    dnabert_tokenizer: AutoTokenizer,
     kmer: int,
     max_len: int,
     device: torch.device
@@ -402,7 +458,7 @@ def run_transformer_prediction(
     device: torch.device, # Device for *transformer_model*
     # --- New arguments for on-the-fly DNA embedding ---
     dnabert_model: BertModel,
-    dnabert_tokenizer: DNATokenizer,
+    dnabert_tokenizer: AutoTokenizer,
     dnabert_kmer: int,
     dnabert_max_len: int,
     dnabert_device: torch.device # Device for *DNABERT model* (can be same as device)
@@ -730,16 +786,76 @@ def call_huggingface_model(prompt: str, model, tokenizer, device: torch.device) 
     return prediction, parsed_explanation if error_explanation is None else error_explanation, raw_response_text
 
 
-def calculate_confidence_score(state: AgentState) -> float:
-    """Calculates a rule-based confidence score based on evidence alignment with LLM vote."""
-    print("--- Calculating Rule-Based Confidence Score ---")
+# In your main script, where you have confidence parameters
+# ... (original confidence parameters) ...
+
+# --- Confidence Score Parameters (FOR TRANSFORMER-PRIORITY PROMPT) ---
+TP_CONFIDENCE_BASELINE = 0.45
+TP_DIRECT_MATCH_BOOST = 0.10
+# ... (all other TP_ constants) ...
+TP_TRANSFORMER_NOVELTY_FACTOR = 0.5
+TP_SCAN_FAIL_FACTOR = 0.3 # Assuming SCAN_FAIL_FACTOR is generic enough
+
+def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
+    print(f"--- Calculating Rule-Based Confidence Score (Style: {prompt_style}) ---")
     llm_vote = state.get('llm_vote')
     if llm_vote is None:
         print("  LLM vote is missing, cannot calculate confidence. Returning 0.0")
-        return 0.0 # Cannot assess confidence without a final decision
+        return 0.0
+    
+    # Initialize motif quality parameters with general defaults
+    num_hits_bonus_max = GENERAL_NUM_HITS_BONUS_MAX
+    num_hits_scale_factor = GENERAL_NUM_HITS_SCALE_FACTOR
+    max_hits_for_bonus_cap = GENERAL_MAX_HITS_FOR_BONUS_CAP
+    low_pvalue_threshold = GENERAL_LOW_PVALUE_THRESHOLD
+    low_pvalue_bonus = GENERAL_LOW_PVALUE_BONUS
 
-    confidence = CONFIDENCE_BASELINE
-    adjustments = [] # For debugging
+    # Select parameters based on prompt_style
+    if prompt_style == "transformer-priority":
+        baseline = TP_CONFIDENCE_BASELINE
+        direct_match_boost = TP_DIRECT_MATCH_BOOST
+        # ... (all other TP_ parameters as before) ...
+        transformer_novelty_factor = TP_TRANSFORMER_NOVELTY_FACTOR
+
+    elif prompt_style == "motif-priority": # <<< NEW SECTION
+        baseline = MP_CONFIDENCE_BASELINE
+        direct_match_boost = MP_DIRECT_MATCH_BOOST
+        direct_reliable_match_extra = MP_DIRECT_RELIABLE_MATCH_EXTRA
+        direct_mismatch_penalty = MP_DIRECT_MISMATCH_PENALTY
+        direct_reliable_mismatch_extra = MP_DIRECT_RELIABLE_MISMATCH_EXTRA
+        direct_missing_penalty = MP_DIRECT_MISSING_PENALTY
+        direct_absence_boost = MP_DIRECT_ABSENCE_BOOST
+
+        indirect_match_boost = MP_INDIRECT_MATCH_BOOST
+        indirect_mismatch_penalty = MP_INDIRECT_MISMATCH_PENALTY
+        indirect_missing_penalty = MP_INDIRECT_MISSING_PENALTY
+        indirect_absence_boost = MP_INDIRECT_ABSENCE_BOOST
+
+        transformer_match_boost = MP_TRANSFORMER_MATCH_BOOST
+        transformer_confident_extra = MP_TRANSFORMER_CONFIDENT_EXTRA
+        transformer_mismatch_penalty = MP_TRANSFORMER_MISMATCH_PENALTY
+        transformer_confident_mismatch_extra = MP_TRANSFORMER_CONFIDENT_MISMATCH_EXTRA
+        transformer_novelty_factor = MP_TRANSFORMER_NOVELTY_FACTOR
+
+        # Motif Quality Parameters
+        num_hits_bonus_max = MP_NUM_HITS_BONUS_MAX
+        num_hits_scale_factor = MP_NUM_HITS_SCALE_FACTOR
+        max_hits_for_bonus_cap = MP_MAX_HITS_FOR_BONUS_CAP
+        low_pvalue_threshold = MP_LOW_PVALUE_THRESHOLD
+        low_pvalue_bonus = MP_LOW_PVALUE_BONUS
+
+    else: # Default to original parameters (verbose or concise if not transformer-priority)
+        baseline = CONFIDENCE_BASELINE
+        direct_match_boost = DIRECT_MATCH_BOOST
+        # ... (all other original parameters as before) ...
+        transformer_novelty_factor = TRANSFORMER_NOVELTY_FACTOR
+
+    scan_fail_factor = SCAN_FAIL_FACTOR # Generic
+    transformer_confident_high = TRANSFORMER_CONFIDENT_HIGH # Generic
+    transformer_confident_low = TRANSFORMER_CONFIDENT_LOW   # Generic
+
+    confidence = baseline
+    adjustments = []
 
     # --- 1. Direct Motif Evidence ---
     direct_summary = state.get('direct_motif_analysis_summary') or {}
@@ -747,35 +863,47 @@ def calculate_confidence_score(state: AgentState) -> float:
     direct_reliability = direct_summary.get('motif_reliability_source_category', 'Unknown')
     direct_scan_ok = not direct_summary.get('scan_status', 'unknown').startswith('error')
     direct_fetch_ok = not (state.get('direct_motif_fetch_results') or {}).get('status', 'unknown').startswith('error')
-    is_reliable_direct = "High" in direct_reliability # Simple check for high reliability categories
+    is_reliable_direct = "High" in direct_reliability
+    direct_num_hits = direct_summary.get('number_of_hits', 0)
+    direct_best_pvalue = direct_summary.get('lowest_hit_pvalue') # Can be None
 
-    direct_mod = SCAN_FAIL_FACTOR if not direct_scan_ok else 1.0 # Reduce impact if scan failed
+    direct_mod = scan_fail_factor if not direct_scan_ok else 1.0
 
-    if direct_fetch_ok: # Only consider direct evidence if fetch didn't error
+    if direct_fetch_ok:
         if llm_vote == 1:
             if direct_found:
-                adj = DIRECT_MATCH_BOOST * direct_mod
+                adj = direct_match_boost * direct_mod
                 adjustments.append(f"Direct Hit Match: +{adj:.2f}")
                 confidence += adj
                 if is_reliable_direct:
-                    adj_extra = DIRECT_RELIABLE_MATCH_EXTRA * direct_mod
+                    adj_extra = direct_reliable_match_extra * direct_mod
                     adjustments.append(f"  Reliable: +{adj_extra:.2f}")
                     confidence += adj_extra
-            else: # Vote 1, but no hit found
-                adj = DIRECT_MISSING_PENALTY * direct_mod
+                
+                # Motif Quality Bonus (for motif-priority or if params are set)
+                if num_hits_scale_factor > 0 and direct_num_hits > 0:
+                    hits_bonus = min(num_hits_bonus_max, num_hits_scale_factor * min(direct_num_hits, max_hits_for_bonus_cap)) * direct_mod
+                    adjustments.append(f"  Direct Num Hits Bonus ({direct_num_hits} hits): +{hits_bonus:.2f}")
+                    confidence += hits_bonus
+                if low_pvalue_bonus > 0 and direct_best_pvalue is not None and direct_best_pvalue < low_pvalue_threshold:
+                    pval_b = low_pvalue_bonus * direct_mod
+                    adjustments.append(f"  Direct Low PVal Bonus ({direct_best_pvalue:.1e}): +{pval_b:.2f}")
+                    confidence += pval_b
+            else: # Vote=1, no direct hit
+                adj = direct_missing_penalty * direct_mod
                 adjustments.append(f"Direct Hit Missing (Vote=1): {adj:.2f}")
                 confidence += adj
         elif llm_vote == 0:
-            if direct_found: # Vote 0, but hit found (contradiction)
-                adj = DIRECT_MISMATCH_PENALTY * direct_mod
+            if direct_found:
+                adj = direct_mismatch_penalty * direct_mod
                 adjustments.append(f"Direct Hit Mismatch (Vote=0): {adj:.2f}")
                 confidence += adj
                 if is_reliable_direct:
-                    adj_extra = DIRECT_RELIABLE_MISMATCH_EXTRA * direct_mod
-                    adjustments.append(f"  Reliable: {adj_extra:.2f}")
+                    adj_extra = direct_reliable_mismatch_extra * direct_mod
+                    adjustments.append(f"  Reliable Mismatch: {adj_extra:.2f}")
                     confidence += adj_extra
-            else: # Vote 0, no hit found (consistent absence)
-                adj = DIRECT_ABSENCE_BOOST * direct_mod
+            else: # Vote=0, no direct hit
+                adj = direct_absence_boost * direct_mod
                 adjustments.append(f"Direct Hit Absence (Vote=0): +{adj:.2f}")
                 confidence += adj
     else: adjustments.append("Direct Motif Fetch Failed: No Adjustment")
@@ -787,63 +915,73 @@ def calculate_confidence_score(state: AgentState) -> float:
     if indirect_performed:
         indirect_found = indirect_summary.get('any_indirect_motif_found', False)
         indirect_scan_ok = not indirect_summary.get('scan_status', 'unknown').startswith('error')
-        indirect_mod = SCAN_FAIL_FACTOR if not indirect_scan_ok else 1.0
+        indirect_mod = scan_fail_factor if not indirect_scan_ok else 1.0
+        indirect_num_hits = len(indirect_summary.get('interacting_tf_hits', []))
+        indirect_best_hit = indirect_summary.get('best_interacting_tf_hit') # Dict or None
+        indirect_best_pvalue = indirect_best_hit.get('pvalue') if indirect_best_hit else None
+
 
         if llm_vote == 1:
             if indirect_found:
-                adj = INDIRECT_MATCH_BOOST * indirect_mod
+                adj = indirect_match_boost * indirect_mod
                 adjustments.append(f"Indirect Hit Match: +{adj:.2f}")
                 confidence += adj
-            else:
-                adj = INDIRECT_MISSING_PENALTY * indirect_mod
+                # Motif Quality Bonus (for motif-priority or if params are set)
+                if num_hits_scale_factor > 0 and indirect_num_hits > 0:
+                    hits_bonus = min(num_hits_bonus_max, num_hits_scale_factor * min(indirect_num_hits, max_hits_for_bonus_cap)) * indirect_mod # Using same scale factor for simplicity, can be different
+                    adjustments.append(f"  Indirect Num Hits Bonus ({indirect_num_hits} hits): +{hits_bonus:.2f}")
+                    confidence += hits_bonus
+                if low_pvalue_bonus > 0 and indirect_best_pvalue is not None and indirect_best_pvalue < low_pvalue_threshold:
+                    pval_b = low_pvalue_bonus * indirect_mod
+                    adjustments.append(f"  Indirect Low PVal Bonus ({indirect_best_pvalue:.1e}): +{pval_b:.2f}")
+                    confidence += pval_b
+            else: # Vote=1, no indirect hit
+                adj = indirect_missing_penalty * indirect_mod
                 adjustments.append(f"Indirect Hit Missing (Vote=1): {adj:.2f}")
                 confidence += adj
         elif llm_vote == 0:
             if indirect_found:
-                adj = INDIRECT_MISMATCH_PENALTY * indirect_mod
+                adj = indirect_mismatch_penalty * indirect_mod
                 adjustments.append(f"Indirect Hit Mismatch (Vote=0): {adj:.2f}")
                 confidence += adj
-            else:
-                adj = INDIRECT_ABSENCE_BOOST * indirect_mod
+            else: # Vote=0, no indirect hit
+                adj = indirect_absence_boost * indirect_mod
                 adjustments.append(f"Indirect Hit Absence (Vote=0): +{adj:.2f}")
                 confidence += adj
     else: adjustments.append("Indirect Search Skipped: No Adjustment")
 
 
     # --- 3. Transformer Evidence ---
+    # (This part remains largely the same, the difference is in the *magnitude* of boosts/penalties determined by prompt_style)
     trans_prob = state.get('transformer_prob')
-    is_known = state.get('is_known_protein', False) # Default to False if missing
+    is_known = state.get('is_known_protein', False)
 
     if trans_prob is not None:
         transformer_vote = 1 if trans_prob > 0.5 else 0
-        transformer_conf = abs(trans_prob - 0.5) * 2 # 0 (uncertain) to 1 (confident)
-        is_transformer_confident = transformer_conf > TRANSFORMER_CONFIDENT_HIGH or transformer_conf < TRANSFORMER_CONFIDENT_LOW # Threshold for "confident"
-
-        # Reduce impact if protein is novel
-        novelty_mod = TRANSFORMER_NOVELTY_FACTOR if not is_known else 1.0
+        is_transformer_pred_confident_for_bonus = (trans_prob > transformer_confident_high or trans_prob < transformer_confident_low)
+        novelty_mod = transformer_novelty_factor if not is_known else 1.0
 
         if llm_vote == transformer_vote:
-            adj = TRANSFORMER_MATCH_BOOST * novelty_mod
-            adjustments.append(f"Transformer Match: +{adj:.2f}{'' if is_known else ' (Novel)'}")
+            adj = transformer_match_boost * novelty_mod
+            adjustments.append(f"Transformer Match: +{adj:.2f}{'' if is_known else f' (Novel *{transformer_novelty_factor:.1f})'}")
             confidence += adj
-            if is_transformer_confident:
-                adj_extra = TRANSFORMER_CONFIDENT_EXTRA * novelty_mod
-                adjustments.append(f"  Confident: +{adj_extra:.2f}")
+            if is_transformer_pred_confident_for_bonus:
+                adj_extra = transformer_confident_extra * novelty_mod
+                adjustments.append(f"  Transformer Confident Bonus: +{adj_extra:.2f}")
                 confidence += adj_extra
-        else: # Contradiction
-            adj = TRANSFORMER_MISMATCH_PENALTY * novelty_mod
-            adjustments.append(f"Transformer Mismatch: {adj:.2f}{'' if is_known else ' (Novel)'}")
+        else: # LLM vote contradicts transformer_vote
+            adj = transformer_mismatch_penalty * novelty_mod
+            adjustments.append(f"Transformer Mismatch: {adj:.2f}{'' if is_known else f' (Novel *{transformer_novelty_factor:.1f})'}")
             confidence += adj
-            if is_transformer_confident:
-                adj_extra = TRANSFORMER_CONFIDENT_MISMATCH_EXTRA * novelty_mod
-                adjustments.append(f"  Confident: {adj_extra:.2f}")
+            if is_transformer_pred_confident_for_bonus:
+                adj_extra = transformer_confident_mismatch_extra * novelty_mod
+                adjustments.append(f"  Transformer Confident Mismatch Penalty: {adj_extra:.2f}")
                 confidence += adj_extra
     else: adjustments.append("Transformer Prob Missing: No Adjustment")
 
-    # Clamp the confidence score between 0.0 and 1.0
     final_confidence = max(0.0, min(1.0, confidence))
 
-    print(f"  Baseline: {CONFIDENCE_BASELINE:.2f}")
+    print(f"  Baseline: {baseline:.2f}")
     for adj_str in adjustments: print(f"  {adj_str}")
     print(f"  => Final Confidence: {final_confidence:.3f}")
 
@@ -851,7 +989,6 @@ def calculate_confidence_score(state: AgentState) -> float:
 
 
 # --- Graph Nodes ---
-# ... (start_analysis now initializes ground_truth_label) ...
 def start_analysis(state: AgentState) -> AgentState: # Modified
     print("\n--- Starting Analysis ---"); print(f" Protein: {state['protein_name']}"); print(f" DNA Seq Length: {len(state['dna_sequence'])}")
     print(f"  Ground Truth Received: {state.get('ground_truth_label', 'MISSING')}") # Check input dict
@@ -957,132 +1094,6 @@ def get_transformer_pred_node(state: AgentState, transformer_model, pro_embs_dic
         print(f"  Transformer Prob: {prob:.4f}, Known Protein (in Training Set): {is_known}"); return {**state, "transformer_prob": prob, "is_known_protein": is_known}
     except Exception as e: print(f"  Critical Error in get_transformer_pred_node: {e}"); traceback.print_exc(); return {**state, "error": f"Transformer Node Error: {e}"}
 
-def generate_verbose_llm_prompt(state: AgentState) -> str:
-    """Generates the detailed, original-style LLM prompt."""
-    protein_name = state.get('protein_name', 'N/A'); dna_sequence = state.get('dna_sequence', ''); direct_summary = state.get("direct_motif_analysis_summary") or {}; indirect_summary = state.get("indirect_motif_analysis_summary") or {}; trans_prob = state.get("transformer_prob"); is_known = state.get("is_known_protein", False);
-
-    # --- Format dna info ---
-    dna_len = len(dna_sequence); 
-    max_dna_len_full_display=1024; 
-    disp_dna = dna_sequence if dna_len <= max_dna_len_full_display else f"{dna_sequence[:60]}...{dna_sequence[-60:]}"; 
-    dna_info = f"(Length: {dna_len})";
-    
-    # --- Format motif evidence ---
-    direct_motif_info = direct_summary.get('protein_motif_info', {}); 
-    direct_motif_status = direct_motif_info.get('status', 'unknown'); 
-    direct_reliability_str = direct_summary.get('motif_reliability_source_category', 'Unknown'); 
-    direct_motif_found_dna = direct_summary.get('motif_found_in_dna', False); 
-    direct_hits = direct_summary.get('significant_hits', []); 
-    p_thresh = direct_summary.get('p_value_threshold', DEFAULT_P_VALUE_THRESHOLD); 
-    p_thresh_print = f"{p_thresh:.1e}" if isinstance(p_thresh, float) else 'N/A'; 
-    direct_motif_info_str = f"Status: {direct_motif_status}. Reliability: {direct_reliability_str}.";
-    
-    if direct_motif_status.startswith('success'): 
-        num_direct = direct_motif_info.get('num_direct_selected', 0); 
-        num_inferred = direct_motif_info.get('num_inferred_selected', 0); 
-        num_selected = direct_motif_info.get('num_selected', 0); 
-        num_total = direct_motif_info.get('num_total_found', 0); 
-        filtering_applied = direct_motif_info.get('filtering_applied', False); 
-        filter_msg = f"(Top {num_selected} selected from {num_total})" if filtering_applied else f"({num_selected} total)"; 
-        direct_motif_info_str += f" Found {num_direct} Direct, {num_inferred} Inferred motifs {filter_msg}."; 
-        direct_motif_detail_list = [m for _, m in direct_motif_info.get('motifs_metadata', [])]; 
-        max_direct_motifs_to_list = 3; 
-        listed_motifs = 0;
-        for m in direct_motif_detail_list:
-            if listed_motifs < max_direct_motifs_to_list: 
-                direct_motif_info_str += f" | {m.get('Motif_ID', '?')} ({m.get('TF_Status', '?')}/{m.get('MSource_Identifier','?')})"; 
-                listed_motifs += 1
-            else: 
-                direct_motif_info_str += f" | ..."; 
-                break
-    elif direct_motif_status.startswith('error'):
-        direct_motif_info_str += f" (Error during fetch: {direct_motif_status})"
-    
-    direct_scan_info_list = []; max_direct_scan_hits_to_list = 2; scan_status = direct_summary.get('scan_status', 'unknown');
-    if scan_status.startswith('error'): direct_scan_info_list.append(f"  Scan Error: {scan_status} ({direct_summary.get('scan_message', 'No details')})")
-    elif direct_hits:
-            direct_scan_info_list.append(f"  Hits in DNA (p<={p_thresh_print}, Top {min(len(direct_hits), max_direct_scan_hits_to_list)} by p-value):");
-            for i, h in enumerate(direct_hits):
-                if i < max_direct_scan_hits_to_list: hit_info = f"Mot:{h.get('motif_id','?')} @Pos:{h.get('position','?')}({h.get('strand','?')}) Score:{h.get('score',float('nan')):.2f} p:{h.get('pvalue', float('nan')):.2e}"; direct_scan_info_list.append(f"    - {hit_info}")
-            if len(direct_hits) > max_direct_scan_hits_to_list: direct_scan_info_list.append("    ...")
-    else: direct_scan_info_list.append(f"  No significant direct motif hits found (p <= {p_thresh_print}). Scan status: {scan_status}"); 
-    direct_scan_info_str = "\n".join(direct_scan_info_list);
-    indirect_info_list = []; indirect_scan_hits_list = []; max_indirect_interactors_to_list = 5; max_indirect_scan_hits_to_list = 3; indirect_search_performed = indirect_summary.get("search_performed", False); indirect_skipped_reason = indirect_summary.get("skipped_reason"); any_indirect_motif_found = indirect_summary.get("any_indirect_motif_found", False);
-    if not indirect_search_performed and indirect_skipped_reason: indirect_info_list.append(f"  Indirect search skipped: {indirect_skipped_reason}")
-    elif not indirect_search_performed: indirect_info_list.append("  Indirect search was not performed.")
-    else:
-        string_interactors_count = len(indirect_summary.get("interactors_found_string", [])); tf_interactors = indirect_summary.get("interactors_tf_cisbp", []); tfs_analyzed = indirect_summary.get("interactors_tf_analyzed", []); indirect_hits = indirect_summary.get("interacting_tf_hits", []); indirect_scan_status = indirect_summary.get('scan_status', 'unknown');
-        indirect_info_list.append(f"  STRING DB Search: Found {string_interactors_count} interactors (Score > {STRING_MIN_INTERACTION_SCORE}).");
-        if not tf_interactors: indirect_info_list.append("    - None of these interactors are known TFs in our CisBP database.")
-        else:
-                indirect_info_list.append(f"    - {len(tf_interactors)} interactors are known TFs. Analyzed top {len(tfs_analyzed)}:"); listed_tfs = 0;
-                for tf_i in tfs_analyzed:
-                    if listed_tfs < max_indirect_interactors_to_list: indirect_info_list.append(f"      - {tf_i.get('name','?')} (STRING Score: {tf_i.get('score','?')})"); listed_tfs += 1
-                if len(tfs_analyzed) > max_indirect_interactors_to_list: indirect_info_list.append(f"      ...")
-        if indirect_scan_status.startswith('error'): indirect_scan_hits_list.append(f"  Scan Error for Indirect Motifs: {indirect_scan_status} ({indirect_summary.get('scan_message', 'No details')})")
-        elif indirect_hits:
-                indirect_scan_hits_list.append(f"  Hits in DNA from Interacting TFs (p<={p_thresh_print}, Top {min(len(indirect_hits), max_indirect_scan_hits_to_list)} by p-value):");
-                for i, h in enumerate(indirect_hits):
-                    if i < max_indirect_scan_hits_to_list: hit_info = f"TF:{h.get('interacting_tf','?')} (Mot:{h.get('motif_id','?')}) @Pos:{h.get('position','?')}({h.get('strand','?')}) Score:{h.get('score',float('nan')):.2f} p:{h.get('pvalue', float('nan')):.2e}"; indirect_scan_hits_list.append(f"    - {hit_info}")
-                if len(indirect_hits) > max_indirect_scan_hits_to_list: indirect_scan_hits_list.append("    ...")
-        elif tf_interactors: indirect_scan_hits_list.append(f"  No significant indirect motif hits found (p <= {p_thresh_print}) for analyzed interacting TFs. Scan status: {indirect_scan_status}");
-    indirect_info_str = "\n".join(indirect_info_list); indirect_scan_info_str = "\n".join(indirect_scan_hits_list);
-    
-    # --- Format Transformer Evidence ---
-    trans_prob_str = f"{trans_prob:.4f}" if trans_prob is not None else 'N/A (Prediction Failed or Skipped)'; protein_status_str = "Known (Present in Transformer Training Set)" if is_known else "Novel (Absent from Transformer Training Set)"; transformer_confidence_str = "Unknown";
-    if trans_prob is not None:
-            if trans_prob < 0.1 or trans_prob > 0.9: transformer_confidence_str = "High"
-            elif 0.4 <= trans_prob <= 0.6: transformer_confidence_str = "Low (Uncertain)"
-            else: transformer_confidence_str = "Moderate";
-    transformer_explanation = f"""  - Model Info: Trained on ~1500 ChIP-seq datasets (~800 TFs). Generally high accuracy on known TFs, potentially less certain on novel ones.""";
-    
-    # --- Construct the verbose prompt ---
-    prompt = f"""Analyze the potential interaction between the DNA sequence and the Protein '{protein_name}' ({TARGET_SPECIES}). Your goal is to predict if an interaction occurs (1) or not (0), based *only* on the evidence provided below.
-
-### Input Data:
-Protein: {protein_name}
-DNA {dna_info}: {disp_dna}
-
-### Evidence Summary:
-- Protein Novelty (vs Transformer Training): {protein_status_str}
-- Transformer Prediction Probability: {trans_prob_str} (Confidence: {transformer_confidence_str})
-- Direct Motif Evidence (Protein's own motifs):
-    - Protein has known motifs? {'Yes' if direct_motif_status.startswith('success') else 'No/Error'} (Reliability: {direct_reliability_str})
-    - Direct motifs found in this DNA sequence? {direct_motif_found_dna}
-- Indirect Motif Evidence (via Protein-Protein Interaction):
-    - Indirect Search Performed? {indirect_search_performed} {f' (Skipped: {indirect_skipped_reason})' if indirect_skipped_reason else ''}
-    - Interacting TFs analyzed? {len(indirect_summary.get("interactors_tf_analyzed", []))}
-    - Motifs of analyzed interacting TFs found in this DNA? {any_indirect_motif_found}
-
-### Supporting Information Details:
-1. Direct Motif Analysis (Protein: {protein_name}):
-    - CisBP Search Result: {direct_motif_info_str}
-    - DNA Scan Results for Direct Motifs:
-{direct_scan_info_str}
-
-2. Indirect Motif Analysis (via {protein_name}'s interactors):
-{indirect_info_str}
-    - DNA Scan Results for Interacting TF Motifs:
-{indirect_scan_info_str}
-
-3. Transformer Model Prediction Details:
-    - Probability: {trans_prob_str}
-    - Protein Status (vs Training Set): {protein_status_str}
-{transformer_explanation}
-
-### Analysis Task:
-Please perform a step-by-step analysis based *strictly* on the provided evidence:
-1.  **Direct Evidence:** Evaluate the direct motif evidence. Does the protein have known binding motifs? Are they reliable? Were any significant hits found in the DNA sequence? Assess the strength of this evidence (strong, moderate, weak, none, or error).
-2.  **Indirect Evidence:** Evaluate the indirect motif evidence. Was the search performed? Did the protein interact with known TFs? Were any motifs belonging to these interacting TFs found in the DNA sequence? Assess the strength of this evidence, considering it's less direct than the protein's own motifs.
-3.  **Transformer Evidence:** Evaluate the Transformer prediction. What is the probability score? How confident does the model seem (High/Moderate/Low)? Does the protein's novelty affect your trust in this prediction?
-4.  **Synthesis:** Synthesize all evidence streams. Do they agree or conflict? Which evidence seems most compelling or decisive in this specific case? For example, is strong direct evidence sufficient? Is indirect evidence relevant if direct evidence is missing or weak? How does the transformer prediction align?
-5.  **Conclusion:** State your final prediction (0 for no interaction, 1 for interaction) based on your synthesis.
-
-### MANDATORY Output Format:
-Explanation: [Your detailed step-by-step reasoning following points 1-5 above]
-The interaction label is: [0 or 1]"""
-
-    return prompt
 
 def generate_concise_llm_prompt(state: AgentState) -> str:
     """Generates the concise LLM prompt matching the fine-tuning format."""
@@ -1162,118 +1173,234 @@ Generate a step-by-step reasoning process within <think> tags, synthesizing the 
 """
     return prompt
 
-def generate_transformer_priority_llm_prompt(state: AgentState) -> str:
-    """Generates the detailed, original-style LLM prompt."""
-    protein_name = state.get('protein_name', 'N/A'); dna_sequence = state.get('dna_sequence', ''); direct_summary = state.get("direct_motif_analysis_summary") or {}; indirect_summary = state.get("indirect_motif_analysis_summary") or {}; trans_prob = state.get("transformer_prob"); is_known = state.get("is_known_protein", False);
+def _format_common_evidence_for_prompt(state: AgentState) -> Dict[str, str]:
+    """
+    Helper function to format common evidence pieces used in various LLM prompts.
+    Returns a dictionary of formatted strings.
+    """
+    protein_name = state.get('protein_name', 'N/A')
+    dna_sequence = state.get('dna_sequence', '')
+    direct_summary = state.get("direct_motif_analysis_summary") or {}
+    indirect_summary = state.get("indirect_motif_analysis_summary") or {}
+    trans_prob = state.get("transformer_prob")
+    is_known = state.get("is_known_protein", False)
 
-    # --- Format dna info ---
-    dna_len = len(dna_sequence); 
-    max_dna_len_full_display=1024; 
-    disp_dna = dna_sequence if dna_len <= max_dna_len_full_display else f"{dna_sequence[:60]}...{dna_sequence[-60:]}"; 
-    dna_info = f"(Length: {dna_len})";
+    evidence_parts = {}
+
+    # --- Format DNA info ---
+    dna_len = len(dna_sequence)
+    max_dna_len_full_display = 1024
+    disp_dna = dna_sequence if dna_len <= max_dna_len_full_display else f"{dna_sequence[:60]}...{dna_sequence[-60:]}"
+    evidence_parts['disp_dna_str'] = disp_dna
+    evidence_parts['dna_info_str'] = f"(Length: {dna_len})"
+
+    # --- Format Direct Motif Evidence ---
+    direct_motif_info_summary = direct_summary.get('protein_motif_info', {}) # Renamed to avoid conflict
+    direct_motif_status = direct_motif_info_summary.get('status', 'unknown')
+    evidence_parts['direct_protein_has_motifs_str'] = 'Yes' if direct_motif_status.startswith('success') else 'No/Error'
+    evidence_parts['direct_reliability_str'] = direct_summary.get('motif_reliability_source_category', 'Unknown')
+    evidence_parts['direct_motif_found_dna_str'] = str(direct_summary.get('motif_found_in_dna', False)) # As string "True"/"False"
     
-    # --- Format motif evidence ---
-    direct_motif_info = direct_summary.get('protein_motif_info', {}); 
-    direct_motif_status = direct_motif_info.get('status', 'unknown'); 
-    direct_reliability_str = direct_summary.get('motif_reliability_source_category', 'Unknown'); 
-    direct_motif_found_dna = direct_summary.get('motif_found_in_dna', False); 
-    direct_hits = direct_summary.get('significant_hits', []); 
-    p_thresh = direct_summary.get('p_value_threshold', DEFAULT_P_VALUE_THRESHOLD); 
-    p_thresh_print = f"{p_thresh:.1e}" if isinstance(p_thresh, float) else 'N/A'; 
-    direct_motif_info_str = f"Status: {direct_motif_status}. Reliability: {direct_reliability_str}.";
-    
-    if direct_motif_status.startswith('success'): 
-        num_direct = direct_motif_info.get('num_direct_selected', 0); 
-        num_inferred = direct_motif_info.get('num_inferred_selected', 0); 
-        num_selected = direct_motif_info.get('num_selected', 0); 
-        num_total = direct_motif_info.get('num_total_found', 0); 
-        filtering_applied = direct_motif_info.get('filtering_applied', False); 
-        filter_msg = f"(Top {num_selected} selected from {num_total})" if filtering_applied else f"({num_selected} total)"; 
-        direct_motif_info_str += f" Found {num_direct} Direct, {num_inferred} Inferred motifs {filter_msg}."; 
-        direct_motif_detail_list = [m for _, m in direct_motif_info.get('motifs_metadata', [])]; 
-        max_direct_motifs_to_list = 3; 
-        listed_motifs = 0;
-        for m in direct_motif_detail_list:
-            if listed_motifs < max_direct_motifs_to_list: 
-                direct_motif_info_str += f" | {m.get('Motif_ID', '?')} ({m.get('TF_Status', '?')}/{m.get('MSource_Identifier','?')})"; 
+    direct_hits = direct_summary.get('significant_hits', [])
+    p_thresh = direct_summary.get('p_value_threshold', DEFAULT_P_VALUE_THRESHOLD)
+    p_thresh_print = f"{p_thresh:.1e}" if isinstance(p_thresh, float) else 'N/A'
+
+    # Direct Motif - CisBP Search Details
+    direct_cisbp_search_details_list = [f"Status: {direct_motif_status}. Reliability: {evidence_parts['direct_reliability_str']}."]
+    if direct_motif_status.startswith('success'):
+        num_direct = direct_motif_info_summary.get('num_direct_selected', 0)
+        num_inferred = direct_motif_info_summary.get('num_inferred_selected', 0)
+        num_selected = direct_motif_info_summary.get('num_selected', 0)
+        num_total = direct_motif_info_summary.get('num_total_found', 0)
+        filtering_applied = direct_motif_info_summary.get('filtering_applied', False)
+        filter_msg = f"(Top {num_selected} selected from {num_total})" if filtering_applied else f"({num_selected} total)"
+        direct_cisbp_search_details_list.append(f" Found {num_direct} Direct, {num_inferred} Inferred motifs {filter_msg}.")
+        direct_motif_detail_list_meta = [m for _, m in direct_motif_info_summary.get('motifs_metadata', [])] # Renamed
+        max_direct_motifs_to_list = 3
+        listed_motifs = 0
+        for m_meta in direct_motif_detail_list_meta: # Renamed
+            if listed_motifs < max_direct_motifs_to_list:
+                direct_cisbp_search_details_list.append(f" | {m_meta.get('Motif_ID', '?')} ({m_meta.get('TF_Status', '?')}/{m_meta.get('MSource_Identifier','?')})")
                 listed_motifs += 1
-            else: 
-                direct_motif_info_str += f" | ..."; 
+            else:
+                direct_cisbp_search_details_list.append(f" | ...")
                 break
     elif direct_motif_status.startswith('error'):
-        direct_motif_info_str += f" (Error during fetch: {direct_motif_status})"
-    
-    direct_scan_info_list = []; max_direct_scan_hits_to_list = 2; scan_status = direct_summary.get('scan_status', 'unknown');
-    if scan_status.startswith('error'): direct_scan_info_list.append(f"  Scan Error: {scan_status} ({direct_summary.get('scan_message', 'No details')})")
+        direct_cisbp_search_details_list.append(f" (Error during fetch: {direct_motif_status})")
+    evidence_parts['direct_motif_cisbp_search_details_str'] = "".join(direct_cisbp_search_details_list)
+
+    # Direct Motif - DNA Scan Details
+    direct_scan_info_list = []
+    max_direct_scan_hits_to_list = 2
+    direct_scan_status = direct_summary.get('scan_status', 'unknown') # Renamed
+    if direct_scan_status.startswith('error'):
+        direct_scan_info_list.append(f"  Scan Error: {direct_scan_status} ({direct_summary.get('scan_message', 'No details')})")
     elif direct_hits:
-            direct_scan_info_list.append(f"  Hits in DNA (p<={p_thresh_print}, Top {min(len(direct_hits), max_direct_scan_hits_to_list)} by p-value):");
-            for i, h in enumerate(direct_hits):
-                if i < max_direct_scan_hits_to_list: hit_info = f"Mot:{h.get('motif_id','?')} @Pos:{h.get('position','?')}({h.get('strand','?')}) Score:{h.get('score',float('nan')):.2f} p:{h.get('pvalue', float('nan')):.2e}"; direct_scan_info_list.append(f"    - {hit_info}")
-            if len(direct_hits) > max_direct_scan_hits_to_list: direct_scan_info_list.append("    ...")
-    else: direct_scan_info_list.append(f"  No significant direct motif hits found (p <= {p_thresh_print}). Scan status: {scan_status}"); 
-    direct_scan_info_str = "\n".join(direct_scan_info_list);
-    indirect_info_list = []; indirect_scan_hits_list = []; max_indirect_interactors_to_list = 5; max_indirect_scan_hits_to_list = 3; indirect_search_performed = indirect_summary.get("search_performed", False); indirect_skipped_reason = indirect_summary.get("skipped_reason"); any_indirect_motif_found = indirect_summary.get("any_indirect_motif_found", False);
-    if not indirect_search_performed and indirect_skipped_reason: indirect_info_list.append(f"  Indirect search skipped: {indirect_skipped_reason}")
-    elif not indirect_search_performed: indirect_info_list.append("  Indirect search was not performed.")
+        direct_scan_info_list.append(f"  Hits in DNA (p<={p_thresh_print}, Top {min(len(direct_hits), max_direct_scan_hits_to_list)} by p-value):")
+        for i, h in enumerate(direct_hits):
+            if i < max_direct_scan_hits_to_list:
+                hit_info = f"Mot:{h.get('motif_id','?')} @Pos:{h.get('position','?')}({h.get('strand','?')}) Score:{h.get('score',float('nan')):.2f} p:{h.get('pvalue', float('nan')):.2e}"
+                direct_scan_info_list.append(f"    - {hit_info}")
+        if len(direct_hits) > max_direct_scan_hits_to_list:
+            direct_scan_info_list.append("    ...")
     else:
-        string_interactors_count = len(indirect_summary.get("interactors_found_string", [])); tf_interactors = indirect_summary.get("interactors_tf_cisbp", []); tfs_analyzed = indirect_summary.get("interactors_tf_analyzed", []); indirect_hits = indirect_summary.get("interacting_tf_hits", []); indirect_scan_status = indirect_summary.get('scan_status', 'unknown');
-        indirect_info_list.append(f"  STRING DB Search: Found {string_interactors_count} interactors (Score > {STRING_MIN_INTERACTION_SCORE}).");
-        if not tf_interactors: indirect_info_list.append("    - None of these interactors are known TFs in our CisBP database.")
+        direct_scan_info_list.append(f"  No significant direct motif hits found (p <= {p_thresh_print}). Scan status: {direct_scan_status}")
+    evidence_parts['direct_motif_scan_details_str'] = "\n".join(direct_scan_info_list)
+
+    # --- Format Indirect Motif Evidence ---
+    indirect_search_performed = indirect_summary.get("search_performed", False)
+    evidence_parts['indirect_search_performed_str'] = str(indirect_search_performed)
+    evidence_parts['indirect_skipped_reason_str'] = indirect_summary.get("skipped_reason", "")
+    evidence_parts['indirect_tfs_analyzed_count_str'] = str(len(indirect_summary.get("interactors_tf_analyzed", [])))
+    evidence_parts['indirect_motifs_found_dna_str'] = str(indirect_summary.get("any_indirect_motif_found", False))
+
+    # Indirect Motif - Search Details (STRING + TF analysis)
+    indirect_info_list = []
+    if not indirect_search_performed and evidence_parts['indirect_skipped_reason_str']:
+        indirect_info_list.append(f"  Indirect search skipped: {evidence_parts['indirect_skipped_reason_str']}")
+    elif not indirect_search_performed:
+        indirect_info_list.append("  Indirect search was not performed.")
+    else:
+        string_interactors_count = len(indirect_summary.get("interactors_found_string", []))
+        tf_interactors = indirect_summary.get("interactors_tf_cisbp", [])
+        tfs_analyzed = indirect_summary.get("interactors_tf_analyzed", [])
+        
+        indirect_info_list.append(f"  STRING DB Search: Found {string_interactors_count} interactors (Score > {STRING_MIN_INTERACTION_SCORE}).")
+        if not tf_interactors:
+            indirect_info_list.append("    - None of these interactors are known TFs in our CisBP database.")
         else:
-                indirect_info_list.append(f"    - {len(tf_interactors)} interactors are known TFs. Analyzed top {len(tfs_analyzed)}:"); listed_tfs = 0;
-                for tf_i in tfs_analyzed:
-                    if listed_tfs < max_indirect_interactors_to_list: indirect_info_list.append(f"      - {tf_i.get('name','?')} (STRING Score: {tf_i.get('score','?')})"); listed_tfs += 1
-                if len(tfs_analyzed) > max_indirect_interactors_to_list: indirect_info_list.append(f"      ...")
-        if indirect_scan_status.startswith('error'): indirect_scan_hits_list.append(f"  Scan Error for Indirect Motifs: {indirect_scan_status} ({indirect_summary.get('scan_message', 'No details')})")
-        elif indirect_hits:
-                indirect_scan_hits_list.append(f"  Hits in DNA from Interacting TFs (p<={p_thresh_print}, Top {min(len(indirect_hits), max_indirect_scan_hits_to_list)} by p-value):");
-                for i, h in enumerate(indirect_hits):
-                    if i < max_indirect_scan_hits_to_list: hit_info = f"TF:{h.get('interacting_tf','?')} (Mot:{h.get('motif_id','?')}) @Pos:{h.get('position','?')}({h.get('strand','?')}) Score:{h.get('score',float('nan')):.2f} p:{h.get('pvalue', float('nan')):.2e}"; indirect_scan_hits_list.append(f"    - {hit_info}")
-                if len(indirect_hits) > max_indirect_scan_hits_to_list: indirect_scan_hits_list.append("    ...")
-        elif tf_interactors: indirect_scan_hits_list.append(f"  No significant indirect motif hits found (p <= {p_thresh_print}) for analyzed interacting TFs. Scan status: {indirect_scan_status}");
-    indirect_info_str = "\n".join(indirect_info_list); indirect_scan_info_str = "\n".join(indirect_scan_hits_list);
-    
+            indirect_info_list.append(f"    - {len(tf_interactors)} interactors are known TFs. Analyzed top {len(tfs_analyzed)}:")
+            listed_tfs = 0
+            max_indirect_interactors_to_list = 5
+            for tf_i in tfs_analyzed:
+                if listed_tfs < max_indirect_interactors_to_list:
+                    indirect_info_list.append(f"      - {tf_i.get('name','?')} (STRING Score: {tf_i.get('score','?')})")
+                    listed_tfs += 1
+            if len(tfs_analyzed) > max_indirect_interactors_to_list:
+                indirect_info_list.append(f"      ...")
+    evidence_parts['indirect_motif_search_details_str'] = "\n".join(indirect_info_list)
+
+    # Indirect Motif - DNA Scan Details
+    indirect_scan_hits_list = []
+    if indirect_search_performed: # Only show scan details if search was performed
+        indirect_hits_data = indirect_summary.get("interacting_tf_hits", []) # Renamed
+        indirect_scan_status_val = indirect_summary.get('scan_status', 'unknown') # Renamed
+        max_indirect_scan_hits_to_list = 3
+        if indirect_scan_status_val.startswith('error'):
+            indirect_scan_hits_list.append(f"  Scan Error for Indirect Motifs: {indirect_scan_status_val} ({indirect_summary.get('scan_message', 'No details')})")
+        elif indirect_hits_data:
+            indirect_scan_hits_list.append(f"  Hits in DNA from Interacting TFs (p<={p_thresh_print}, Top {min(len(indirect_hits_data), max_indirect_scan_hits_to_list)} by p-value):")
+            for i, h_indirect in enumerate(indirect_hits_data): # Renamed
+                if i < max_indirect_scan_hits_to_list:
+                    hit_info_indirect = f"TF:{h_indirect.get('interacting_tf','?')} (Mot:{h_indirect.get('motif_id','?')}) @Pos:{h_indirect.get('position','?')}({h_indirect.get('strand','?')}) Score:{h_indirect.get('score',float('nan')):.2f} p:{h_indirect.get('pvalue', float('nan')):.2e}"
+                    indirect_scan_hits_list.append(f"    - {hit_info_indirect}")
+            if len(indirect_hits_data) > max_indirect_scan_hits_to_list:
+                indirect_scan_hits_list.append("    ...")
+        elif indirect_summary.get("interactors_tf_cisbp"): # If TFs were found but no hits
+             indirect_scan_hits_list.append(f"  No significant indirect motif hits found (p <= {p_thresh_print}) for analyzed interacting TFs. Scan status: {indirect_scan_status_val}")
+        # else: if no TFs to analyze, this part is naturally empty.
+    evidence_parts['indirect_motif_scan_details_str'] = "\n".join(indirect_scan_hits_list) if indirect_scan_hits_list else "  (Indirect scan not applicable or no hits/errors to report based on prior steps)"
+
+
     # --- Format Transformer Evidence ---
-    trans_prob_str = f"{trans_prob:.4f}" if trans_prob is not None else 'N/A (Prediction Failed or Skipped)'; protein_status_str = "Known (Present in Transformer Training Set)" if is_known else "Novel (Absent from Transformer Training Set)"; transformer_confidence_str = "Unknown";
+    evidence_parts['transformer_prob_str'] = f"{trans_prob:.4f}" if trans_prob is not None else 'N/A (Prediction Failed or Skipped)'
+    evidence_parts['protein_status_str'] = "Known (Present in Transformer Training Set)" if is_known else "Novel (Absent from Transformer Training Set)"
+    transformer_confidence_str = "Unknown"
     if trans_prob is not None:
-            if trans_prob < 0.1 or trans_prob > 0.9: transformer_confidence_str = "High"
-            elif 0.4 <= trans_prob <= 0.6: transformer_confidence_str = "Low (Uncertain)"
-            else: transformer_confidence_str = "Moderate";
-    transformer_explanation = f"""  - Model Info: Trained on ~1500 ChIP-seq datasets (~800 TFs). Generally high accuracy on known TFs, potentially less certain on novel ones.""";
-    
-    # --- Construct the verbose prompt ---
+        if trans_prob < 0.1 or trans_prob > 0.9: transformer_confidence_str = "High"
+        elif 0.4 <= trans_prob <= 0.6: transformer_confidence_str = "Low (Uncertain)"
+        else: transformer_confidence_str = "Moderate"
+    evidence_parts['transformer_confidence_str'] = transformer_confidence_str
+    evidence_parts['transformer_explanation_str'] = f"""  - Model Info: Trained on ~1500 ChIP-seq datasets (~800 TFs). Generally high accuracy on known TFs, potentially less certain on novel ones."""
+
+    return evidence_parts
+
+def generate_verbose_llm_prompt(state: AgentState) -> str:
+    protein_name = state.get('protein_name', 'N/A')
+    evidence = _format_common_evidence_for_prompt(state) # Call the helper
+
     prompt = f"""Analyze the potential interaction between the DNA sequence and the Protein '{protein_name}' ({TARGET_SPECIES}). Your goal is to predict if an interaction occurs (1) or not (0), based *only* on the evidence provided below.
 
 ### Input Data:
 Protein: {protein_name}
-DNA {dna_info}: {disp_dna}
+DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
 
 ### Evidence Summary:
-- Protein Novelty (vs Transformer Training): {protein_status_str}
-- Transformer Prediction Probability: {trans_prob_str} (Confidence: {transformer_confidence_str})
+- Protein Novelty (vs Transformer Training): {evidence['protein_status_str']}
+- Transformer Prediction Probability: {evidence['transformer_prob_str']} (Confidence: {evidence['transformer_confidence_str']})
 - Direct Motif Evidence (Protein's own motifs):
-    - Protein has known motifs? {'Yes' if direct_motif_status.startswith('success') else 'No/Error'} (Reliability: {direct_reliability_str})
-    - Direct motifs found in this DNA sequence? {direct_motif_found_dna}
+    - Protein has known motifs? {evidence['direct_protein_has_motifs_str']} (Reliability: {evidence['direct_reliability_str']})
+    - Direct motifs found in this DNA sequence? {evidence['direct_motif_found_dna_str']}
 - Indirect Motif Evidence (via Protein-Protein Interaction):
-    - Indirect Search Performed? {indirect_search_performed} {f' (Skipped: {indirect_skipped_reason})' if indirect_skipped_reason else ''}
-    - Interacting TFs analyzed? {len(indirect_summary.get("interactors_tf_analyzed", []))}
-    - Motifs of analyzed interacting TFs found in this DNA? {any_indirect_motif_found}
+    - Indirect Search Performed? {evidence['indirect_search_performed_str']} {f"(Skipped: {evidence['indirect_skipped_reason_str']})" if evidence['indirect_skipped_reason_str'] and evidence['indirect_search_performed_str'] == 'False' else ''}
+    - Interacting TFs analyzed? {evidence['indirect_tfs_analyzed_count_str']}
+    - Motifs of analyzed interacting TFs found in this DNA? {evidence['indirect_motifs_found_dna_str']}
 
 ### Supporting Information Details:
 1. Direct Motif Analysis (Protein: {protein_name}):
-    - CisBP Search Result: {direct_motif_info_str}
+    - CisBP Search Result: {evidence['direct_motif_cisbp_search_details_str']}
     - DNA Scan Results for Direct Motifs:
-{direct_scan_info_str}
+{evidence['direct_motif_scan_details_str']}
 
 2. Indirect Motif Analysis (via {protein_name}'s interactors):
-{indirect_info_str}
+{evidence['indirect_motif_search_details_str']}
     - DNA Scan Results for Interacting TF Motifs:
-{indirect_scan_info_str}
+{evidence['indirect_motif_scan_details_str']}
 
 3. Transformer Model Prediction Details:
-    - Probability: {trans_prob_str}
-    - Protein Status (vs Training Set): {protein_status_str}
-{transformer_explanation}
+    - Probability: {evidence['transformer_prob_str']}
+    - Protein Status (vs Training Set): {evidence['protein_status_str']}
+{evidence['transformer_explanation_str']}
+
+### Analysis Task:
+Please perform a step-by-step analysis based *strictly* on the provided evidence:
+1.  **Direct Evidence:** Evaluate the direct motif evidence. Does the protein have known binding motifs? Are they reliable? Were any significant hits found in the DNA sequence? Assess the strength of this evidence (strong, moderate, weak, none, or error).
+2.  **Indirect Evidence:** Evaluate the indirect motif evidence. Was the search performed? Did the protein interact with known TFs? Were any motifs belonging to these interacting TFs found in the DNA sequence? Assess the strength of this evidence, considering it's less direct than the protein's own motifs.
+3.  **Transformer Evidence:** Evaluate the Transformer prediction. What is the probability score? How confident does the model seem (High/Moderate/Low)? Does the protein's novelty affect your trust in this prediction?
+4.  **Synthesis:** Synthesize all evidence streams. Do they agree or conflict? Which evidence seems most compelling or decisive in this specific case? For example, is strong direct evidence sufficient? Is indirect evidence relevant if direct evidence is missing or weak? How does the transformer prediction align?
+5.  **Conclusion:** State your final prediction (0 for no interaction, 1 for interaction) based on your synthesis.
+
+### MANDATORY Output Format:
+Explanation: [Your detailed step-by-step reasoning following points 1-5 above]
+The interaction label is: [0 or 1]"""
+    return prompt
+
+def generate_transformer_priority_llm_prompt(state: AgentState) -> str:
+    protein_name = state.get('protein_name', 'N/A')
+    evidence = _format_common_evidence_for_prompt(state)
+
+    prompt = f"""Analyze the potential interaction between the DNA sequence and the Protein '{protein_name}' ({TARGET_SPECIES}). Your goal is to predict if an interaction occurs (1) or not (0), based *only* on the evidence provided below.
+
+### Input Data:
+Protein: {protein_name}
+DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
+
+### Evidence Summary:
+- Protein Novelty (vs Transformer Training): {evidence['protein_status_str']}
+- Transformer Prediction Probability: {evidence['transformer_prob_str']} (Confidence: {evidence['transformer_confidence_str']})
+- Direct Motif Evidence (Protein's own motifs):
+    - Protein has known motifs? {evidence['direct_protein_has_motifs_str']} (Reliability: {evidence['direct_reliability_str']})
+    - Direct motifs found in this DNA sequence? {evidence['direct_motif_found_dna_str']}
+- Indirect Motif Evidence (via Protein-Protein Interaction):
+    - Indirect Search Performed? {evidence['indirect_search_performed_str']} {f"(Skipped: {evidence['indirect_skipped_reason_str']})" if evidence['indirect_skipped_reason_str'] and evidence['indirect_search_performed_str'] == 'False' else ''}
+    - Interacting TFs analyzed? {evidence['indirect_tfs_analyzed_count_str']}
+    - Motifs of analyzed interacting TFs found in this DNA? {evidence['indirect_motifs_found_dna_str']}
+
+### Supporting Information Details:
+1. Direct Motif Analysis (Protein: {protein_name}):
+    - CisBP Search Result: {evidence['direct_motif_cisbp_search_details_str']}
+    - DNA Scan Results for Direct Motifs:
+{evidence['direct_motif_scan_details_str']}
+
+2. Indirect Motif Analysis (via {protein_name}'s interactors):
+{evidence['indirect_motif_search_details_str']}
+    - DNA Scan Results for Interacting TF Motifs:
+{evidence['indirect_motif_scan_details_str']}
+
+3. Transformer Model Prediction Details:
+    - Probability: {evidence['transformer_prob_str']}
+    - Protein Status (vs Training Set): {evidence['protein_status_str']}
+{evidence['transformer_explanation_str']}
 
 ### Analysis Task:
 Please perform a step-by-step analysis based *strictly* on the provided evidence:
@@ -1286,7 +1413,56 @@ Please perform a step-by-step analysis based *strictly* on the provided evidence
 ### MANDATORY Output Format:
 Explanation: [Your detailed step-by-step reasoning following points 1-5 above, clearly showing the prioritized weighing]
 The interaction label is: [0 or 1]"""
+    return prompt
 
+def generate_motif_priority_llm_prompt(state: AgentState) -> str:
+    protein_name = state.get('protein_name', 'N/A')
+    evidence = _format_common_evidence_for_prompt(state)
+
+    prompt = f"""Analyze the potential interaction between the DNA sequence and the Protein '{protein_name}' ({TARGET_SPECIES}). Your goal is to predict if an interaction occurs (1) or not (0), based *only* on the evidence provided below.
+
+### Input Data:
+Protein: {protein_name}
+DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
+
+### Evidence Summary:
+- Protein Novelty (vs Transformer Training): {evidence['protein_status_str']}
+- Transformer Prediction Probability: {evidence['transformer_prob_str']} (Confidence: {evidence['transformer_confidence_str']})
+- Direct Motif Evidence (Protein's own motifs):
+    - Protein has known motifs? {evidence['direct_protein_has_motifs_str']} (Reliability: {evidence['direct_reliability_str']})
+    - Direct motifs found in this DNA sequence? {evidence['direct_motif_found_dna_str']}
+- Indirect Motif Evidence (via Protein-Protein Interaction):
+    - Indirect Search Performed? {evidence['indirect_search_performed_str']} {f"(Skipped: {evidence['indirect_skipped_reason_str']})" if evidence['indirect_skipped_reason_str'] and evidence['indirect_search_performed_str'] == 'False' else ''}
+    - Interacting TFs analyzed? {evidence['indirect_tfs_analyzed_count_str']}
+    - Motifs of analyzed interacting TFs found in this DNA? {evidence['indirect_motifs_found_dna_str']}
+
+### Supporting Information Details:
+1. Direct Motif Analysis (Protein: {protein_name}):
+    - CisBP Search Result: {evidence['direct_motif_cisbp_search_details_str']}
+    - DNA Scan Results for Direct Motifs:
+{evidence['direct_motif_scan_details_str']}
+
+2. Indirect Motif Analysis (via {protein_name}'s interactors):
+{evidence['indirect_motif_search_details_str']}
+    - DNA Scan Results for Interacting TF Motifs:
+{evidence['indirect_motif_scan_details_str']}
+
+3. Transformer Model Prediction Details:
+    - Probability: {evidence['transformer_prob_str']}
+    - Protein Status (vs Training Set): {evidence['protein_status_str']}
+{evidence['transformer_explanation_str']}
+
+### Analysis Task:
+Please perform a step-by-step analysis based *strictly* on the provided evidence:
+1.  **Direct Evidence:** Evaluate the direct motif evidence. Does the protein have known binding motifs? Are they reliable? Were any significant hits found in the DNA sequence? Consider the number of hits and their p-values/scores. Assess the strength of this evidence (strong, moderate, weak, none, or error).
+2.  **Indirect Evidence:** Evaluate the indirect motif evidence. Was the search performed? Did the protein interact with known TFs? Were any motifs of these interacting TFs found in the DNA? Consider hit quantity and quality. Assess the strength of this evidence.
+3.  **Transformer Evidence:** Evaluate the Transformer prediction. What is the probability? How confident is it? How does protein novelty affect trust?
+4.  **Synthesis (Prioritizing Motif Evidence):** Synthesize all evidence. **Crucially, give significant weight to direct and indirect motif evidence.** If the Transformer prediction conflicts with strong or clear motif evidence (e.g., multiple high-quality direct hits), the motif evidence should generally take precedence. If motif evidence is weak, absent, or ambiguous, the Transformer prediction can be more influential. Explicitly state how you are weighing the evidence based on this prioritization. Note any remaining conflicts.
+5.  **Conclusion:** Based on your prioritized synthesis, state your final prediction (0 or 1).
+
+### MANDATORY Output Format:
+Explanation: [Your detailed step-by-step reasoning following points 1-5 above, clearly showing the prioritized weighing]
+The interaction label is: [0 or 1]"""
     return prompt
  
 
@@ -1319,6 +1495,8 @@ def generate_llm_prompt_node(state: AgentState,
             prompt = generate_concise_llm_prompt(state)
         elif effective_prompt_style == "transformer-priority":
             prompt = generate_transformer_priority_llm_prompt(state)               
+        elif effective_prompt_style == "motif-priority":
+            prompt = generate_motif_priority_llm_prompt(state)               
         else:
             # Should not happen if argparse choices are set correctly
             raise ValueError(f"Invalid prompt style requested: {effective_prompt_style}")
@@ -1369,7 +1547,7 @@ def get_llm_pred_node(state: AgentState,
         # Store error message in explanation and empty raw text
         return {**state, "error": f"LLM Prediction Node Error: {e}", "llm_vote": None, "llm_explanation": f"Error during LLM call: {e}", "raw_llm_response": ""}
 
-def calculate_final_confidence_node(state: AgentState) -> AgentState:
+def calculate_final_confidence_node(state: AgentState, prompt_style: str) -> AgentState:
     """Node to calculate and store the final confidence score."""
     if state.get("error"):
         print("--- Skipping Confidence Calculation due to previous error ---")
@@ -1403,13 +1581,14 @@ def calculate_final_confidence_node(state: AgentState) -> AgentState:
             return {**state, "final_confidence": final_confidence, "llm_vote": original_llm_vote, "llm_explanation": updated_explanation}
         # --- End Garbage Check ---
 
-        confidence = calculate_confidence_score(state)
+        confidence = calculate_confidence_score(state, prompt_style)
         return {**state, "final_confidence": confidence}
     except Exception as e:
         print(f"  ERROR calculating confidence score: {e}", file=sys.stderr)
         traceback.print_exc()
         # Assign baseline confidence if calculation fails
-        return {**state, "final_confidence": CONFIDENCE_BASELINE, "error": f"Confidence Calculation Error: {e}"}
+        error_baseline = TP_CONFIDENCE_BASELINE if prompt_style == "transformer-priority" else CONFIDENCE_BASELINE
+        return {**state, "final_confidence": error_baseline, "error": f"Confidence Calculation Error: {e}"}
 
 def make_serializable(obj):
     """Recursively converts non-JSON serializable objects in dicts/lists."""
@@ -1515,7 +1694,7 @@ if __name__ == "__main__":
         help="Directory to save output JSON files. Default: ./dpi_agent_outputs"
     )
     parser.add_argument(
-        "--prompt-style", type=str, default="verbose", choices=["verbose", "concise", "transformer-priority"],
+        "--prompt-style", type=str, default="verbose", choices=["verbose", "concise", "transformer-priority", "motif-priority"],
         help="Style of prompt to generate for the LLM. 'concise' is required for the specific fine-tuned model."
     )
     parser.add_argument("--random-state", type=int, default=13, help="random state for randomization of the evaluation file.")
@@ -1546,34 +1725,26 @@ if __name__ == "__main__":
         DEVICE = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {DEVICE}")
 
-   # --- Load DNABERT Model & Tokenizer ---
-    print("--- Loading DNABERT Resources ---")
+    # --- Load DNABERT Model & Tokenizer ---
+    print("--- Loading DNABERT Resources for Embeddings ---") # Modified print
     dnabert_model = None
     dnabert_tokenizer = None
-    dnabert_config = None
-    if not os.path.exists(DNABERT_MODEL_DIR) or not os.path.exists(DNABERT_CONFIG_PATH) or not os.path.exists(DNABERT_VOCAB_PATH):
-        print(f"WARN: DNABERT paths not found. On-the-fly DNA embedding calculation will be unavailable.")
-        print(f"  Checked Model Dir: {DNABERT_MODEL_DIR}")
-        print(f"  Checked Config: {DNABERT_CONFIG_PATH}")
-        print(f"  Checked Vocab: {DNABERT_VOCAB_PATH}")
-    else:
-        try:
-            print(f"Loading DNABERT config from: {DNABERT_CONFIG_PATH}")
-            dnabert_config = BertConfig.from_pretrained(DNABERT_CONFIG_PATH)
-            print(f"Loading DNABERT tokenizer from: {DNABERT_VOCAB_PATH}")
-            dnabert_tokenizer = DNATokenizer.from_pretrained(DNABERT_VOCAB_PATH)
-            print(f"Loading DNABERT model from: {DNABERT_MODEL_DIR}")
-            dnabert_model = BertModel.from_pretrained(DNABERT_MODEL_DIR, config=dnabert_config)
-            dnabert_model.to(DEVICE) # Move DNABERT to the determined device
-            dnabert_model.eval()
-            print(f"DNABERT {DNABERT_KMER}-mer model loaded successfully to {DEVICE}.")
-        except Exception as e:
-            print(f"ERROR loading DNABERT model/tokenizer: {e}", file=sys.stderr)
-            traceback.print_exc()
-            # Set to None so the agent knows they aren't available
-            dnabert_model = None
-            dnabert_tokenizer = None
-            dnabert_config = None
+    try:
+        print(f"Loading DNABERT tokenizer from Hugging Face Hub: zhihan1996/DNA_bert_6")
+        dnabert_tokenizer = AutoTokenizer.from_pretrained("zhihan1996/DNA_bert_6", trust_remote_code=True)
+        
+        print(f"Loading DNABERT model (BertModel) from Hugging Face Hub: zhihan1996/DNA_bert_6")
+        dnabert_model = BertModel.from_pretrained("zhihan1996/DNA_bert_6", trust_remote_code=True) # Changed from local path + config
+        
+        dnabert_model.to(DEVICE) # Move DNABERT to the determined device
+        dnabert_model.eval()
+        print(f"DNABERT {DNABERT_KMER}-mer model and tokenizer for embeddings loaded successfully from Hub to {DEVICE}.")
+    except Exception as e:
+        print(f"ERROR loading DNABERT model/tokenizer for embeddings from Hugging Face Hub: {e}", file=sys.stderr)
+        traceback.print_exc()
+        # Set to None so the agent knows they aren't available
+        dnabert_model = None
+        dnabert_tokenizer = None
 
 
     # --- Validate LLM Choice & Dependencies ---
@@ -1677,10 +1848,9 @@ if __name__ == "__main__":
     TRANSFORMER_MODEL_PATH = '/new-stg/home/cong/DPI/scripts/model2_Transformer/v5/output/model/main_singletask_Encode3and4_all_847_proteins-lr=0.05,epoch=2,dropout=0.2:0,hid_dim=240,n_layer=2,n_heads=6,batch=128,input=train_min10,max_dna=512,max_protein=768,mixed_precision=False.pt'
 
     DNA_EMB_DB_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/deepsea/embeddings/valid_min10/dna_embeddings.duckdb'
-    PRO_EMB_PATH = '/new-stg/home/cong/DPI/dataset/all_human_tfs_protein_embedding_mean.pkl'
+    PRO_EMB_PATH = '/new-stg/home/cong/DPI/dataset/all_human_tfs_protein_embedding_mean_deduplicated.pkl'
 
-    # TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/seed101_800_proteins.txt'
-    TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/proteins.txt'
+    TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/proteins_with_embed.txt'
 
     CISBP_BASE_DIR = '/new-stg/home/cong/DPI/scripts/deepseek/motif_database/'
     CISBP_TF_INFO_VARIANT = 'standard'
@@ -1857,7 +2027,7 @@ if __name__ == "__main__":
                                               api_delay=args.api_delay # Pass the delay from args
                                               ))
     # NEW confidence node
-    workflow.add_node("calculate_final_confidence", calculate_final_confidence_node)
+    workflow.add_node("calculate_final_confidence", partial(calculate_final_confidence_node, prompt_style=args.prompt_style))
     # Error node now sets default confidence
     workflow.add_node("handle_error", lambda state: {**state, "llm_vote": None, "final_confidence": 0.0, "llm_explanation": f"Processing stopped due to error: {state.get('error', 'Unknown error')}"})
 
