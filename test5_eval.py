@@ -1,4 +1,6 @@
-# --- batch evluation version of test4.py ---
+# update: add DeepSEA as additional decision agent
+# update: add another option to calculate confidence score: use model_prob as baseline and apply rule-based adjustments, needs more fine-tunings
+# add model_prob to the output aggregated json file
 # prepare json files for llm model performance benchmark
 # --- Core Python & LangGraph ---
 import time
@@ -52,7 +54,7 @@ except ImportError:
     if not UNSLOTH_AVAILABLE: print("WARN: `transformers` libraries not found. HF models unavailable.")
 
 
-# --- Import Model Components (Make sure these are accessible) ---
+# --- Import DPI Model Components ---
 try:
     from dpi_v0.main_singletask import Predictor
     from dpi_v0.model_eval_single_v2 import unify_dim_embedding as eval_unify_dim_embedding
@@ -65,6 +67,17 @@ except ImportError as e:
 except Exception as e:
      print(f"ERROR during import: {e}", file=sys.stderr); sys.exit(1)
 
+# --- Import DeepSEA Model Components--
+try:
+    import torch.nn.functional as F
+    from deepsea_v0.eval_deepsea import dna_to_one_hot, DeepSEAProteinInteraction
+    print("Successfully imported Predictor and helper functions.")
+except ImportError as e:
+    print(f"ERROR: Could not import required components from source scripts: {e}", file=sys.stderr)
+    print("Ensure eval_deepsea.py is in the Python path.", file=sys.stderr)
+    sys.exit(1)
+except Exception as e:
+     print(f"ERROR during import: {e}", file=sys.stderr); sys.exit(1)
 
 # --- Configuration & Constants ---
 # --- API Key Setup ---
@@ -80,20 +93,6 @@ try:
 except Exception as e: print(f"ERROR configuring Google Generative AI: {e}", file=sys.stderr)
 
 
-# Assuming GOOGLE_API_KEY is set and genai.configure() has been called
-if GOOGLE_API_KEY_CONFIGURED: # Your existing flag
-    print("--- Available Google Generative AI Models ---")
-    try:
-        for m in genai.list_models():
-            # Check if the model supports the 'generateContent' method
-            if 'generateContent' in m.supported_generation_methods:
-                print(f"Model Name: {m.name} - Display Name: {m.display_name}")
-                # print(f"  Description: {m.description}")
-                # print(f"  Supported Methods: {m.supported_generation_methods}")
-    except Exception as e:
-        print(f"Could not list models: {e}")
-    print("-------------------------------------------")
-    
 # --- Constants ---
 DEFAULT_GEMINI_MODEL = 'gemini-1.5-flash-latest'
 DEFAULT_OLLAMA_API_URL = "http://localhost:11434/api/generate"
@@ -218,8 +217,10 @@ class AgentState(TypedDict):
     raw_llm_response: Union[str, None]  
     final_confidence: Union[float, None] 
     error: Union[str, None]
-    llm_prompt_style_selected: Union[str, None] # Or just str if it's always set
-    llm_prompt_selection_reason: Union[str, None] # Or just str
+    llm_prompt_style_selected: Union[str, None]
+    llm_prompt_selection_reason: Union[str, None]
+    prediction_model_used: Union[str, None] # <<< NEW FIELD
+
 
 def _parse_cisbp_pwm(pwm_filepath: str) -> Union[Dict[str, List[float]], None]:
     # ... (Implementation unchanged) ...
@@ -307,7 +308,6 @@ def convert_to_meme_format(motifs_with_metadata: List[tuple]) -> str:
     return "".join(meme_lines)
 
 # --- Implemented Tool Functions ---
-# ... (Keep implementations of run_cisbp_fetch, run_motif_scan, run_string_query, run_transformer_prediction exactly as in test3.py) ...
 def run_cisbp_fetch(protein_name: str, cisbp_tf_info_df: pd.DataFrame, cisbp_pwm_dir: str) -> Dict:
     print(f"\n--- TOOL: Fetching CisBP motifs for '{protein_name}' ---")
     results = {'motifs_metadata': [], 'status': 'not_found_cisbp', 'query_name': protein_name, 'num_total_found': 0, 'num_selected': 0, 'num_direct_selected': 0, 'num_inferred_selected': 0, 'sources_selected': set(), 'filtering_applied': False}
@@ -403,7 +403,6 @@ def run_string_query(protein_name: str, species_id: int, min_score: int, max_int
     except Exception as e: print(f"  Unexpected ERROR during STRING DB query: {e}", file=sys.stderr); traceback.print_exc(); status = 'error_string_unknown'
     return {'status': status, 'interactors': interactors}
 
-# --- NEW: On-the-fly DNABERT Embedding Calculation ---
 def calculate_dnabert_embedding(
     dna_sequence: str,
     dnabert_model: BertModel,
@@ -570,67 +569,173 @@ def run_transformer_prediction(
     final_message = f"DNA Source: {dna_emb_source}. {error_msg or ''}".strip()
     return {'status': status, 'probability': prob, 'message': final_message}
 
-# --- NEW: Wrapper Function ---
-def get_transformer_pred_node_wrapper(
+# --- NEW: DeepSEA Prediction Function ---
+def run_deepsea_prediction(
+    dna_sequence: str,
+    protein_name: str,
+    deepsea_model: DeepSEAProteinInteraction, # nn.Module
+    protein_to_id_map: Dict[str, int],
+    average_unknown_protein_embedding: torch.Tensor,
+    dna_seq_len: int,
+    device: torch.device
+) -> Dict:
+    """Runs the DeepSEA model prediction for a single DNA-protein pair."""
+    print(f"\n--- TOOL: Running DeepSEA Prediction for '{protein_name}' ---")
+    prob = None
+    status = 'success'
+    error_msg = None
+    protein_input_type_used = "unknown"
+
+    if deepsea_model is None:
+        return {'status': 'error_model_not_loaded', 'probability': None, 'message': "DeepSEA model object is None."}
+
+    try:
+        # 1. Prepare DNA input
+        dna_one_hot = dna_to_one_hot(dna_sequence, dna_seq_len)
+        dna_tensor = torch.FloatTensor(dna_one_hot).unsqueeze(0).to(device)  # Add batch dim
+
+        # 2. Prepare Protein input
+        protein_id = protein_to_id_map.get(protein_name)
+        protein_tensor = None
+
+        if protein_id is not None:
+            protein_tensor = torch.LongTensor([protein_id]).to(device) # Batch dim handled by embedding layer
+            protein_input_type_used = "id"
+            # print(f"  Protein '{protein_name}' found in map, ID: {protein_id}")
+        elif average_unknown_protein_embedding is not None:
+            protein_tensor = average_unknown_protein_embedding.clone().detach().unsqueeze(0).to(device) # Add batch dim
+            protein_input_type_used = "embedding"
+            # print(f"  Protein '{protein_name}' not in map, using average embedding.")
+        else:
+            status = 'error_protein_unavailable'
+            error_msg = f"Protein '{protein_name}' not in map and no average embedding provided."
+            print(f"  ERROR: {error_msg}", file=sys.stderr)
+            return {'status': status, 'probability': None, 'message': error_msg}
+
+        # 3. Run model prediction
+        deepsea_model.eval()
+        with torch.no_grad():
+            # The model's forward expects batched input.
+            # dna_tensor is (1, 4, L_IN_DNA)
+            # protein_tensor is (1) for ID, or (1, emb_dim) for embedding
+            output_logits = deepsea_model(dna_tensor, protein_tensor, protein_input_type=protein_input_type_used)
+            prob = torch.sigmoid(output_logits).item()
+            print(f"  DeepSEA Raw Probability: {prob:.4f} (Input type: {protein_input_type_used})")
+
+    except Exception as e:
+        status = 'error_deepsea_inference'
+        error_msg = f"DeepSEA Inference Error: {e}"
+        print(f"  ERROR during DeepSEA inference for '{protein_name}': {e}", file=sys.stderr)
+        traceback.print_exc()
+
+    return {'status': status, 'probability': prob, 'message': error_msg}
+
+# --- DPI Prediction Node Wrapper (Formerly get_transformer_pred_node_wrapper) ---
+def get_dpi_pred_node_wrapper(
     state: AgentState,
-    # These will be pre-filled by partial
-    transformer_model,
-    pro_embs_dict,
-    dna_db_con,
-    transformer_config,
-    device,
-    training_protein_set,
+    dpi_transformer_model,
+    dpi_pro_embs_dict,
+    dpi_dna_db_con,
+    dpi_transformer_config,
+    dpi_device,
+    dpi_training_protein_set,
     dnabert_model,
     dnabert_tokenizer,
     dnabert_kmer,
     dnabert_max_len,
     dnabert_device
-    ) -> AgentState:
-    """
-    Wrapper for get_transformer_pred_node that LangGraph can easily introspect.
-    It takes state and calls the actual function with resources bound by partial.
-    """
-    if state.get("error"):
-        return state # Pass through errors
-
+) -> AgentState:
+    print("\n--- Node: Get DPI Transformer Prediction ---")
+    if state.get("error"): return state
     try:
-        # Call the original prediction function, passing necessary state components
-        # and all the other arguments which were bound by partial to this wrapper.
-        results = run_transformer_prediction(
+        results = run_transformer_prediction( # This is the existing DPI prediction function
             dna_sequence=state["dna_sequence"],
             protein_name=state["protein_name"],
-            # Pass through resources
-            transformer_model=transformer_model,
-            pro_embs_dict=pro_embs_dict,
-            dna_db_con=dna_db_con,
-            transformer_config=transformer_config,
-            device=device,
+            transformer_model=dpi_transformer_model,
+            pro_embs_dict=dpi_pro_embs_dict,
+            dna_db_con=dpi_dna_db_con,
+            transformer_config=dpi_transformer_config,
+            device=dpi_device, # DPI model device
             dnabert_model=dnabert_model,
             dnabert_tokenizer=dnabert_tokenizer,
             dnabert_kmer=dnabert_kmer,
             dnabert_max_len=dnabert_max_len,
-            dnabert_device=dnabert_device
+            dnabert_device=dnabert_device # DNABERT device
         )
-
         prob = results.get('probability')
-        is_known = state["protein_name"] in training_protein_set if training_protein_set else False
+        is_known = state["protein_name"] in dpi_training_protein_set if dpi_training_protein_set else False
 
         if results.get('status', '').startswith('error'):
-             print(f"  ERROR: Transformer Prediction Failed ({results.get('status')}): {results.get('message')}", file=sys.stderr)
-             # Allow to continue, but record the issue
-             # Store None for probability, maybe set error? Or just keep known status?
-             # Let's just return the state update without error for now, error is in results['message']
-             return {**state, "transformer_prob": None, "is_known_protein": is_known} # Keep is_known status
+             print(f"  ERROR: DPI Transformer Prediction Failed ({results.get('status')}): {results.get('message')}", file=sys.stderr)
+             return {**state, "transformer_prob": None, "is_known_protein": is_known, "prediction_model_used": "dpi", "error": f"DPI Pred Error: {results.get('message')}"}
 
-        print(f"  Transformer Prob: {prob:.4f}, Known Protein (in Training Set): {is_known}")
-        return {**state, "transformer_prob": prob, "is_known_protein": is_known}
-
+        print(f"  DPI Transformer Prob: {prob:.4f}, Known Protein (in DPI Training Set): {is_known}")
+        return {**state, "transformer_prob": prob, "is_known_protein": is_known, "prediction_model_used": "dpi"}
     except Exception as e:
-        print(f"  Critical Error in get_transformer_pred_node_wrapper: {e}");
-        traceback.print_exc();
-        return {**state, "error": f"Transformer Node Wrapper Error: {e}"}
+        print(f"  Critical Error in get_dpi_pred_node_wrapper: {e}"); traceback.print_exc();
+        return {**state, "error": f"DPI Node Wrapper Error: {e}", "prediction_model_used": "dpi"}
 
 
+# --- NEW: DeepSEA Prediction Node Wrapper ---
+def get_deepsea_pred_node_wrapper(
+    state: AgentState,
+    deepsea_model_instance, # Renamed to avoid conflict with dnabert_model
+    deepsea_protein_to_id_map,
+    deepsea_avg_embedding,
+    deepsea_dna_seq_len_param, # Renamed
+    deepsea_device_param # Renamed
+) -> AgentState:
+    print("\n--- Node: Get DeepSEA Prediction ---")
+    if state.get("error"): return state
+    try:
+        results = run_deepsea_prediction(
+            dna_sequence=state["dna_sequence"],
+            protein_name=state["protein_name"],
+            deepsea_model=deepsea_model_instance,
+            protein_to_id_map=deepsea_protein_to_id_map,
+            average_unknown_protein_embedding=deepsea_avg_embedding,
+            dna_seq_len=deepsea_dna_seq_len_param,
+            device=deepsea_device_param
+        )
+        prob = results.get('probability')
+        is_known = state["protein_name"] in deepsea_protein_to_id_map if deepsea_protein_to_id_map else False
+
+        if results.get('status', '').startswith('error'):
+             print(f"  ERROR: DeepSEA Prediction Failed ({results.get('status')}): {results.get('message')}", file=sys.stderr)
+             return {**state, "transformer_prob": None, "is_known_protein": is_known, "prediction_model_used": "deepsea", "error": f"DeepSEA Pred Error: {results.get('message')}"}
+
+        print(f"  DeepSEA Prob: {prob:.4f}, Known Protein (in DeepSEA Map): {is_known}")
+        return {**state, "transformer_prob": prob, "is_known_protein": is_known, "prediction_model_used": "deepsea"}
+    except Exception as e:
+        print(f"  Critical Error in get_deepsea_pred_node_wrapper: {e}"); traceback.print_exc();
+        return {**state, "error": f"DeepSEA Node Wrapper Error: {e}", "prediction_model_used": "deepsea"}
+
+
+# --- This node is just a convergence point before model selection. No operation. ---
+def pre_prediction_model_hub(state: AgentState) -> AgentState:
+    print("\n--- Node: Pre-Prediction Model Hub ---")
+    # This node doesn't modify state, just acts as a named step in the graph.
+    return state
+
+# --- Router function (NOT a node itself, but used by add_conditional_edges) ---
+def route_to_prediction_model(state: AgentState, # State comes from pre_prediction_model_hub
+                              prediction_model_type_cli_arg: str # Bound by partial
+                             ) -> str:
+    """Decides which prediction model path to take based on CLI argument."""
+    print(f"\n--- Edge Logic: Routing to Prediction Model (CLI choice: {prediction_model_type_cli_arg}) ---")
+    if state.get("error"): # Check for errors propagated to the hub
+        return "error_path"
+    if prediction_model_type_cli_arg == "dpi":
+        print("  --> Routing to DPI Transformer prediction.")
+        return "run_dpi_model"
+    elif prediction_model_type_cli_arg == "deepsea":
+        print("  --> Routing to DeepSEA model prediction.")
+        return "run_deepsea_model"
+    else:
+        # This case should ideally be caught by argparse choices, but good to have a fallback.
+        print(f"  ERROR: Unknown prediction_model_type '{prediction_model_type_cli_arg}' in router. Defaulting to DPI.", file=sys.stderr)
+        # state["error"] = f"Invalid prediction model type argument: {prediction_model_type_cli_arg}" # Can't modify state here
+        return "run_dpi_model" # Or "error_path" to be safer if state modification is needed
 
 # --- LLM Interaction (Refactored) ---
 def _parse_llm_response(raw_response_text: str) -> Tuple[Union[int, None], Union[str, None]]:
@@ -803,12 +908,13 @@ def call_huggingface_model(prompt: str, model, tokenizer, device: torch.device) 
     return prediction, parsed_explanation if error_explanation is None else error_explanation, raw_response_text
 
 
-def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
-    print(f"--- Calculating Rule-Based Confidence Score (Style: {prompt_style}) ---")
+def calculate_confidence_score(state: AgentState, prompt_style: str, use_transformer_prob_as_baseline: bool) -> float:
+    print(f"--- Calculating Rule-Based Confidence Score (Style: {prompt_style}, Use Transformer Prob Baseline: {use_transformer_prob_as_baseline}) ---")
     llm_vote = state.get('llm_vote')
     if llm_vote is None:
         print("  LLM vote is missing, cannot calculate confidence. Returning 0.0")
         return 0.0
+    trans_prob = state.get('transformer_prob') # Get transformer_prob
 
     # --- Initialize ALL confidence parameters with their DEFAULT values first ---
     baseline = CONFIDENCE_BASELINE
@@ -885,6 +991,18 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
         max_hits_for_bonus_cap = MP_MAX_HITS_FOR_BONUS_CAP
         low_pvalue_threshold = MP_LOW_PVALUE_THRESHOLD
         low_pvalue_bonus = MP_LOW_PVALUE_BONUS
+
+    # --- NEW: Override baseline if --use-transformer-prob-as-baseline is True and trans_prob is available ---
+    if use_transformer_prob_as_baseline and trans_prob is not None:
+        # Convert transformer_prob (0-1 probability of interaction) to a certainty baseline (0.5-1.0)
+        # e.g., trans_prob 0.5 (uncertain) -> baseline 0.5
+        # e.g., trans_prob 0 or 1 (certain) -> baseline 1.0
+        original_style_baseline = baseline # For logging purposes
+        baseline_from_transformer = 0.5 + abs(trans_prob - 0.5)
+        print(f"  Overriding style-based baseline ({original_style_baseline:.2f}) with transformer_prob-derived baseline: {baseline_from_transformer:.2f} (from trans_prob: {trans_prob:.4f})")
+        baseline = baseline_from_transformer
+    elif use_transformer_prob_as_baseline and trans_prob is None:
+        print(f"  WARN: --use-transformer-prob-as-baseline is True, but transformer_prob is None. Using style-based baseline: {baseline:.2f}")
 
     scan_fail_factor = SCAN_FAIL_FACTOR # Generic
     transformer_confident_high = TRANSFORMER_CONFIDENT_HIGH # Generic
@@ -985,7 +1103,6 @@ def calculate_confidence_score(state: AgentState, prompt_style: str) -> float:
 
 
     # --- 3. Transformer Evidence --- (This part was likely fine)
-    trans_prob = state.get('transformer_prob')
     is_known = state.get('is_known_protein', False)
 
     if trans_prob is not None:
@@ -1118,16 +1235,6 @@ def summarize_indirect_analysis_node(state: AgentState) -> AgentState:
     else: print(f"  Indirect Analysis Summary: Search Performed, Hits Found={summary['any_indirect_motif_found']}, #Interactors={len(summary.get('interactors_found_string',[]))}, #TF_Interactors={len(summary.get('interactors_tf_cisbp',[]))}, #TFs_Analyzed={len(summary.get('interactors_tf_analyzed',[]))}, Scan Status={scan_status}");
     return {**state, "indirect_motif_analysis_summary": summary}
 
-def get_transformer_pred_node(state: AgentState, transformer_model, pro_embs_dict, dna_db_con, transformer_config, device, training_protein_set) -> AgentState:
-    print("\n--- Node: Get Transformer Prediction ---"); # ... (rest of implementation unchanged) ...
-    if state.get("error"): return state
-    try:
-        results = run_transformer_prediction(dna_sequence=state["dna_sequence"], protein_name=state["protein_name"], transformer_model=transformer_model, pro_embs_dict=pro_embs_dict, dna_db_con=dna_db_con, transformer_config=transformer_config, device=device)
-        prob = results.get('probability'); is_known = state["protein_name"] in training_protein_set if training_protein_set else False
-        if results.get('status', '').startswith('error'): print(f"  ERROR: Transformer Prediction Failed ({results.get('status')}): {results.get('message')}", file=sys.stderr); return {**state, "transformer_prob": None, "is_known_protein": is_known} # Keep known status
-        print(f"  Transformer Prob: {prob:.4f}, Known Protein (in Training Set): {is_known}"); return {**state, "transformer_prob": prob, "is_known_protein": is_known}
-    except Exception as e: print(f"  Critical Error in get_transformer_pred_node: {e}"); traceback.print_exc(); return {**state, "error": f"Transformer Node Error: {e}"}
-
 
 def generate_concise_llm_prompt(state: AgentState) -> str:
     """Generates the concise LLM prompt matching the fine-tuning format."""
@@ -1138,7 +1245,7 @@ def generate_concise_llm_prompt(state: AgentState) -> str:
     is_known = state.get("is_known_protein", False)
 
     # --- Format Protein Info ---
-    protein_novelty = "Known (Present in Transformer Training Set)" if is_known else "Novel (Absent from Transformer Training Set)"
+    protein_novelty = "Known (Present in prediction model Training Set)" if is_known else "Novel (Absent from Training Set)"
     protein_info_str = f"{protein_name} ({protein_novelty})"
 
     # --- Format Direct Motif Summary ---
@@ -1197,7 +1304,7 @@ You are a computational biology expert evaluating potential DNA-protein interact
 ### Retrieved Evidence:
 * Direct Motif Scan (p<={direct_p_val}): {direct_motif_summary}
 * Indirect Motif Scan (p<={indirect_p_val}): {indirect_motif_summary}
-* Transformer Probability: {transformer_prob_str} ({transformer_interpretation}) - [Trustworthiness: {trustworthiness_context}]
+* Prediction Probability: {transformer_prob_str} ({transformer_interpretation}) - [Trustworthiness: {trustworthiness_context}]
 
 ### Analysis Task:
 Generate a step-by-step reasoning process within <think> tags, synthesizing the 'Retrieved Evidence' above to determine the interaction label. Conclude with '### Interaction:\nThe interaction label is [0 or 1]'.
@@ -1216,8 +1323,9 @@ def _format_common_evidence_for_prompt(state: AgentState) -> Dict[str, str]:
     dna_sequence = state.get('dna_sequence', '')
     direct_summary = state.get("direct_motif_analysis_summary") or {}
     indirect_summary = state.get("indirect_motif_analysis_summary") or {}
-    trans_prob = state.get("transformer_prob")
-    is_known = state.get("is_known_protein", False)
+    pred_model_prob = state.get("transformer_prob") # This field now holds selected model's prob
+    is_known_pred_model = state.get("is_known_protein", False) # Reflects selected model
+    pred_model_type_used = state.get("prediction_model_used", "Unknown Model") # Get which model was used
 
     evidence_parts = {}
 
@@ -1336,17 +1444,32 @@ def _format_common_evidence_for_prompt(state: AgentState) -> Dict[str, str]:
     evidence_parts['indirect_motif_scan_details_str'] = "\n".join(indirect_scan_hits_list) if indirect_scan_hits_list else "  (Indirect scan not applicable or no hits/errors to report based on prior steps)"
 
 
-    # --- Format Transformer Evidence ---
-    evidence_parts['transformer_prob_str'] = f"{trans_prob:.4f}" if trans_prob is not None else 'N/A (Prediction Failed or Skipped)'
-    evidence_parts['protein_status_str'] = "Known (Present in Transformer Training Set)" if is_known else "Novel (Absent from Transformer Training Set)"
-    transformer_confidence_str = "Unknown"
-    if trans_prob is not None:
-        if trans_prob < 0.1 or trans_prob > 0.9: transformer_confidence_str = "High"
-        elif 0.4 <= trans_prob <= 0.6: transformer_confidence_str = "Low (Uncertain)"
-        else: transformer_confidence_str = "Moderate"
-    evidence_parts['transformer_confidence_str'] = transformer_confidence_str
-    evidence_parts['transformer_explanation_str'] = f"""  - Model Info: Trained on ~1500 ChIP-seq datasets (~800 TFs). Generally high accuracy on known TFs, potentially less certain on novel ones."""
+    # --- Format Prediction Model Evidence ---
+    evidence_parts['pred_model_type_str'] = pred_model_type_used.upper() # e.g., "DPI" or "DEEPSEA"
+    evidence_parts['pred_model_prob_str'] = f"{pred_model_prob:.4f}" if pred_model_prob is not None else 'N/A (Prediction Failed or Skipped)'
+    evidence_parts['protein_status_pred_model_str'] = f"Known (Present in {evidence_parts['pred_model_type_str']} Training/Known Set)" if is_known_pred_model else f"Novel (Absent from {evidence_parts['pred_model_type_str']} Training/Known Set)"
+    
+    pred_model_confidence_str = "Unknown"
+    if pred_model_prob is not None:
+        # Using generic thresholds, adjust if DPI/DeepSEA have different confidence bands
+        if pred_model_prob < 0.1 or pred_model_prob > 0.9: pred_model_confidence_str = "High"
+        elif 0.4 <= pred_model_prob <= 0.6: pred_model_confidence_str = "Low (Uncertain)"
+        else: pred_model_confidence_str = "Moderate"
+    evidence_parts['pred_model_confidence_str'] = pred_model_confidence_str
 
+    if pred_model_type_used == "dpi":
+        evidence_parts['pred_model_explanation_str'] = f"""  - Model Info: DPI Transformer, trained on ~1500 ChIP-seq datasets (~800 TFs). Generally high accuracy on known TFs, potentially less certain on novel ones."""
+    elif pred_model_type_used == "deepsea":
+        evidence_parts['pred_model_explanation_str'] = f"""  - Model Info: DeepSEA CNN model. Trained on ~1500 ChIP-seq datasets (~800 TFs). Generally high accuracy on known TFs. Performance on novel proteins depends on the mean score across the trained proteins."""
+    else:
+        evidence_parts['pred_model_explanation_str'] = f"""  - Model Info: {evidence_parts['pred_model_type_str']} model. Details on training/scope may vary."""
+
+    evidence_parts['prediction_model_prob_str'] = evidence_parts.pop('pred_model_prob_str')
+    evidence_parts['protein_status_wrt_prediction_model_str'] = evidence_parts.pop('protein_status_pred_model_str')
+    evidence_parts['prediction_model_confidence_str'] = evidence_parts.pop('pred_model_confidence_str')
+    evidence_parts['prediction_model_specific_explanation_str'] = evidence_parts.pop('pred_model_explanation_str')
+    evidence_parts['prediction_model_name_for_prompt_str'] = evidence_parts.pop('pred_model_type_str')
+    
     return evidence_parts
 
 def generate_verbose_llm_prompt(state: AgentState) -> str:
@@ -1360,8 +1483,8 @@ Protein: {protein_name}
 DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
 
 ### Evidence Summary:
-- Protein Novelty (vs Transformer Training): {evidence['protein_status_str']}
-- Transformer Prediction Probability: {evidence['transformer_prob_str']} (Confidence: {evidence['transformer_confidence_str']})
+- Protein Novelty (vs {evidence['prediction_model_name_for_prompt_str']} Known Set): {evidence['protein_status_wrt_prediction_model_str']}
+- {evidence['prediction_model_name_for_prompt_str']} Prediction Probability: {evidence['prediction_model_prob_str']} (Confidence: {evidence['prediction_model_confidence_str']})
 - Direct Motif Evidence (Protein's own motifs):
     - Protein has known motifs? {evidence['direct_protein_has_motifs_str']} (Reliability: {evidence['direct_reliability_str']})
     - Direct motifs found in this DNA sequence? {evidence['direct_motif_found_dna_str']}
@@ -1381,16 +1504,16 @@ DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
     - DNA Scan Results for Interacting TF Motifs:
 {evidence['indirect_motif_scan_details_str']}
 
-3. Transformer Model Prediction Details:
-    - Probability: {evidence['transformer_prob_str']}
-    - Protein Status (vs Training Set): {evidence['protein_status_str']}
-{evidence['transformer_explanation_str']}
+3. Model Prediction Details:
+    - Probability: {evidence['prediction_model_prob_str']}
+    - Protein Status (vs Training Set): {evidence['protein_status_wrt_prediction_model_str']}
+{evidence['prediction_model_specific_explanation_str']}
 
 ### Analysis Task:
 Please perform a step-by-step analysis based *strictly* on the provided evidence:
 1.  **Direct Evidence:** Evaluate the direct motif evidence. Does the protein have known binding motifs? Are they reliable? Were any significant hits found in the DNA sequence? Assess the strength of this evidence (strong, moderate, weak, none, or error).
 2.  **Indirect Evidence:** Evaluate the indirect motif evidence. Was the search performed? Did the protein interact with known TFs? Were any motifs belonging to these interacting TFs found in the DNA sequence? Assess the strength of this evidence, considering it's less direct than the protein's own motifs.
-3.  **Transformer Evidence:** Evaluate the Transformer prediction. What is the probability score? How confident does the model seem (High/Moderate/Low)? Does the protein's novelty affect your trust in this prediction?
+3.  **Prediction Model Evidence:** Evaluate the probability prediction. What is the probability score? How confident does the model seem (High/Moderate/Low)? Does the protein's novelty affect your trust in this prediction?
 4.  **Synthesis:** Synthesize all evidence streams. Do they agree or conflict? Which evidence seems most compelling or decisive in this specific case? For example, is strong direct evidence sufficient? Is indirect evidence relevant if direct evidence is missing or weak? How does the transformer prediction align?
 5.  **Conclusion:** State your final prediction (0 for no interaction, 1 for interaction) based on your synthesis.
 
@@ -1410,8 +1533,8 @@ Protein: {protein_name}
 DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
 
 ### Evidence Summary:
-- Protein Novelty (vs Transformer Training): {evidence['protein_status_str']}
-- Transformer Prediction Probability: {evidence['transformer_prob_str']} (Confidence: {evidence['transformer_confidence_str']})
+- Protein Novelty (vs {evidence['prediction_model_name_for_prompt_str']} Known Set): {evidence['protein_status_wrt_prediction_model_str']}
+- {evidence['prediction_model_name_for_prompt_str']} Prediction Probability: {evidence['prediction_model_prob_str']} (Confidence: {evidence['prediction_model_confidence_str']})
 - Direct Motif Evidence (Protein's own motifs):
     - Protein has known motifs? {evidence['direct_protein_has_motifs_str']} (Reliability: {evidence['direct_reliability_str']})
     - Direct motifs found in this DNA sequence? {evidence['direct_motif_found_dna_str']}
@@ -1431,17 +1554,17 @@ DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
     - DNA Scan Results for Interacting TF Motifs:
 {evidence['indirect_motif_scan_details_str']}
 
-3. Transformer Model Prediction Details:
-    - Probability: {evidence['transformer_prob_str']}
-    - Protein Status (vs Training Set): {evidence['protein_status_str']}
-{evidence['transformer_explanation_str']}
+3. Model Prediction Details:
+    - Probability: {evidence['prediction_model_prob_str']}
+    - Protein Status (vs Training Set): {evidence['protein_status_wrt_prediction_model_str']}
+{evidence['prediction_model_specific_explanation_str']}
 
 ### Analysis Task:
 Please perform a step-by-step analysis based *strictly* on the provided evidence:
 1.  **Direct Evidence:** Evaluate the direct motif evidence. Does the protein have known binding motifs? Are they reliable? Were any significant hits found in the DNA sequence? Assess the strength of this evidence (strong, moderate, weak, none, or error).
 2.  **Indirect Evidence:** Evaluate the indirect motif evidence. Was the search performed? Did the protein interact with known TFs? Were any motifs belonging to these interacting TFs found in the DNA sequence? Assess the strength of this evidence, considering it's less direct than the protein's own motifs.
-3.  **Transformer Evidence:** Evaluate the Transformer prediction. What is the probability score? How confident does the model seem (High/Moderate/Low)? Does the protein's novelty affect your trust in this prediction?
-4.  **Synthesis (Prioritizing Transformer):** Synthesize the evidence. **Crucially, give significant weight to the Transformer prediction, especially if its confidence is High or Moderate.** If direct/indirect motif evidence is weak, absent, or contradicts a confident Transformer prediction, the Transformer evidence should generally take precedence, particularly for Known proteins. Explicitly state how you are weighing the evidence based on this prioritization. Note any remaining conflicts.
+3.  **Prediction Model Evidence:** Evaluate the probability prediction. What is the probability score? How confident does the model seem (High/Moderate/Low)? Does the protein's novelty affect your trust in this prediction?
+4.  **Synthesis (Prioritizing Prediction model):** Synthesize the evidence. **Crucially, give significant weight to the model prediction, especially if its confidence is High or Moderate.** If direct/indirect motif evidence is weak, absent, or contradicts a confident model prediction, the model evidence should generally take precedence, particularly for Known proteins. Explicitly state how you are weighing the evidence based on this prioritization. Note any remaining conflicts.
 5.  **Conclusion:** Based on your prioritized synthesis, state your final prediction (0 or 1).
 
 ### MANDATORY Output Format:
@@ -1460,8 +1583,8 @@ Protein: {protein_name}
 DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
 
 ### Evidence Summary:
-- Protein Novelty (vs Transformer Training): {evidence['protein_status_str']}
-- Transformer Prediction Probability: {evidence['transformer_prob_str']} (Confidence: {evidence['transformer_confidence_str']})
+- Protein Novelty (vs {evidence['prediction_model_name_for_prompt_str']} Known Set): {evidence['protein_status_wrt_prediction_model_str']}
+- {evidence['prediction_model_name_for_prompt_str']} Prediction Probability: {evidence['prediction_model_prob_str']} (Confidence: {evidence['prediction_model_confidence_str']})
 - Direct Motif Evidence (Protein's own motifs):
     - Protein has known motifs? {evidence['direct_protein_has_motifs_str']} (Reliability: {evidence['direct_reliability_str']})
     - Direct motifs found in this DNA sequence? {evidence['direct_motif_found_dna_str']}
@@ -1481,17 +1604,17 @@ DNA {evidence['dna_info_str']}: {evidence['disp_dna_str']}
     - DNA Scan Results for Interacting TF Motifs:
 {evidence['indirect_motif_scan_details_str']}
 
-3. Transformer Model Prediction Details:
-    - Probability: {evidence['transformer_prob_str']}
-    - Protein Status (vs Training Set): {evidence['protein_status_str']}
-{evidence['transformer_explanation_str']}
+3. Model Prediction Details:
+    - Probability: {evidence['prediction_model_prob_str']}
+    - Protein Status (vs Training Set): {evidence['protein_status_wrt_prediction_model_str']}
+{evidence['prediction_model_specific_explanation_str']}
 
 ### Analysis Task:
 Please perform a step-by-step analysis based *strictly* on the provided evidence:
 1.  **Direct Evidence:** Evaluate the direct motif evidence. Does the protein have known binding motifs? Are they reliable? Were any significant hits found in the DNA sequence? Consider the number of hits and their p-values/scores. Assess the strength of this evidence (strong, moderate, weak, none, or error).
 2.  **Indirect Evidence:** Evaluate the indirect motif evidence. Was the search performed? Did the protein interact with known TFs? Were any motifs of these interacting TFs found in the DNA? Consider hit quantity and quality. Assess the strength of this evidence.
-3.  **Transformer Evidence:** Evaluate the Transformer prediction. What is the probability? How confident is it? How does protein novelty affect trust?
-4.  **Synthesis (Prioritizing Motif Evidence):** Synthesize all evidence. **Crucially, give significant weight to direct and indirect motif evidence.** If the Transformer prediction conflicts with strong or clear motif evidence (e.g., multiple high-quality direct hits), the motif evidence should generally take precedence. If motif evidence is weak, absent, or ambiguous, the Transformer prediction can be more influential. Explicitly state how you are weighing the evidence based on this prioritization. Note any remaining conflicts.
+3.  **Prediction Model Evidence:** Evaluate the probability prediction. What is the probability score? How confident does the model seem (High/Moderate/Low)? Does the protein's novelty affect your trust in this prediction?
+4.  **Synthesis (Prioritizing Motif Evidence):** Synthesize all evidence. **Crucially, give significant weight to direct and indirect motif evidence.** If the model prediction conflicts with strong or clear motif evidence (e.g., multiple high-quality direct hits), the motif evidence should generally take precedence. If motif evidence is weak, absent, or ambiguous, the model prediction can be more influential. Explicitly state how you are weighing the evidence based on this prioritization. Note any remaining conflicts.
 5.  **Conclusion:** Based on your prioritized synthesis, state your final prediction (0 or 1).
 
 ### MANDATORY Output Format:
@@ -1602,14 +1725,13 @@ def get_llm_pred_node(state: AgentState,
         traceback.print_exc()
         return {**state, "error": f"LLM Prediction Node Error: {e}", "llm_vote": None, "llm_explanation": f"Error during LLM call: {e}", "raw_llm_response": ""}
 
-def calculate_final_confidence_node(state: AgentState) -> AgentState:
+def calculate_final_confidence_node(state: AgentState, use_transformer_prob_as_baseline_arg: bool) -> AgentState:
     """Node to calculate and store the final confidence score."""
     if state.get("error"):
         print("--- Skipping Confidence Calculation due to previous error ---")
         return {**state, "final_confidence": 0.0} # Assign low confidence on error
 
     prompt_style_used = state.get("llm_prompt_style_selected", "verbose")
-    print(f"--- Calculating Final Confidence (based on effective prompt style: {prompt_style_used}) ---")
 
     try:
         # --- Add Check for Garbage Explanation ---
@@ -1636,13 +1758,17 @@ def calculate_final_confidence_node(state: AgentState) -> AgentState:
             original_llm_vote = state.get("llm_vote") # Use original vote in output dict
             return {**state, "final_confidence": final_confidence, "llm_vote": original_llm_vote, "llm_explanation": updated_explanation}
 
-        confidence = calculate_confidence_score(state, prompt_style_used)
+        confidence = calculate_confidence_score(state, prompt_style_used, use_transformer_prob_as_baseline_arg)
         return {**state, "final_confidence": confidence}
     except Exception as e:
         print(f"  ERROR calculating confidence score: {e}", file=sys.stderr)
         traceback.print_exc()
         # Assign baseline confidence if calculation fails
         error_baseline = CONFIDENCE_BASELINE
+        if use_transformer_prob_as_baseline_arg and state.get('transformer_prob') is not None:
+            try:
+                error_baseline = 0.5 + abs(state.get('transformer_prob') - 0.5)
+            except: pass # Stick to CONFIDENCE_BASELINE if trans_prob is problematic
         return {**state, "final_confidence": error_baseline, "error": f"Confidence Calculation Error: {e}"}
 
 def make_serializable(obj):
@@ -1752,14 +1878,29 @@ if __name__ == "__main__":
         "--prompt-style", type=str, default="verbose", choices=["verbose", "concise", "transformer-priority", "motif-priority", "auto"],
         help="Style of prompt to generate for the LLM. 'concise' for fine-tuned. 'auto' switches based on protein novelty."
     )
+    parser.add_argument(
+        "--use-transformer-prob-as-baseline",
+        action="store_true",
+        help="If set, use the transformer_prob (converted to a certainty measure) as the baseline for confidence score calculation, overriding style-based fixed baselines. Rules will then adjust this."
+    )
     parser.add_argument("--random-state", type=int, default=13, help="random state for randomization of the evaluation file.")
     parser.add_argument("--limit", type=int, default=None, help="Limit processing to the first N samples from the evaluation file.")
     parser.add_argument(
         "--api-delay", type=float, default=1.5, # Default to 1.5 seconds
         help="Delay (in seconds) between Gemini API calls to avoid rate limits. Default: 1.5"
     )
-    args = parser.parse_args()
+    parser.add_argument(
+        "--prediction-model-type", type=str, default="dpi", choices=["dpi", "deepsea"],
+        help="Which primary prediction model to use: 'dpi' (Transformer) or 'deepsea' (CNN). Default: dpi"
+    )
+    # DeepSEA specific arguments
+    parser.add_argument("--deepsea-model-path", type=str, default=None, help="Path to the DeepSEA model .pkl state_dict file.")
+    parser.add_argument("--deepsea-protein-map-path", type=str, default=None, help="Path to DeepSEA protein_to_id_map.json file.")
+    parser.add_argument("--deepsea-dna-len", type=int, default=512, help="DNA sequence length for DeepSEA model.")
+    parser.add_argument("--deepsea-protein-emb-dim", type=int, default=50, help="Protein embedding dimension for DeepSEA.")
+    parser.add_argument("--deepsea-cnn-l-out-factor", type=int, default=None, help="CNN L_out factor for DeepSEA. Auto-calculated if None.")
 
+    args = parser.parse_args()
 
     # --- Create Output Directory ---
     # Include LLM name and prompt style in output subdir for organization
@@ -1802,6 +1943,57 @@ if __name__ == "__main__":
         dnabert_model = None
         dnabert_tokenizer = None
 
+
+    # --- Load DeepSEA Model & Resources (if selected or path provided) ---
+    deepsea_model_instance = None
+    deepsea_protein_to_id_map = None
+    deepsea_avg_embedding = None
+    NUM_PROTEINS_DEEPSEA = 0 # Default
+
+    if args.prediction_model_type == "deepsea":
+        if not args.deepsea_model_path or not args.deepsea_protein_map_path:
+            print("ERROR: --deepsea-model-path and --deepsea-protein-map-path are required when --prediction-model-type is 'deepsea'. Exiting.", file=sys.stderr)
+            sys.exit(1)
+        
+        print("--- Loading DeepSEA Resources ---")
+        try:
+            # Load protein_to_id_map for DeepSEA
+            with open(args.deepsea_protein_map_path, 'r') as f:
+                deepsea_protein_to_id_map = json.load(f)
+            NUM_PROTEINS_DEEPSEA = len(deepsea_protein_to_id_map)
+            if NUM_PROTEINS_DEEPSEA == 0: raise ValueError("DeepSEA protein map is empty.")
+            print(f"Loaded DeepSEA protein_to_id_map with {NUM_PROTEINS_DEEPSEA} proteins from {args.deepsea_protein_map_path}.")
+
+            # Initialize DeepSEA model
+            # Calculate cnn_l_out if not provided
+            cnn_l_out_ds = args.deepsea_cnn_l_out_factor
+            if cnn_l_out_ds is None:
+                _l = args.deepsea_dna_len; _l = _l-7; _l = _l//4; _l = _l-7; _l = _l//4; _l = _l-7
+                cnn_l_out_ds = _l
+                print(f"  Auto-calculated DeepSEA cnn_l_out: {cnn_l_out_ds}")
+
+
+            deepsea_model_instance = DeepSEAProteinInteraction(
+                num_proteins=NUM_PROTEINS_DEEPSEA,
+                protein_emb_dim=args.deepsea_protein_emb_dim,
+                l_in=args.deepsea_dna_len,
+                cnn_l_out_factor=cnn_l_out_ds
+            ).to(DEVICE)
+            
+            deepsea_model_instance.load_state_dict(torch.load(args.deepsea_model_path, map_location=DEVICE))
+            deepsea_model_instance.eval()
+            print(f"DeepSEA model loaded from {args.deepsea_model_path} to {DEVICE}.")
+
+            # Calculate average embedding for unknown proteins for DeepSEA
+            with torch.no_grad():
+                all_known_protein_embeddings_ds = deepsea_model_instance.protein_embedding.weight.data.clone() # Use .clone()
+                deepsea_avg_embedding = torch.mean(all_known_protein_embeddings_ds, dim=0).to(DEVICE)
+            print(f"  Calculated DeepSEA average embedding for unknown proteins (shape: {deepsea_avg_embedding.shape})")
+
+        except Exception as e:
+            print(f"FATAL ERROR loading DeepSEA resources: {e}", file=sys.stderr)
+            traceback.print_exc()
+            sys.exit(1)
 
     # --- Validate LLM Choice & Dependencies ---
     selected_llm = args.llm_model
@@ -1906,8 +2098,9 @@ if __name__ == "__main__":
     DNA_EMB_DB_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/deepsea/embeddings/valid_min10/dna_embeddings.duckdb'
     PRO_EMB_PATH = '/new-stg/home/cong/DPI/dataset/all_human_tfs_protein_embedding_mean_deduplicated.pkl'
 
-    # TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/proteins_with_embed.txt'
-    TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/trustworthy_proteins_mcc_0.15.txt' # NEW exp: proteins with poor performance in original DPI will be labelled as novel
+    # TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/proteins_with_embed.txt' # dpi proteins
+    TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/proteins.txt' # deepsea proteins
+    # TRAINING_PROTEIN_LIST_PATH = '/new-stg/home/cong/DPI/dataset/Encode3and4/trustworthy_proteins_mcc_0.15.txt' # NEW exp: proteins with poor performance in original DPI will be labelled as novel
 
     CISBP_BASE_DIR = '/new-stg/home/cong/DPI/scripts/deepseek/motif_database/'
     CISBP_TF_INFO_VARIANT = 'standard'
@@ -2050,23 +2243,36 @@ if __name__ == "__main__":
     workflow.add_node("fetch_indirect_motifs", partial(fetch_indirect_motifs_node, cisbp_tf_info_df=cisbp_tf_info_df, cisbp_pwm_dir=cisbp_pwm_dir))
     workflow.add_node("scan_indirect_dna", scan_indirect_dna_node)
     workflow.add_node("summarize_indirect_analysis", summarize_indirect_analysis_node)
+    workflow.add_node("pre_prediction_model_hub", pre_prediction_model_hub)
 
-    transformer_pred_partial = partial(
-        get_transformer_pred_node_wrapper, # Target the wrapper
-        # Bind all necessary resources to the wrapper
-        transformer_model=transformer_model,
-        pro_embs_dict=pro_embs_dict,
-        dna_db_con=dna_db_con,
-        transformer_config=transformer_config,
-        device=DEVICE,
-        training_protein_set=training_protein_set,
+    # NEW NODES:
+    # DPI Prediction Node
+    dpi_pred_partial = partial(
+        get_dpi_pred_node_wrapper,
+        dpi_transformer_model=transformer_model, 
+        dpi_pro_embs_dict=pro_embs_dict,
+        dpi_dna_db_con=dna_db_con,
+        dpi_transformer_config=transformer_config,
+        dpi_device=DEVICE, 
+        dpi_training_protein_set=training_protein_set,
         dnabert_model=dnabert_model,
         dnabert_tokenizer=dnabert_tokenizer,
         dnabert_kmer=DNABERT_KMER,
         dnabert_max_len=DNABERT_MAX_LEN,
-        dnabert_device=DEVICE
+        dnabert_device=DEVICE 
     )
-    workflow.add_node("get_transformer_pred", transformer_pred_partial)
+    workflow.add_node("get_dpi_pred", dpi_pred_partial)
+
+    # DeepSEA Prediction Node
+    deepsea_pred_partial = partial(
+        get_deepsea_pred_node_wrapper,
+        deepsea_model_instance=deepsea_model_instance, 
+        deepsea_protein_to_id_map=deepsea_protein_to_id_map,
+        deepsea_avg_embedding=deepsea_avg_embedding,
+        deepsea_dna_seq_len_param=args.deepsea_dna_len, 
+        deepsea_device_param=DEVICE 
+    )
+    workflow.add_node("get_deepsea_pred", deepsea_pred_partial)
 
     workflow.add_node("generate_llm_prompt", partial(
         generate_llm_prompt_node,
@@ -2084,7 +2290,10 @@ if __name__ == "__main__":
                                               api_delay=args.api_delay # Pass the delay from args
                                               ))
     # NEW confidence node
-    workflow.add_node("calculate_final_confidence", calculate_final_confidence_node)
+    workflow.add_node("calculate_final_confidence", partial(
+        calculate_final_confidence_node,
+        use_transformer_prob_as_baseline_arg=args.use_transformer_prob_as_baseline # Pass the CLI arg
+    ))
     # Error node now sets default confidence
     workflow.add_node("handle_error", lambda state: {**state, "llm_vote": None, "final_confidence": 0.0, "llm_explanation": f"Processing stopped due to error: {state.get('error', 'Unknown error')}"})
 
@@ -2098,14 +2307,28 @@ if __name__ == "__main__":
     workflow.add_edge("scan_direct_dna", "summarize_direct_analysis")
     workflow.add_conditional_edges("summarize_direct_analysis", decide_indirect_path, 
                                    {"start_indirect": "query_string", 
-                                    "skip_indirect": "get_transformer_pred", 
+                                    "skip_indirect": "pre_prediction_model_hub", 
                                     "error_path": "handle_error"})
     workflow.add_edge("query_string", "filter_string_interactors")
     workflow.add_edge("filter_string_interactors", "fetch_indirect_motifs")
     workflow.add_conditional_edges("fetch_indirect_motifs", decide_indirect_motif_path, {"scan_indirect": "scan_indirect_dna", "summarize_indirect": "summarize_indirect_analysis", "error_path": "handle_error"})
     workflow.add_edge("scan_indirect_dna", "summarize_indirect_analysis")
-    workflow.add_edge("summarize_indirect_analysis", "get_transformer_pred")
-    workflow.add_edge("get_transformer_pred", "generate_llm_prompt")
+    workflow.add_edge("summarize_indirect_analysis", "pre_prediction_model_hub")
+    
+    # From the hub, route to the selected prediction model
+    workflow.add_conditional_edges(
+        "pre_prediction_model_hub", # Source node
+        partial(route_to_prediction_model, prediction_model_type_cli_arg=args.prediction_model_type), # Router function
+        { # Path map based on router function's return string
+            "run_dpi_model": "get_dpi_pred",
+            "run_deepsea_model": "get_deepsea_pred",
+            "error_path": "handle_error" # If router function returns this
+        }
+    )
+
+    # Outputs of both prediction models go to LLM prompt generation
+    workflow.add_edge("get_dpi_pred", "generate_llm_prompt")
+    workflow.add_edge("get_deepsea_pred", "generate_llm_prompt")
     workflow.add_edge("generate_llm_prompt", "get_llm_pred")
     workflow.add_edge("get_llm_pred", "calculate_final_confidence")
     workflow.add_edge("calculate_final_confidence", END)
@@ -2152,6 +2375,7 @@ if __name__ == "__main__":
                     "ground_truth_label": final_state.get("ground_truth_label"), # Include GT
                     "predicted_label": final_state.get("llm_vote"),
                     "confidence_score": final_state.get("final_confidence"),
+                    "model_probability": final_state.get("transformer_prob"),
                     "llm_explanation": final_state.get("llm_explanation"),
                     "error": final_state.get("error") # Will be None if successful
                 }
@@ -2182,6 +2406,7 @@ if __name__ == "__main__":
                     "dna_sequence_length": len(input_data.get("dna_sequence", "")),
                     "ground_truth_label": input_data.get("ground_truth_label"),
                     "predicted_label": None, "confidence_score": 0.0,
+                    "model_probability": final_state.get("transformer_prob"),
                     "llm_explanation": final_state.get("llm_explanation"),
                     "error": final_state.get("error")
                 }
