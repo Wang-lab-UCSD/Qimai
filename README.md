@@ -29,7 +29,7 @@ The DPI-Agent is a llm-based pipeline designed to predict interactions between D
     *   CPU is sufficient for most tasks, but LLM inference (especially local HF models) and Transformer model predictions will be significantly faster on a CUDA-enabled GPU.
     *   DNABERT embedding calculation also benefits from a GPU.
 *   **RAM:** Minimum 16GB, 32GB+ recommended, especially for larger LLMs or large batch processing.
-*   **Disk Space:** Several GBs for the Python environment and scripts. **Significant additional space (tens to hundreds of GBs) is required for the large resources (models, embeddings, databases) - see [Downloading Resources](#downloading-large-resources).**
+*   **Disk Space:** Several GBs for the Python environment and scripts. **Significant additional space (tens to hundreds of GBs) is required for the large resources (models, embeddings, databases) - see [Data and Models](#data-and-models).**
 
 ## Installation
 
@@ -56,7 +56,7 @@ source .venv/bin/activate  # On Linux/macOS
 # .venv\Scripts\activate  # On Windows
 ```
 
-**Using `conda`:**
+**Using `conda`:
 ```bash
 conda create -n dpi_env python=3.10
 conda activate dpi_env
@@ -69,11 +69,26 @@ pip install -r requirements.txt
 ```
 If using Unsloth and a compatible GPU, Unsloth will be installed via `requirements.txt`. Ensure you have the necessary CUDA toolkit version compatible with PyTorch and Unsloth.
 
-## Downloading Resources
+## Data and Models
 
-Due to large size, embedding files are not included in the GitHub repository and must be downloaded separately.
+Some of the required data and models are included in the repository, while others must be downloaded due to their size. The script `test8_eval_reduce_FP.py` is configured to load these resources using a combination of command-line arguments and environment variables.
 
-**Resource List & Download Links:**
+**Included in the Repository:**
+
+*   **Evaluation Files:**
+    *   `data/evaluation_files/test_min10_rs_3_1000_pairs.pkl`: An example evaluation file.
+*   **Prediction Models:**
+    *   `data/prediction_models/deepsea/`: Directory for DeepSEA models.
+    *   `data/prediction_models/dpi/`: Directory for DPI models.
+    *   `data/prediction_models/sei/`: Directory for SEI models.
+*   **Training Lists:**
+    *   `data/training_lists/proteins.txt`: A list of proteins used for training.
+*   **CisBP Motif Database:**
+    *   `data/Homo_sapiens_2025_05_16_4_38_am.zip`: A zip archive containing the CisBP motif database. You will need to unzip this file.
+
+**To Be Downloaded:**
+
+Due to their large size, the following resources must be downloaded separately:
 
 1.  **DNA Embeddings:**
     *   **Description:** DuckDB database containing pre-computed DNA sequence embeddings from DNABERT.
@@ -83,42 +98,25 @@ Due to large size, embedding files are not included in the GitHub repository and
     *   **Description:** Pickle file with pre-computed protein embeddings from AlphaFold.
     *   [**Download:**](https://drive.google.com/drive/folders/1x4TKNuO42AYeopGIVH5i8ICsmgY9J_8z) -> Place in `data/embeddings/`
 
-3.  **CisBP Motif Database:**
-    *   **Description:** TF Information file and PWM files from CisBP (filtered for *Homo sapiens*).
-    *   **Download:** already included in the repo, need to extract the [file](https://github.com/cong-003/DPI-agent/blob/main/data/Homo_sapiens_2025_05_16_4_38_am.zip)
-        *   TF Information: meta data for the all the TFs -> Place in `data/cisbp_database/`
-        *   PWMs: Extract into `data/cisbp_database/pwms_all_motifs/`
+3.  **SEI Model:**
+    *   **Description:** The pre-trained SEI model.
+    *   [**Download:**](https://drive.google.com/file/d/1NETAfDVTBvQbp8XivUPlY0Is_tprxeCk/view?usp=drive_link) -> Place in `data/prediction_models/sei/`
 
 
 ## Configuration
 
 ### Essential Path Configuration
 
-The script `test4_eval.py` contains several hardcoded paths for the resources mentioned above. **You MUST update these paths if you do not use the exact directory structure and filenames as suggested, or if your base directory for `data` differs.**
-
-It is highly recommended to modify the script to use **environment variables** for these paths or pass them as **command-line arguments**.
-
-**Key path constants in `test4_eval.py` to check/modify:**
-*   `TRANSFORMER_MODEL_PATH`
-*   `DNA_EMB_DB_PATH`
-*   `PRO_EMB_PATH`
-*   `TRAINING_PROTEIN_LIST_PATH`
-*   `CISBP_BASE_DIR`
+The script `test8_eval_reduce_FP.py` relies on command-line arguments and environment variables to locate the necessary data and model files.
 
 **Example: Using Environment Variables (Recommended)**
-Modify the script:
-```python
-# test4_eval.py
-# Before:
-# TRANSFORMER_MODEL_PATH = '/new-stg/home/cong/DPI/scripts/model2_Transformer/v5/output/model/main_singletask_Encode3and4_all_847_proteins-....pt'
-# After:
-TRANSFORMER_MODEL_PATH = os.environ.get('DPI_TRANSFORMER_MODEL_PATH', '/default/path/if/not/set.pt')
-```
-Then, before running the script:
+Before running the script, export the required environment variables:
 ```bash
-export DPI_TRANSFORMER_MODEL_PATH="/path/to/your/data/transformer_models/model.pt"
-# ... set other environment variables similarly
-python test4_eval.py --evaluation-file ...
+export DPI_FASTA_PATH="/path/to/your/data/uniprot.fasta"
+export DPI_TF_FAMILY_PATH="/path/to/your/data/all_pros_family.csv"
+export GOOGLE_API_KEY="YOUR_API_KEY_HERE"
+
+python test8_eval_reduce_FP.py --input-file data/evaluation_files/test_min10_rs_3_1000_pairs.pkl ...
 ```
 
 ### API Keys
@@ -134,16 +132,14 @@ python test4_eval.py --evaluation-file ...
 The script is designed for batch evaluation using an input file.
 
 ### Input Data Format
-The evaluation file (`--evaluation-file`) should be a `.tsv` (tab-separated) or `.pkl` (pickled Pandas DataFrame) file with the following columns:
-*   `dna`: The DNA sequence string.
-*   `protein`: The protein name (e.g., gene symbol like "SOX2").
+The evaluation file (`--input-file`) should be a `.tsv` (tab-separated) or `.pkl` (pickled Pandas DataFrame) file with the following columns:
+*   `dna_sequence`: The DNA sequence string.
+*   `protein_name`: The protein name (e.g., gene symbol like "SOX2").
 *   `label`: The ground truth interaction label (0 for no interaction, 1 for interaction).
-
-[example evaluation file](https://github.com/cong-003/DPI-agent/blob/main/data/evaluation_files/test_min10_rs_3_1000_pairs.pkl)
 
 ### Command-Line Arguments
 
-*   `--evaluation-file FILE`: (Required) Path to the evaluation dataset (.tsv or .pkl).
+*   `--input-file FILE`: (Required) Path to the evaluation dataset (.tsv or .pkl).
 *   `--llm-model MODEL_ID`: LLM to use. Prefixes:
     *   `gemini/`: e.g., `gemini/gemini-1.5-flash-latest`
     *   `ollama/`: e.g., `ollama/mistral` (requires Ollama server running)
@@ -161,8 +157,8 @@ The evaluation file (`--evaluation-file`) should be a `.tsv` (tab-separated) or 
 ### Example Invocation
 
 ```bash
-python test4_eval.py \
-    --evaluation-file /path/to/your/eval_data.pkl \
+python test8_eval_reduce_FP.py \
+    --input-file data/evaluation_files/test_min10_rs_3_1000_pairs.pkl \
     --llm-model hf/unsloth/mistral-7b-bnb-4bit \
     --output-dir ./my_dpi_results \
     --prompt-style concise \
@@ -194,9 +190,9 @@ Additionally, an aggregated summary file is created:
 
 *   **`fimo: command not found`**: Ensure MEME Suite is installed and `fimo` is in your system `PATH`.
 *   **Python `ModuleNotFoundError`**: Make sure you have activated the correct virtual environment and installed all packages from `requirements.txt`.
-*   **Resource File Not Found Errors**: Double-check the paths in `test4_eval.py` or ensure your environment variables for paths are correctly set and point to the downloaded resources. Verify the directory structure.
+*   **Resource File Not Found Errors**: Double-check the paths provided via command-line arguments and environment variables.
 *   **CUDA/GPU Issues**:
-    *   Ensure PyTorch is installed with CUDA support (`pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118` - adjust `cu118` to your CUDA version).
+    *   Ensure PyTorch is installed with CUDA support (`pip install torch torchvision toraudio --index-url https://download.pytorch.org/whl/cu118` - adjust `cu118` to your CUDA version).
     *   Check `nvidia-smi` for GPU status.
     *   If using Unsloth, ensure your GPU architecture is supported and drivers are up-to-date.
 *   **LLM API Errors (Gemini, Ollama)**:
