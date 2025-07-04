@@ -94,12 +94,12 @@ This command will process the first 10 samples from the test file. Output JSON f
 
 2.  **Clone and Set up Environment:**
     ```bash
-git clone https://github.com/cong-003/DPI-agent.git
-cd DPI-agent
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+    git clone https://github.com/cong-003/DPI-agent.git
+    cd DPI-agent
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    ```
 
 ### Data and Models
 
@@ -112,8 +112,8 @@ The agent requires several large data and model files. Some are included, but ot
 *   `data/all_pros_family.csv`: Protein family information.
 *   `data/Homo_sapiens_2025_05_16_4_38_am.zip`: CisBP Motif database. **You must unzip this file.**
     ```bash
-unzip data/Homo_sapiens_2025_05_16_4_38_am.zip -d data/
-```
+    unzip data/Homo_sapiens_2025_05_16_4_38_am.zip -d data/
+    ```
 
 **To Be Downloaded:**
 
