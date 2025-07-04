@@ -66,9 +66,9 @@ except ImportError:
 
 # --- Import DPI Model Components ---
 try:
-    from dpi_v0.main_singletask import Predictor
-    from dpi_v0.model_eval_single_v2 import unify_dim_embedding as eval_unify_dim_embedding
-    from dpi_v0.model_eval_single_v2 import get_config as eval_get_config
+    from scripts.dpi.main_singletask import Predictor
+    from scripts.dpi.model_eval_single_v2 import unify_dim_embedding as eval_unify_dim_embedding
+    from scripts.dpi.model_eval_single_v2 import get_config as eval_get_config
     print("Successfully imported Predictor and helper functions.")
 except ImportError as e:
     print(f"ERROR: Could not import required components from source scripts: {e}", file=sys.stderr)
@@ -79,7 +79,7 @@ except Exception as e:
 
 # --- NEW: Import from protein_utils ---
 try:
-    from protein_utils import (
+    from scripts.protein_utils import (
         ProteinDNADatasetInference,
         parse_fasta_for_gene_names,
         fetch_uniprot_sequence_by_gene_or_id,
@@ -95,7 +95,7 @@ except ImportError as e_pu:
 # --- Import DeepSEA Model Components--
 try:
     # import torch.nn.functional as F # Already imported above
-    from deepsea_v0.eval_deepsea import dna_to_one_hot, DeepSEAProteinInteraction
+    from scripts.deepsea.eval_deepsea import dna_to_one_hot, DeepSEAProteinInteraction
     print("Successfully imported Predictor and helper functions.")
 except ImportError as e:
     print(f"ERROR: Could not import required components from source scripts: {e}", file=sys.stderr)
@@ -109,7 +109,7 @@ PROTEIN_ALIASES = {"AP2A": "TFAP2A", "AP2C": "TFAP2C"}
 # --- NEW: Import SEI Model Components ---
 try:
     # MODIFIED IMPORT: Import the new class
-    from sei_extended import SeiProteinInteractionWithMeanEmbedding
+    from scripts.sei.sei_extended import SeiProteinInteractionWithMeanEmbedding
     # For convenience, you can alias it if the rest of the script refers to SeiProteinInteraction
     # SeiProteinInteraction = SeiProteinInteractionWithMeanEmbedding 
     print("Successfully imported SeiProteinInteractionWithMeanEmbedding model from sei_extended.py.")
@@ -137,7 +137,7 @@ except Exception as e: print(f"ERROR configuring Google Generative AI: {e}", fil
 
 # --- Constants ---
 DEFAULT_GEMINI_MODEL = 'gemini-1.5-flash-latest'
-DEFAULT_OLLAMA_API_URL = "http://localhost:11434/api/generate"
+DEFAULT_OLLAMA_API_URL = "http://127.0.0.1:11434/api/generate"
 DEFAULT_HF_MODEL = "unsloth/mistral-7b-bnb-4bit" # Example default HF model
 
 # --- DNABERT Configuration ---
@@ -253,8 +253,8 @@ MOTIF_CONFLICT_AMPLIFICATION_FACTOR = 1.2
 
 # --- NEW: Use constants for paths and settings for unknown handling ---
 # These should be defined near your other argparse defaults or global constants
-FASTA_FILE_PATH_CONFIG = Path(os.environ.get("DPI_FASTA_PATH", '/new-stg/home/cong/DPI/downloads/fasta/uniprot_ChIP_690_Encode3and4_2024_03_01.fasta'))
-TF_FAMILY_FILE_PATH_CONFIG = Path(os.environ.get("DPI_TF_FAMILY_PATH",'/new-stg/home/cong/DPI/dataset/all_pros_family.csv'))
+FASTA_FILE_PATH_CONFIG = Path(os.environ.get("DPI_FASTA_PATH", 'data/uniprot_ChIP_690_Encode3and4_2024_03_01.fasta'))
+TF_FAMILY_FILE_PATH_CONFIG = Path(os.environ.get("DPI_TF_FAMILY_PATH",'data/all_pros_family.csv'))
 SIMILARITY_ENGINE_CONFIG = os.environ.get("DPI_SIMILARITY_ENGINE", 'mmseqs')
 NUM_TOP_SIMILAR_FOR_AVG_LOGITS_CONFIG = int(os.environ.get("DPI_NUM_SIMILAR_LOGITS", "3"))
 MAX_LEVENSHTEIN_DIST_CONFIG = int(os.environ.get("DPI_MAX_LEV_DIST", "250"))
@@ -1288,7 +1288,7 @@ def call_ollama_model(prompt: str, model_tag: str, ollama_api_url: str) -> Tuple
     error_explanation = f"Error: Initial Ollama call state."
 
     try:
-        response = requests.post(ollama_api_url, headers=headers, data=json.dumps(data), timeout=180)
+        response = requests.post(ollama_api_url, headers=headers, data=json.dumps(data), timeout=300)
         response.raise_for_status()
         result = response.json()
         raw_response_text = result.get('response', '').strip() # Store raw response
