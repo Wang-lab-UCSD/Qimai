@@ -2,12 +2,12 @@
 
 ## Overview
 
-The DPI-Agent is a comprehensive pipeline designed to predict interactions between DNA and protein sequences. It synthesizes information from multiple sources to make an informed prediction, providing not just a result but also a detailed explanation of the evidence found.
+Qimai is a comprehensive pipeline designed to predict interactions between DNA and protein sequences. It synthesizes information from multiple sources to make an informed prediction, providing not just a result but also a detailed explanation of the evidence found.
 
 It leverages a multi-modal approach, integrating evidence from:
 *   **Direct Motif Analysis:** Searching for known binding motifs of the target protein in the DNA sequence using the CisBP database and FIMO scans.
 *   **Indirect Motif Analysis:** Identifying transcription factor (TF) interactors of the query protein (via STRING DB) to find evidence of indirect binding.
-*   **Transformer-based Prediction:** Utilizing a state-of-the-art deep learning model trained on ChIP-seq data to predict interaction probability.
+*   **Prediction from specialized models:** Utilizing a state-of-the-art deep learning model trained on ChIP-seq data to predict interaction probability.
 *   **Large Language Model (LLM) Synthesis:** Employing an LLM (e.g., Gemini, or open-source Hugging Face models) to synthesize all gathered evidence and provide a final interaction prediction (0 or 1) along with a detailed explanation.
 *   **Confidence Level Estimation:** Using a rule-based method to estimate how confident the prediction is.
 
