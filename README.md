@@ -27,8 +27,8 @@ This section provides the fastest way to get the agent running with the included
 
 **1. Clone the Repository**
 ```bash
-git clone https://github.com/cong-003/DPI-agent.git
-cd DPI-agent
+git clone https://github.com/Wang-lab-UCSD/Qimai.git
+cd Qimai
 ```
 
 **2. Set up Environment and Install Dependencies**
