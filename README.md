@@ -1,4 +1,4 @@
-# DNA-Protein Interaction Prediction Agent (DPI-Agent)
+# Qimai: DNA-Protein Interaction Prediction Agent
 
 ## Overview
 
