@@ -212,4 +212,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ## Citation
 If you use this software in your research, please cite:
-> [2025. DPI-Agent: A Multi-modal Agent for DNA-Protein Interaction Prediction. Available at: https://github.com/cong-003/DPI-agent]
+> [2025. DPI-Agent: A Multi-modal Agent for DNA-Protein Interaction Prediction. Available at: [https://github.com/cong-003/DPI-agent](https://www.biorxiv.org/content/10.1101/2025.09.30.679628v2)]
